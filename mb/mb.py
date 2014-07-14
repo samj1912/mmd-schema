@@ -2,18 +2,19 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Mon Jul 14 13:58:03 2014 by generateDS.py version 2.12d.
+# Generated Mon Jul 14 14:03:19 2014 by generateDS.py version 2.12d.
 #
 # Command line options:
 #   ('-o', 'mb/mb.py')
 #   ('-s', 'mb/mb_mmd_subs.py')
 #   ('--super', 'mb')
+#   ('--external-encoding', 'utf-8')
 #
 # Command line arguments:
 #   musicbrainz_mmd.xsd
 #
 # Command line:
-#   /usr/bin/generateDS.py -o "mb/mb.py" -s "mb/mb_mmd_subs.py" --super="mb" musicbrainz_mmd.xsd
+#   /usr/bin/generateDS.py -o "mb/mb.py" -s "mb/mb_mmd_subs.py" --super="mb" --external-encoding="utf-8" musicbrainz_mmd.xsd
 #
 # Current working directory (os.getcwd()):
 #   mb-rngpy
@@ -387,7 +388,7 @@ except ImportError, exp:
 # Globals
 #
 
-ExternalEncoding = 'ascii'
+ExternalEncoding = 'utf-8'
 Tag_pattern_ = re_.compile(r'({.*})?(.*)')
 String_cleanup_pat_ = re_.compile(r"[\n\r\s]+")
 Namespace_extract_pat_ = re_.compile(r'{(.*)}(.*)')
