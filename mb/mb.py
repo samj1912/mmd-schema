@@ -2,17 +2,18 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Mon Jul 14 13:50:42 2014 by generateDS.py version 2.12d.
+# Generated Mon Jul 14 13:58:03 2014 by generateDS.py version 2.12d.
 #
 # Command line options:
 #   ('-o', 'mb/mb.py')
 #   ('-s', 'mb/mb_mmd_subs.py')
+#   ('--super', 'mb')
 #
 # Command line arguments:
 #   musicbrainz_mmd.xsd
 #
 # Command line:
-#   /usr/bin/generateDS.py -o "mb/mb.py" -s "mb/mb_mmd_subs.py" musicbrainz_mmd.xsd
+#   /usr/bin/generateDS.py -o "mb/mb.py" -s "mb/mb_mmd_subs.py" --super="mb" musicbrainz_mmd.xsd
 #
 # Current working directory (os.getcwd()):
 #   mb-rngpy

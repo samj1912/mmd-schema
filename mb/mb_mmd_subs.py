@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 
 #
-# Generated Mon Jul 14 13:50:42 2014 by generateDS.py version 2.12d.
+# Generated Mon Jul 14 13:58:03 2014 by generateDS.py version 2.12d.
 #
 # Command line options:
 #   ('-o', 'mb/mb.py')
 #   ('-s', 'mb/mb_mmd_subs.py')
+#   ('--super', 'mb')
 #
 # Command line arguments:
 #   musicbrainz_mmd.xsd
 #
 # Command line:
-#   /usr/bin/generateDS.py -o "mb/mb.py" -s "mb/mb_mmd_subs.py" musicbrainz_mmd.xsd
+#   /usr/bin/generateDS.py -o "mb/mb.py" -s "mb/mb_mmd_subs.py" --super="mb" musicbrainz_mmd.xsd
 #
 # Current working directory (os.getcwd()):
 #   mb-rngpy
@@ -19,7 +20,7 @@
 
 import sys
 
-import ??? as supermod
+import mb as supermod
 
 etree_ = None
 Verbose_import_ = False
@@ -913,8 +914,8 @@ def parseLiteral(inFilename, silence=False):
     # Enable Python to collect the space used by the DOM.
     doc = None
     if not silence:
-        sys.stdout.write('#from ??? import *\n\n')
-        sys.stdout.write('import ??? as model_\n\n')
+        sys.stdout.write('#from mb import *\n\n')
+        sys.stdout.write('import mb as model_\n\n')
         sys.stdout.write('rootObj = model_.rootClass(\n')
         rootObj.exportLiteral(sys.stdout, 0, name_=rootTag)
         sys.stdout.write(')\n')
