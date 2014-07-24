@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 
 #
-# Generated Mon Jul 14 14:03:21 2014 by generateDS.py version 2.12d.
+# Generated Thu Jul 17 01:11:42 2014 by generateDS.py version 2.12d.
 #
 # Command line options:
 #   ('-o', 'mb/mb.py')
 #   ('-s', 'mb/mb_mmd_subs.py')
 #   ('--super', 'mb')
 #   ('--external-encoding', 'utf-8')
+#   ('--export', 'write etree')
 #
 # Command line arguments:
 #   musicbrainz_mmd.xsd
 #
 # Command line:
-#   /usr/bin/generateDS.py -o "mb/mb.py" -s "mb/mb_mmd_subs.py" --super="mb" --external-encoding="utf-8" musicbrainz_mmd.xsd
+#   /usr/bin/generateDS.py -o "mb/mb.py" -s "mb/mb_mmd_subs.py" --super="mb" --external-encoding="utf-8" --export="write etree" musicbrainz_mmd.xsd
 #
 # Current working directory (os.getcwd()):
 #   mb-rngpy

@@ -22,7 +22,7 @@
   ==================================================================
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://musicbrainz.org/ns/mmd-2.0#" xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#">
-  <xs:import schemaLocation="local.xsd"/>
+  <xs:import namespace="AbsentNamespace0" schemaLocation="local.xsd"/>
   <xs:element name="metadata">
     <xs:complexType>
       <xs:sequence>

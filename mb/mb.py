@@ -2,19 +2,20 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Mon Jul 14 14:03:19 2014 by generateDS.py version 2.12d.
+# Generated Thu Jul 17 01:11:41 2014 by generateDS.py version 2.12d.
 #
 # Command line options:
 #   ('-o', 'mb/mb.py')
 #   ('-s', 'mb/mb_mmd_subs.py')
 #   ('--super', 'mb')
 #   ('--external-encoding', 'utf-8')
+#   ('--export', 'write etree')
 #
 # Command line arguments:
 #   musicbrainz_mmd.xsd
 #
 # Command line:
-#   /usr/bin/generateDS.py -o "mb/mb.py" -s "mb/mb_mmd_subs.py" --super="mb" --external-encoding="utf-8" musicbrainz_mmd.xsd
+#   /usr/bin/generateDS.py -o "mb/mb.py" -s "mb/mb_mmd_subs.py" --super="mb" --external-encoding="utf-8" --export="write etree" musicbrainz_mmd.xsd
 #
 # Current working directory (os.getcwd()):
 #   mb-rngpy
@@ -918,253 +919,134 @@ class metadata(GeneratedsSuper):
             self.entity_list.export(outfile, level, namespace_='mmd-2.0:', name_='entity-list', pretty_print=pretty_print)
         if self.anytypeobjs_ is not None:
             self.anytypeobjs_.export(outfile, level, namespace_, pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='metadata'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.generator is not None and 'generator' not in already_processed:
-            already_processed.add('generator')
-            showIndent(outfile, level)
-            outfile.write('generator="%s",\n' % (self.generator,))
-        if self.created is not None and 'created' not in already_processed:
-            already_processed.add('created')
-            showIndent(outfile, level)
-            outfile.write('created=model_.GeneratedsSuper.gds_parse_datetime("%s"),\n' % self.gds_format_datetime(self.created, input_name='created'))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='metadata', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.generator is not None:
+            element.set('generator', self.gds_format_string(self.generator))
+        if self.created is not None:
+            element.set('created', self.gds_format_datetime(self.created))
         if self.artist is not None:
-            showIndent(outfile, level)
-            outfile.write('artist=model_.artist(\n')
-            self.artist.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            artist_ = self.artist
+            artist_.to_etree(element, name_='artist', mapping_=mapping_)
         if self.release is not None:
-            showIndent(outfile, level)
-            outfile.write('release=model_.release(\n')
-            self.release.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            release_ = self.release
+            release_.to_etree(element, name_='release', mapping_=mapping_)
         if self.release_group is not None:
-            showIndent(outfile, level)
-            outfile.write('release_group=model_.release_group(\n')
-            self.release_group.exportLiteral(outfile, level, name_='release_group')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            release_group_ = self.release_group
+            release_group_.to_etree(element, name_='release-group', mapping_=mapping_)
         if self.recording is not None:
-            showIndent(outfile, level)
-            outfile.write('recording=model_.recording(\n')
-            self.recording.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            recording_ = self.recording
+            recording_.to_etree(element, name_='recording', mapping_=mapping_)
         if self.label is not None:
-            showIndent(outfile, level)
-            outfile.write('label=model_.label(\n')
-            self.label.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            label_ = self.label
+            label_.to_etree(element, name_='label', mapping_=mapping_)
         if self.work is not None:
-            showIndent(outfile, level)
-            outfile.write('work=model_.work(\n')
-            self.work.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            work_ = self.work
+            work_.to_etree(element, name_='work', mapping_=mapping_)
         if self.area is not None:
-            showIndent(outfile, level)
-            outfile.write('area=model_.area(\n')
-            self.area.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            area_ = self.area
+            area_.to_etree(element, name_='area', mapping_=mapping_)
         if self.place is not None:
-            showIndent(outfile, level)
-            outfile.write('place=model_.place(\n')
-            self.place.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            place_ = self.place
+            place_.to_etree(element, name_='place', mapping_=mapping_)
         if self.instrument is not None:
-            showIndent(outfile, level)
-            outfile.write('instrument=model_.instrument(\n')
-            self.instrument.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            instrument_ = self.instrument
+            instrument_.to_etree(element, name_='instrument', mapping_=mapping_)
         if self.series is not None:
-            showIndent(outfile, level)
-            outfile.write('series=model_.series(\n')
-            self.series.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            series_ = self.series
+            series_.to_etree(element, name_='series', mapping_=mapping_)
         if self.url is not None:
-            showIndent(outfile, level)
-            outfile.write('url=model_.url(\n')
-            self.url.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            url_ = self.url
+            url_.to_etree(element, name_='url', mapping_=mapping_)
         if self.puid is not None:
-            showIndent(outfile, level)
-            outfile.write('puid=model_.puid(\n')
-            self.puid.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            puid_ = self.puid
+            puid_.to_etree(element, name_='puid', mapping_=mapping_)
         if self.isrc is not None:
-            showIndent(outfile, level)
-            outfile.write('isrc=model_.isrc(\n')
-            self.isrc.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            isrc_ = self.isrc
+            isrc_.to_etree(element, name_='isrc', mapping_=mapping_)
         if self.disc is not None:
-            showIndent(outfile, level)
-            outfile.write('disc=model_.disc(\n')
-            self.disc.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            disc_ = self.disc
+            disc_.to_etree(element, name_='disc', mapping_=mapping_)
         if self.rating is not None:
-            showIndent(outfile, level)
-            outfile.write('rating=model_.rating(\n')
-            self.rating.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            rating_ = self.rating
+            rating_.to_etree(element, name_='rating', mapping_=mapping_)
         if self.user_rating is not None:
-            showIndent(outfile, level)
-            outfile.write('user_rating=%d,\n' % self.user_rating)
+            user_rating_ = self.user_rating
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}user-rating').text = self.gds_format_integer(user_rating_)
         if self.collection is not None:
-            showIndent(outfile, level)
-            outfile.write('collection=model_.collection(\n')
-            self.collection.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            collection_ = self.collection
+            collection_.to_etree(element, name_='collection', mapping_=mapping_)
         if self.editor is not None:
-            showIndent(outfile, level)
-            outfile.write('editor=model_.editor(\n')
-            self.editor.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            editor_ = self.editor
+            editor_.to_etree(element, name_='editor', mapping_=mapping_)
         if self.artist_list is not None:
-            showIndent(outfile, level)
-            outfile.write('artist_list=model_.artist_list(\n')
-            self.artist_list.exportLiteral(outfile, level, name_='artist_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            artist_list_ = self.artist_list
+            artist_list_.to_etree(element, name_='artist-list', mapping_=mapping_)
         if self.release_list is not None:
-            showIndent(outfile, level)
-            outfile.write('release_list=model_.release_list(\n')
-            self.release_list.exportLiteral(outfile, level, name_='release_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            release_list_ = self.release_list
+            release_list_.to_etree(element, name_='release-list', mapping_=mapping_)
         if self.release_group_list is not None:
-            showIndent(outfile, level)
-            outfile.write('release_group_list=model_.release_group_list(\n')
-            self.release_group_list.exportLiteral(outfile, level, name_='release_group_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            release_group_list_ = self.release_group_list
+            release_group_list_.to_etree(element, name_='release-group-list', mapping_=mapping_)
         if self.recording_list is not None:
-            showIndent(outfile, level)
-            outfile.write('recording_list=model_.recording_list(\n')
-            self.recording_list.exportLiteral(outfile, level, name_='recording_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            recording_list_ = self.recording_list
+            recording_list_.to_etree(element, name_='recording-list', mapping_=mapping_)
         if self.label_list is not None:
-            showIndent(outfile, level)
-            outfile.write('label_list=model_.label_list(\n')
-            self.label_list.exportLiteral(outfile, level, name_='label_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            label_list_ = self.label_list
+            label_list_.to_etree(element, name_='label-list', mapping_=mapping_)
         if self.work_list is not None:
-            showIndent(outfile, level)
-            outfile.write('work_list=model_.work_list(\n')
-            self.work_list.exportLiteral(outfile, level, name_='work_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            work_list_ = self.work_list
+            work_list_.to_etree(element, name_='work-list', mapping_=mapping_)
         if self.area_list is not None:
-            showIndent(outfile, level)
-            outfile.write('area_list=model_.area_list(\n')
-            self.area_list.exportLiteral(outfile, level, name_='area_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            area_list_ = self.area_list
+            area_list_.to_etree(element, name_='area-list', mapping_=mapping_)
         if self.place_list is not None:
-            showIndent(outfile, level)
-            outfile.write('place_list=model_.place_list(\n')
-            self.place_list.exportLiteral(outfile, level, name_='place_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            place_list_ = self.place_list
+            place_list_.to_etree(element, name_='place-list', mapping_=mapping_)
         if self.instrument_list is not None:
-            showIndent(outfile, level)
-            outfile.write('instrument_list=model_.instrument_list(\n')
-            self.instrument_list.exportLiteral(outfile, level, name_='instrument_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            instrument_list_ = self.instrument_list
+            instrument_list_.to_etree(element, name_='instrument-list', mapping_=mapping_)
         if self.series_list is not None:
-            showIndent(outfile, level)
-            outfile.write('series_list=model_.series_list(\n')
-            self.series_list.exportLiteral(outfile, level, name_='series_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            series_list_ = self.series_list
+            series_list_.to_etree(element, name_='series-list', mapping_=mapping_)
         if self.url_list is not None:
-            showIndent(outfile, level)
-            outfile.write('url_list=model_.url_list(\n')
-            self.url_list.exportLiteral(outfile, level, name_='url_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            url_list_ = self.url_list
+            url_list_.to_etree(element, name_='url-list', mapping_=mapping_)
         if self.isrc_list is not None:
-            showIndent(outfile, level)
-            outfile.write('isrc_list=model_.isrc_list(\n')
-            self.isrc_list.exportLiteral(outfile, level, name_='isrc_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            isrc_list_ = self.isrc_list
+            isrc_list_.to_etree(element, name_='isrc-list', mapping_=mapping_)
         if self.annotation_list is not None:
-            showIndent(outfile, level)
-            outfile.write('annotation_list=model_.annotation_list(\n')
-            self.annotation_list.exportLiteral(outfile, level, name_='annotation_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            annotation_list_ = self.annotation_list
+            annotation_list_.to_etree(element, name_='annotation-list', mapping_=mapping_)
         if self.cdstub_list is not None:
-            showIndent(outfile, level)
-            outfile.write('cdstub_list=model_.cdstub_list(\n')
-            self.cdstub_list.exportLiteral(outfile, level, name_='cdstub_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            cdstub_list_ = self.cdstub_list
+            cdstub_list_.to_etree(element, name_='cdstub-list', mapping_=mapping_)
         if self.freedb_disc_list is not None:
-            showIndent(outfile, level)
-            outfile.write('freedb_disc_list=model_.freedb_disc_list(\n')
-            self.freedb_disc_list.exportLiteral(outfile, level, name_='freedb_disc_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            freedb_disc_list_ = self.freedb_disc_list
+            freedb_disc_list_.to_etree(element, name_='freedb-disc-list', mapping_=mapping_)
         if self.tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('tag_list=model_.tag_list(\n')
-            self.tag_list.exportLiteral(outfile, level, name_='tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            tag_list_ = self.tag_list
+            tag_list_.to_etree(element, name_='tag-list', mapping_=mapping_)
         if self.user_tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('user_tag_list=model_.user_tag_list(\n')
-            self.user_tag_list.exportLiteral(outfile, level, name_='user_tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            user_tag_list_ = self.user_tag_list
+            user_tag_list_.to_etree(element, name_='user-tag-list', mapping_=mapping_)
         if self.collection_list is not None:
-            showIndent(outfile, level)
-            outfile.write('collection_list=model_.collection_list(\n')
-            self.collection_list.exportLiteral(outfile, level, name_='collection_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            collection_list_ = self.collection_list
+            collection_list_.to_etree(element, name_='collection-list', mapping_=mapping_)
         if self.editor_list is not None:
-            showIndent(outfile, level)
-            outfile.write('editor_list=model_.editor_list(\n')
-            self.editor_list.exportLiteral(outfile, level, name_='editor_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            editor_list_ = self.editor_list
+            editor_list_.to_etree(element, name_='editor-list', mapping_=mapping_)
         if self.entity_list is not None:
-            showIndent(outfile, level)
-            outfile.write('entity_list=model_.entity_list(\n')
-            self.entity_list.exportLiteral(outfile, level, name_='entity_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            entity_list_ = self.entity_list
+            entity_list_.to_etree(element, name_='entity-list', mapping_=mapping_)
         if self.anytypeobjs_ is not None:
-            showIndent(outfile, level)
-            outfile.write('anytypeobjs_=model_.anytypeobjs_(\n')
-            self.anytypeobjs_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            self.anytypeobjs_.to_etree(element)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -1602,154 +1484,88 @@ class artist(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='artist'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='artist', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.name is not None:
-            showIndent(outfile, level)
-            outfile.write('name=%s,\n' % quote_python(self.name).encode(ExternalEncoding))
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
         if self.sort_name is not None:
-            showIndent(outfile, level)
-            outfile.write('sort_name=%s,\n' % quote_python(self.sort_name).encode(ExternalEncoding))
+            sort_name_ = self.sort_name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}sort-name').text = self.gds_format_string(sort_name_)
         if self.gender is not None:
-            showIndent(outfile, level)
-            outfile.write('gender=%s,\n' % quote_python(self.gender).encode(ExternalEncoding))
+            gender_ = self.gender
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}gender').text = self.gds_format_string(gender_)
         if self.country is not None:
-            showIndent(outfile, level)
-            outfile.write('country=%s,\n' % quote_python(self.country).encode(ExternalEncoding))
+            country_ = self.country
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}country').text = self.gds_format_string(country_)
         if self.area is not None:
-            showIndent(outfile, level)
-            outfile.write('area=model_.area(\n')
-            self.area.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            area_ = self.area
+            area_.to_etree(element, name_='area', mapping_=mapping_)
         if self.begin_area is not None:
-            showIndent(outfile, level)
-            outfile.write('begin_area=model_.begin_area(\n')
-            self.begin_area.exportLiteral(outfile, level, name_='begin_area')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            begin_area_ = self.begin_area
+            begin_area_.to_etree(element, name_='begin-area', mapping_=mapping_)
         if self.end_area is not None:
-            showIndent(outfile, level)
-            outfile.write('end_area=model_.end_area(\n')
-            self.end_area.exportLiteral(outfile, level, name_='end_area')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            end_area_ = self.end_area
+            end_area_.to_etree(element, name_='end-area', mapping_=mapping_)
         if self.annotation is not None:
-            showIndent(outfile, level)
-            outfile.write('annotation=model_.annotation(\n')
-            self.annotation.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            annotation_ = self.annotation
+            annotation_.to_etree(element, name_='annotation', mapping_=mapping_)
         if self.disambiguation is not None:
-            showIndent(outfile, level)
-            outfile.write('disambiguation=%s,\n' % quote_python(self.disambiguation).encode(ExternalEncoding))
+            disambiguation_ = self.disambiguation
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}disambiguation').text = self.gds_format_string(disambiguation_)
         if self.ipi is not None:
-            showIndent(outfile, level)
-            outfile.write('ipi=%s,\n' % quote_python(self.ipi).encode(ExternalEncoding))
+            ipi_ = self.ipi
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}ipi').text = self.gds_format_string(ipi_)
         if self.ipi_list is not None:
-            showIndent(outfile, level)
-            outfile.write('ipi_list=model_.ipi_list(\n')
-            self.ipi_list.exportLiteral(outfile, level, name_='ipi_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            ipi_list_ = self.ipi_list
+            ipi_list_.to_etree(element, name_='ipi-list', mapping_=mapping_)
         if self.life_span is not None:
-            showIndent(outfile, level)
-            outfile.write('life_span=model_.life_span(\n')
-            self.life_span.exportLiteral(outfile, level, name_='life_span')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            life_span_ = self.life_span
+            life_span_.to_etree(element, name_='life-span', mapping_=mapping_)
         if self.alias_list is not None:
-            showIndent(outfile, level)
-            outfile.write('alias_list=model_.alias_list(\n')
-            self.alias_list.exportLiteral(outfile, level, name_='alias_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            alias_list_ = self.alias_list
+            alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         if self.recording_list is not None:
-            showIndent(outfile, level)
-            outfile.write('recording_list=model_.recording_list(\n')
-            self.recording_list.exportLiteral(outfile, level, name_='recording_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            recording_list_ = self.recording_list
+            recording_list_.to_etree(element, name_='recording-list', mapping_=mapping_)
         if self.release_list is not None:
-            showIndent(outfile, level)
-            outfile.write('release_list=model_.release_list(\n')
-            self.release_list.exportLiteral(outfile, level, name_='release_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            release_list_ = self.release_list
+            release_list_.to_etree(element, name_='release-list', mapping_=mapping_)
         if self.release_group_list is not None:
-            showIndent(outfile, level)
-            outfile.write('release_group_list=model_.release_group_list(\n')
-            self.release_group_list.exportLiteral(outfile, level, name_='release_group_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            release_group_list_ = self.release_group_list
+            release_group_list_.to_etree(element, name_='release-group-list', mapping_=mapping_)
         if self.label_list is not None:
-            showIndent(outfile, level)
-            outfile.write('label_list=model_.label_list(\n')
-            self.label_list.exportLiteral(outfile, level, name_='label_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            label_list_ = self.label_list
+            label_list_.to_etree(element, name_='label-list', mapping_=mapping_)
         if self.work_list is not None:
-            showIndent(outfile, level)
-            outfile.write('work_list=model_.work_list(\n')
-            self.work_list.exportLiteral(outfile, level, name_='work_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('relation_list=[\n')
-        level += 1
+            work_list_ = self.work_list
+            work_list_.to_etree(element, name_='work-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
-            showIndent(outfile, level)
-            outfile.write('model_.relation_list(\n')
-            relation_list_.exportLiteral(outfile, level, name_='relation-list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
         if self.tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('tag_list=model_.tag_list(\n')
-            self.tag_list.exportLiteral(outfile, level, name_='tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            tag_list_ = self.tag_list
+            tag_list_.to_etree(element, name_='tag-list', mapping_=mapping_)
         if self.user_tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('user_tag_list=model_.user_tag_list(\n')
-            self.user_tag_list.exportLiteral(outfile, level, name_='user_tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            user_tag_list_ = self.user_tag_list
+            user_tag_list_.to_etree(element, name_='user-tag-list', mapping_=mapping_)
         if self.rating is not None:
-            showIndent(outfile, level)
-            outfile.write('rating=model_.rating(\n')
-            self.rating.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            rating_ = self.rating
+            rating_.to_etree(element, name_='rating', mapping_=mapping_)
         if self.user_rating is not None:
-            showIndent(outfile, level)
-            outfile.write('user_rating=%d,\n' % self.user_rating)
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            user_rating_ = self.user_rating
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}user-rating').text = self.gds_format_integer(user_rating_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -1954,24 +1770,23 @@ class life_span(GeneratedsSuper):
         if self.ended is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sended>%s</%sended>%s' % (namespace_, self.gds_format_string(quote_xml(self.ended).encode(ExternalEncoding), input_name='ended'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='life-span'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='life-span', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.begin is not None:
-            showIndent(outfile, level)
-            outfile.write('begin=%s,\n' % quote_python(self.begin).encode(ExternalEncoding))
+            begin_ = self.begin
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}begin').text = self.gds_format_string(begin_)
         if self.end is not None:
-            showIndent(outfile, level)
-            outfile.write('end=%s,\n' % quote_python(self.end).encode(ExternalEncoding))
+            end_ = self.end
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}end').text = self.gds_format_string(end_)
         if self.ended is not None:
-            showIndent(outfile, level)
-            outfile.write('ended=%s,\n' % quote_python(self.ended).encode(ExternalEncoding))
+            ended_ = self.ended
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}ended').text = self.gds_format_string(ended_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -2201,132 +2016,80 @@ class release(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='release'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='release', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.status is not None:
-            showIndent(outfile, level)
-            outfile.write('status=%s,\n' % quote_python(self.status).encode(ExternalEncoding))
+            status_ = self.status
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}status').text = self.gds_format_string(status_)
         if self.quality is not None:
-            showIndent(outfile, level)
-            outfile.write('quality=%s,\n' % quote_python(self.quality).encode(ExternalEncoding))
+            quality_ = self.quality
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}quality').text = self.gds_format_string(quality_)
         if self.annotation is not None:
-            showIndent(outfile, level)
-            outfile.write('annotation=model_.annotation(\n')
-            self.annotation.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            annotation_ = self.annotation
+            annotation_.to_etree(element, name_='annotation', mapping_=mapping_)
         if self.disambiguation is not None:
-            showIndent(outfile, level)
-            outfile.write('disambiguation=%s,\n' % quote_python(self.disambiguation).encode(ExternalEncoding))
+            disambiguation_ = self.disambiguation
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}disambiguation').text = self.gds_format_string(disambiguation_)
         if self.packaging is not None:
-            showIndent(outfile, level)
-            outfile.write('packaging=%s,\n' % quote_python(self.packaging).encode(ExternalEncoding))
+            packaging_ = self.packaging
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}packaging').text = self.gds_format_string(packaging_)
         if self.text_representation is not None:
-            showIndent(outfile, level)
-            outfile.write('text_representation=model_.text_representation(\n')
-            self.text_representation.exportLiteral(outfile, level, name_='text_representation')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            text_representation_ = self.text_representation
+            text_representation_.to_etree(element, name_='text-representation', mapping_=mapping_)
         if self.artist_credit is not None:
-            showIndent(outfile, level)
-            outfile.write('artist_credit=model_.artist_credit(\n')
-            self.artist_credit.exportLiteral(outfile, level, name_='artist_credit')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            artist_credit_ = self.artist_credit
+            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
         if self.release_group is not None:
-            showIndent(outfile, level)
-            outfile.write('release_group=model_.release_group(\n')
-            self.release_group.exportLiteral(outfile, level, name_='release_group')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            release_group_ = self.release_group
+            release_group_.to_etree(element, name_='release-group', mapping_=mapping_)
         if self.date is not None:
-            showIndent(outfile, level)
-            outfile.write('date=%s,\n' % quote_python(self.date).encode(ExternalEncoding))
+            date_ = self.date
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}date').text = self.gds_format_string(date_)
         if self.country is not None:
-            showIndent(outfile, level)
-            outfile.write('country=%s,\n' % quote_python(self.country).encode(ExternalEncoding))
+            country_ = self.country
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}country').text = self.gds_format_string(country_)
         if self.release_event_list is not None:
-            showIndent(outfile, level)
-            outfile.write('release_event_list=model_.release_event_list(\n')
-            self.release_event_list.exportLiteral(outfile, level, name_='release_event_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            release_event_list_ = self.release_event_list
+            release_event_list_.to_etree(element, name_='release-event-list', mapping_=mapping_)
         if self.barcode is not None:
-            showIndent(outfile, level)
-            outfile.write('barcode=%s,\n' % quote_python(self.barcode).encode(ExternalEncoding))
+            barcode_ = self.barcode
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}barcode').text = self.gds_format_string(barcode_)
         if self.asin is not None:
-            showIndent(outfile, level)
-            outfile.write('asin=%s,\n' % quote_python(self.asin).encode(ExternalEncoding))
+            asin_ = self.asin
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}asin').text = self.gds_format_string(asin_)
         if self.cover_art_archive is not None:
-            showIndent(outfile, level)
-            outfile.write('cover_art_archive=model_.cover_art_archive(\n')
-            self.cover_art_archive.exportLiteral(outfile, level, name_='cover_art_archive')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            cover_art_archive_ = self.cover_art_archive
+            cover_art_archive_.to_etree(element, name_='cover-art-archive', mapping_=mapping_)
         if self.label_info_list is not None:
-            showIndent(outfile, level)
-            outfile.write('label_info_list=model_.label_info_list(\n')
-            self.label_info_list.exportLiteral(outfile, level, name_='label_info_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            label_info_list_ = self.label_info_list
+            label_info_list_.to_etree(element, name_='label-info-list', mapping_=mapping_)
         if self.medium_list is not None:
-            showIndent(outfile, level)
-            outfile.write('medium_list=model_.medium_list(\n')
-            self.medium_list.exportLiteral(outfile, level, name_='medium_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('relation_list=[\n')
-        level += 1
+            medium_list_ = self.medium_list
+            medium_list_.to_etree(element, name_='medium-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
-            showIndent(outfile, level)
-            outfile.write('model_.relation_list(\n')
-            relation_list_.exportLiteral(outfile, level, name_='relation-list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
         if self.tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('tag_list=model_.tag_list(\n')
-            self.tag_list.exportLiteral(outfile, level, name_='tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            tag_list_ = self.tag_list
+            tag_list_.to_etree(element, name_='tag-list', mapping_=mapping_)
         if self.user_tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('user_tag_list=model_.user_tag_list(\n')
-            self.user_tag_list.exportLiteral(outfile, level, name_='user_tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            user_tag_list_ = self.user_tag_list
+            user_tag_list_.to_etree(element, name_='user-tag-list', mapping_=mapping_)
         if self.collection_list is not None:
-            showIndent(outfile, level)
-            outfile.write('collection_list=model_.collection_list(\n')
-            self.collection_list.exportLiteral(outfile, level, name_='collection_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            collection_list_ = self.collection_list
+            collection_list_.to_etree(element, name_='collection-list', mapping_=mapping_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -2501,21 +2264,20 @@ class text_representation(GeneratedsSuper):
         if self.script is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sscript>%s</%sscript>%s' % (namespace_, self.gds_format_string(quote_xml(self.script).encode(ExternalEncoding), input_name='script'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='text-representation'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='text-representation', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.language is not None:
-            showIndent(outfile, level)
-            outfile.write('language=%s,\n' % quote_python(self.language).encode(ExternalEncoding))
+            language_ = self.language
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}language').text = self.gds_format_string(language_)
         if self.script is not None:
-            showIndent(outfile, level)
-            outfile.write('script=%s,\n' % quote_python(self.script).encode(ExternalEncoding))
+            script_ = self.script
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}script').text = self.gds_format_string(script_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -2576,16 +2338,14 @@ class asin(GeneratedsSuper):
         pass
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='asin', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='asin'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='asin', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -2753,100 +2513,58 @@ class release_group(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='release-group'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='release-group', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.annotation is not None:
-            showIndent(outfile, level)
-            outfile.write('annotation=model_.annotation(\n')
-            self.annotation.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            annotation_ = self.annotation
+            annotation_.to_etree(element, name_='annotation', mapping_=mapping_)
         if self.disambiguation is not None:
-            showIndent(outfile, level)
-            outfile.write('disambiguation=%s,\n' % quote_python(self.disambiguation).encode(ExternalEncoding))
+            disambiguation_ = self.disambiguation
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}disambiguation').text = self.gds_format_string(disambiguation_)
         if self.first_release_date is not None:
-            showIndent(outfile, level)
-            outfile.write('first_release_date=%s,\n' % quote_python(self.first_release_date).encode(ExternalEncoding))
+            first_release_date_ = self.first_release_date
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}first-release-date').text = self.gds_format_string(first_release_date_)
         if self.primary_type is not None:
-            showIndent(outfile, level)
-            outfile.write('primary_type=%s,\n' % quote_python(self.primary_type).encode(ExternalEncoding))
+            primary_type_ = self.primary_type
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}primary-type').text = self.gds_format_string(primary_type_)
         if self.secondary_type_list is not None:
-            showIndent(outfile, level)
-            outfile.write('secondary_type_list=model_.secondary_type_list(\n')
-            self.secondary_type_list.exportLiteral(outfile, level, name_='secondary_type_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            secondary_type_list_ = self.secondary_type_list
+            secondary_type_list_.to_etree(element, name_='secondary-type-list', mapping_=mapping_)
         if self.artist_credit is not None:
-            showIndent(outfile, level)
-            outfile.write('artist_credit=model_.artist_credit(\n')
-            self.artist_credit.exportLiteral(outfile, level, name_='artist_credit')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            artist_credit_ = self.artist_credit
+            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
         if self.release_list is not None:
-            showIndent(outfile, level)
-            outfile.write('release_list=model_.release_list(\n')
-            self.release_list.exportLiteral(outfile, level, name_='release_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('relation_list=[\n')
-        level += 1
+            release_list_ = self.release_list
+            release_list_.to_etree(element, name_='release-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
-            showIndent(outfile, level)
-            outfile.write('model_.relation_list(\n')
-            relation_list_.exportLiteral(outfile, level, name_='relation-list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
         if self.tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('tag_list=model_.tag_list(\n')
-            self.tag_list.exportLiteral(outfile, level, name_='tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            tag_list_ = self.tag_list
+            tag_list_.to_etree(element, name_='tag-list', mapping_=mapping_)
         if self.user_tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('user_tag_list=model_.user_tag_list(\n')
-            self.user_tag_list.exportLiteral(outfile, level, name_='user_tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            user_tag_list_ = self.user_tag_list
+            user_tag_list_.to_etree(element, name_='user-tag-list', mapping_=mapping_)
         if self.rating is not None:
-            showIndent(outfile, level)
-            outfile.write('rating=model_.rating(\n')
-            self.rating.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            rating_ = self.rating
+            rating_.to_etree(element, name_='rating', mapping_=mapping_)
         if self.user_rating is not None:
-            showIndent(outfile, level)
-            outfile.write('user_rating=%d,\n' % self.user_rating)
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            user_rating_ = self.user_rating
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}user-rating').text = self.gds_format_integer(user_rating_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -2991,24 +2709,16 @@ class secondary_type_list(GeneratedsSuper):
         for secondary_type_ in self.secondary_type:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%ssecondary-type>%s</%ssecondary-type>%s' % (namespace_, self.gds_format_string(quote_xml(secondary_type_).encode(ExternalEncoding), input_name='secondary-type'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='secondary-type-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('secondary_type=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='secondary-type-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for secondary_type_ in self.secondary_type:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(secondary_type_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}secondary-type').text = self.gds_format_string(secondary_type_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -3182,102 +2892,59 @@ class recording(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='recording'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='recording', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.length is not None:
-            showIndent(outfile, level)
-            outfile.write('length=%d,\n' % self.length)
+            length_ = self.length
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
         if self.annotation is not None:
-            showIndent(outfile, level)
-            outfile.write('annotation=model_.annotation(\n')
-            self.annotation.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            annotation_ = self.annotation
+            annotation_.to_etree(element, name_='annotation', mapping_=mapping_)
         if self.disambiguation is not None:
-            showIndent(outfile, level)
-            outfile.write('disambiguation=%s,\n' % quote_python(self.disambiguation).encode(ExternalEncoding))
+            disambiguation_ = self.disambiguation
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}disambiguation').text = self.gds_format_string(disambiguation_)
         if self.video is not None:
-            showIndent(outfile, level)
-            outfile.write('video=%s,\n' % quote_python(self.video).encode(ExternalEncoding))
+            video_ = self.video
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}video').text = self.gds_format_string(video_)
         if self.artist_credit is not None:
-            showIndent(outfile, level)
-            outfile.write('artist_credit=model_.artist_credit(\n')
-            self.artist_credit.exportLiteral(outfile, level, name_='artist_credit')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            artist_credit_ = self.artist_credit
+            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
         if self.release_list is not None:
-            showIndent(outfile, level)
-            outfile.write('release_list=model_.release_list(\n')
-            self.release_list.exportLiteral(outfile, level, name_='release_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            release_list_ = self.release_list
+            release_list_.to_etree(element, name_='release-list', mapping_=mapping_)
         if self.puid_list is not None:
-            showIndent(outfile, level)
-            outfile.write('puid_list=model_.puid_list(\n')
-            self.puid_list.exportLiteral(outfile, level, name_='puid_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            puid_list_ = self.puid_list
+            puid_list_.to_etree(element, name_='puid-list', mapping_=mapping_)
         if self.isrc_list is not None:
-            showIndent(outfile, level)
-            outfile.write('isrc_list=model_.isrc_list(\n')
-            self.isrc_list.exportLiteral(outfile, level, name_='isrc_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('relation_list=[\n')
-        level += 1
+            isrc_list_ = self.isrc_list
+            isrc_list_.to_etree(element, name_='isrc-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
-            showIndent(outfile, level)
-            outfile.write('model_.relation_list(\n')
-            relation_list_.exportLiteral(outfile, level, name_='relation-list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
         if self.tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('tag_list=model_.tag_list(\n')
-            self.tag_list.exportLiteral(outfile, level, name_='tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            tag_list_ = self.tag_list
+            tag_list_.to_etree(element, name_='tag-list', mapping_=mapping_)
         if self.user_tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('user_tag_list=model_.user_tag_list(\n')
-            self.user_tag_list.exportLiteral(outfile, level, name_='user_tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            user_tag_list_ = self.user_tag_list
+            user_tag_list_.to_etree(element, name_='user-tag-list', mapping_=mapping_)
         if self.rating is not None:
-            showIndent(outfile, level)
-            outfile.write('rating=model_.rating(\n')
-            self.rating.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            rating_ = self.rating
+            rating_.to_etree(element, name_='rating', mapping_=mapping_)
         if self.user_rating is not None:
-            showIndent(outfile, level)
-            outfile.write('user_rating=%d,\n' % self.user_rating)
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            user_rating_ = self.user_rating
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}user-rating').text = self.gds_format_integer(user_rating_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -3559,118 +3226,70 @@ class label(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='label'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='label', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.name is not None:
-            showIndent(outfile, level)
-            outfile.write('name=%s,\n' % quote_python(self.name).encode(ExternalEncoding))
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
         if self.sort_name is not None:
-            showIndent(outfile, level)
-            outfile.write('sort_name=%s,\n' % quote_python(self.sort_name).encode(ExternalEncoding))
+            sort_name_ = self.sort_name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}sort-name').text = self.gds_format_string(sort_name_)
         if self.label_code is not None:
-            showIndent(outfile, level)
-            outfile.write('label_code=%d,\n' % self.label_code)
+            label_code_ = self.label_code
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}label-code').text = self.gds_format_integer(label_code_)
         if self.ipi is not None:
-            showIndent(outfile, level)
-            outfile.write('ipi=%s,\n' % quote_python(self.ipi).encode(ExternalEncoding))
+            ipi_ = self.ipi
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}ipi').text = self.gds_format_string(ipi_)
         if self.ipi_list is not None:
-            showIndent(outfile, level)
-            outfile.write('ipi_list=model_.ipi_list(\n')
-            self.ipi_list.exportLiteral(outfile, level, name_='ipi_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            ipi_list_ = self.ipi_list
+            ipi_list_.to_etree(element, name_='ipi-list', mapping_=mapping_)
         if self.annotation is not None:
-            showIndent(outfile, level)
-            outfile.write('annotation=model_.annotation(\n')
-            self.annotation.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            annotation_ = self.annotation
+            annotation_.to_etree(element, name_='annotation', mapping_=mapping_)
         if self.disambiguation is not None:
-            showIndent(outfile, level)
-            outfile.write('disambiguation=%s,\n' % quote_python(self.disambiguation).encode(ExternalEncoding))
+            disambiguation_ = self.disambiguation
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}disambiguation').text = self.gds_format_string(disambiguation_)
         if self.country is not None:
-            showIndent(outfile, level)
-            outfile.write('country=%s,\n' % quote_python(self.country).encode(ExternalEncoding))
+            country_ = self.country
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}country').text = self.gds_format_string(country_)
         if self.area is not None:
-            showIndent(outfile, level)
-            outfile.write('area=model_.area(\n')
-            self.area.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            area_ = self.area
+            area_.to_etree(element, name_='area', mapping_=mapping_)
         if self.life_span is not None:
-            showIndent(outfile, level)
-            outfile.write('life_span=model_.life_span(\n')
-            self.life_span.exportLiteral(outfile, level, name_='life_span')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            life_span_ = self.life_span
+            life_span_.to_etree(element, name_='life-span', mapping_=mapping_)
         if self.alias_list is not None:
-            showIndent(outfile, level)
-            outfile.write('alias_list=model_.alias_list(\n')
-            self.alias_list.exportLiteral(outfile, level, name_='alias_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            alias_list_ = self.alias_list
+            alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         if self.release_list is not None:
-            showIndent(outfile, level)
-            outfile.write('release_list=model_.release_list(\n')
-            self.release_list.exportLiteral(outfile, level, name_='release_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('relation_list=[\n')
-        level += 1
+            release_list_ = self.release_list
+            release_list_.to_etree(element, name_='release-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
-            showIndent(outfile, level)
-            outfile.write('model_.relation_list(\n')
-            relation_list_.exportLiteral(outfile, level, name_='relation-list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
         if self.tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('tag_list=model_.tag_list(\n')
-            self.tag_list.exportLiteral(outfile, level, name_='tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            tag_list_ = self.tag_list
+            tag_list_.to_etree(element, name_='tag-list', mapping_=mapping_)
         if self.user_tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('user_tag_list=model_.user_tag_list(\n')
-            self.user_tag_list.exportLiteral(outfile, level, name_='user_tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            user_tag_list_ = self.user_tag_list
+            user_tag_list_.to_etree(element, name_='user-tag-list', mapping_=mapping_)
         if self.rating is not None:
-            showIndent(outfile, level)
-            outfile.write('rating=model_.rating(\n')
-            self.rating.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            rating_ = self.rating
+            rating_.to_etree(element, name_='rating', mapping_=mapping_)
         if self.user_rating is not None:
-            showIndent(outfile, level)
-            outfile.write('user_rating=%d,\n' % self.user_rating)
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            user_rating_ = self.user_rating
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}user-rating').text = self.gds_format_integer(user_rating_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -3948,106 +3567,61 @@ class work(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='work'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='work', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.language is not None:
-            showIndent(outfile, level)
-            outfile.write('language=%s,\n' % quote_python(self.language).encode(ExternalEncoding))
+            language_ = self.language
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}language').text = self.gds_format_string(language_)
         if self.artist_credit is not None:
-            showIndent(outfile, level)
-            outfile.write('artist_credit=model_.artist_credit(\n')
-            self.artist_credit.exportLiteral(outfile, level, name_='artist_credit')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            artist_credit_ = self.artist_credit
+            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
         if self.iswc is not None:
-            showIndent(outfile, level)
-            outfile.write('iswc=%s,\n' % quote_python(self.iswc).encode(ExternalEncoding))
+            iswc_ = self.iswc
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}iswc').text = self.gds_format_string(iswc_)
         if self.iswc_list is not None:
-            showIndent(outfile, level)
-            outfile.write('iswc_list=model_.iswc_list(\n')
-            self.iswc_list.exportLiteral(outfile, level, name_='iswc_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            iswc_list_ = self.iswc_list
+            iswc_list_.to_etree(element, name_='iswc-list', mapping_=mapping_)
         if self.attribute_list is not None:
-            showIndent(outfile, level)
-            outfile.write('attribute_list=model_.attribute_listType(\n')
-            self.attribute_list.exportLiteral(outfile, level, name_='attribute_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            attribute_list_ = self.attribute_list
+            attribute_list_.to_etree(element, name_='attribute-list', mapping_=mapping_)
         if self.annotation is not None:
-            showIndent(outfile, level)
-            outfile.write('annotation=model_.annotation(\n')
-            self.annotation.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            annotation_ = self.annotation
+            annotation_.to_etree(element, name_='annotation', mapping_=mapping_)
         if self.disambiguation is not None:
-            showIndent(outfile, level)
-            outfile.write('disambiguation=%s,\n' % quote_python(self.disambiguation).encode(ExternalEncoding))
+            disambiguation_ = self.disambiguation
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}disambiguation').text = self.gds_format_string(disambiguation_)
         if self.alias_list is not None:
-            showIndent(outfile, level)
-            outfile.write('alias_list=model_.alias_list(\n')
-            self.alias_list.exportLiteral(outfile, level, name_='alias_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('relation_list=[\n')
-        level += 1
+            alias_list_ = self.alias_list
+            alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
-            showIndent(outfile, level)
-            outfile.write('model_.relation_list(\n')
-            relation_list_.exportLiteral(outfile, level, name_='relation-list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
         if self.tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('tag_list=model_.tag_list(\n')
-            self.tag_list.exportLiteral(outfile, level, name_='tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            tag_list_ = self.tag_list
+            tag_list_.to_etree(element, name_='tag-list', mapping_=mapping_)
         if self.user_tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('user_tag_list=model_.user_tag_list(\n')
-            self.user_tag_list.exportLiteral(outfile, level, name_='user_tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            user_tag_list_ = self.user_tag_list
+            user_tag_list_.to_etree(element, name_='user-tag-list', mapping_=mapping_)
         if self.rating is not None:
-            showIndent(outfile, level)
-            outfile.write('rating=model_.rating(\n')
-            self.rating.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            rating_ = self.rating
+            rating_.to_etree(element, name_='rating', mapping_=mapping_)
         if self.user_rating is not None:
-            showIndent(outfile, level)
-            outfile.write('user_rating=%d,\n' % self.user_rating)
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            user_rating_ = self.user_rating
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}user-rating').text = self.gds_format_integer(user_rating_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -4272,85 +3846,49 @@ class def_area_element_inner(GeneratedsSuper):
             relation_list_.export(outfile, level, namespace_='mmd-2.0:', name_='relation-list', pretty_print=pretty_print)
         if self.anytypeobjs_ is not None:
             self.anytypeobjs_.export(outfile, level, namespace_, pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='def_area-element_inner'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='def_area-element_inner', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.name is not None:
-            showIndent(outfile, level)
-            outfile.write('name=%s,\n' % quote_python(self.name).encode(ExternalEncoding))
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
         if self.sort_name is not None:
-            showIndent(outfile, level)
-            outfile.write('sort_name=%s,\n' % quote_python(self.sort_name).encode(ExternalEncoding))
+            sort_name_ = self.sort_name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}sort-name').text = self.gds_format_string(sort_name_)
         if self.disambiguation is not None:
-            showIndent(outfile, level)
-            outfile.write('disambiguation=%s,\n' % quote_python(self.disambiguation).encode(ExternalEncoding))
+            disambiguation_ = self.disambiguation
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}disambiguation').text = self.gds_format_string(disambiguation_)
         if self.iso_3166_1_code_list is not None:
-            showIndent(outfile, level)
-            outfile.write('iso_3166_1_code_list=model_.iso_3166_1_code_list(\n')
-            self.iso_3166_1_code_list.exportLiteral(outfile, level, name_='iso_3166_1_code_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            iso_3166_1_code_list_ = self.iso_3166_1_code_list
+            iso_3166_1_code_list_.to_etree(element, name_='iso-3166-1-code-list', mapping_=mapping_)
         if self.iso_3166_2_code_list is not None:
-            showIndent(outfile, level)
-            outfile.write('iso_3166_2_code_list=model_.iso_3166_2_code_list(\n')
-            self.iso_3166_2_code_list.exportLiteral(outfile, level, name_='iso_3166_2_code_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            iso_3166_2_code_list_ = self.iso_3166_2_code_list
+            iso_3166_2_code_list_.to_etree(element, name_='iso-3166-2-code-list', mapping_=mapping_)
         if self.iso_3166_3_code_list is not None:
-            showIndent(outfile, level)
-            outfile.write('iso_3166_3_code_list=model_.iso_3166_3_code_list(\n')
-            self.iso_3166_3_code_list.exportLiteral(outfile, level, name_='iso_3166_3_code_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            iso_3166_3_code_list_ = self.iso_3166_3_code_list
+            iso_3166_3_code_list_.to_etree(element, name_='iso-3166-3-code-list', mapping_=mapping_)
         if self.annotation is not None:
-            showIndent(outfile, level)
-            outfile.write('annotation=model_.annotation(\n')
-            self.annotation.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            annotation_ = self.annotation
+            annotation_.to_etree(element, name_='annotation', mapping_=mapping_)
         if self.life_span is not None:
-            showIndent(outfile, level)
-            outfile.write('life_span=model_.life_span(\n')
-            self.life_span.exportLiteral(outfile, level, name_='life_span')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            life_span_ = self.life_span
+            life_span_.to_etree(element, name_='life-span', mapping_=mapping_)
         if self.alias_list is not None:
-            showIndent(outfile, level)
-            outfile.write('alias_list=model_.alias_list(\n')
-            self.alias_list.exportLiteral(outfile, level, name_='alias_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('relation_list=[\n')
-        level += 1
+            alias_list_ = self.alias_list
+            alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
-            showIndent(outfile, level)
-            outfile.write('model_.relation_list(\n')
-            relation_list_.exportLiteral(outfile, level, name_='relation-list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
         if self.anytypeobjs_ is not None:
-            showIndent(outfile, level)
-            outfile.write('anytypeobjs_=model_.anytypeobjs_(\n')
-            self.anytypeobjs_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            self.anytypeobjs_.to_etree(element)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -4561,94 +4099,52 @@ class place(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='place'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='place', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.name is not None:
-            showIndent(outfile, level)
-            outfile.write('name=%s,\n' % quote_python(self.name).encode(ExternalEncoding))
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
         if self.disambiguation is not None:
-            showIndent(outfile, level)
-            outfile.write('disambiguation=%s,\n' % quote_python(self.disambiguation).encode(ExternalEncoding))
+            disambiguation_ = self.disambiguation
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}disambiguation').text = self.gds_format_string(disambiguation_)
         if self.address is not None:
-            showIndent(outfile, level)
-            outfile.write('address=%s,\n' % quote_python(self.address).encode(ExternalEncoding))
+            address_ = self.address
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}address').text = self.gds_format_string(address_)
         if self.coordinates is not None:
-            showIndent(outfile, level)
-            outfile.write('coordinates=model_.coordinates(\n')
-            self.coordinates.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            coordinates_ = self.coordinates
+            coordinates_.to_etree(element, name_='coordinates', mapping_=mapping_)
         if self.annotation is not None:
-            showIndent(outfile, level)
-            outfile.write('annotation=model_.annotation(\n')
-            self.annotation.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            annotation_ = self.annotation
+            annotation_.to_etree(element, name_='annotation', mapping_=mapping_)
         if self.area is not None:
-            showIndent(outfile, level)
-            outfile.write('area=model_.def_area_element_inner(\n')
-            self.area.exportLiteral(outfile, level, name_='area')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            area_ = self.area
+            area_.to_etree(element, name_='area', mapping_=mapping_)
         if self.life_span is not None:
-            showIndent(outfile, level)
-            outfile.write('life_span=model_.life_span(\n')
-            self.life_span.exportLiteral(outfile, level, name_='life_span')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            life_span_ = self.life_span
+            life_span_.to_etree(element, name_='life-span', mapping_=mapping_)
         if self.alias_list is not None:
-            showIndent(outfile, level)
-            outfile.write('alias_list=model_.alias_list(\n')
-            self.alias_list.exportLiteral(outfile, level, name_='alias_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('relation_list=[\n')
-        level += 1
+            alias_list_ = self.alias_list
+            alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
-            showIndent(outfile, level)
-            outfile.write('model_.relation_list(\n')
-            relation_list_.exportLiteral(outfile, level, name_='relation-list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
         if self.tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('tag_list=model_.tag_list(\n')
-            self.tag_list.exportLiteral(outfile, level, name_='tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            tag_list_ = self.tag_list
+            tag_list_.to_etree(element, name_='tag-list', mapping_=mapping_)
         if self.user_tag_list is not None:
-            showIndent(outfile, level)
-            outfile.write('user_tag_list=model_.user_tag_list(\n')
-            self.user_tag_list.exportLiteral(outfile, level, name_='user_tag_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            user_tag_list_ = self.user_tag_list
+            user_tag_list_.to_etree(element, name_='user-tag-list', mapping_=mapping_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -4781,21 +4277,20 @@ class coordinates(GeneratedsSuper):
         if self.longitude is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%slongitude>%s</%slongitude>%s' % (namespace_, self.gds_format_string(quote_xml(self.longitude).encode(ExternalEncoding), input_name='longitude'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='coordinates'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='coordinates', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.latitude is not None:
-            showIndent(outfile, level)
-            outfile.write('latitude=%s,\n' % quote_python(self.latitude).encode(ExternalEncoding))
+            latitude_ = self.latitude
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}latitude').text = self.gds_format_string(latitude_)
         if self.longitude is not None:
-            showIndent(outfile, level)
-            outfile.write('longitude=%s,\n' % quote_python(self.longitude).encode(ExternalEncoding))
+            longitude_ = self.longitude
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}longitude').text = self.gds_format_string(longitude_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -4926,64 +4421,37 @@ class instrument(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='instrument'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='instrument', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.name is not None:
-            showIndent(outfile, level)
-            outfile.write('name=%s,\n' % quote_python(self.name).encode(ExternalEncoding))
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
         if self.disambiguation is not None:
-            showIndent(outfile, level)
-            outfile.write('disambiguation=%s,\n' % quote_python(self.disambiguation).encode(ExternalEncoding))
+            disambiguation_ = self.disambiguation
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}disambiguation').text = self.gds_format_string(disambiguation_)
         if self.description is not None:
-            showIndent(outfile, level)
-            outfile.write('description=%s,\n' % quote_python(self.description).encode(ExternalEncoding))
+            description_ = self.description
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}description').text = self.gds_format_string(description_)
         if self.annotation is not None:
-            showIndent(outfile, level)
-            outfile.write('annotation=model_.annotation(\n')
-            self.annotation.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            annotation_ = self.annotation
+            annotation_.to_etree(element, name_='annotation', mapping_=mapping_)
         if self.alias_list is not None:
-            showIndent(outfile, level)
-            outfile.write('alias_list=model_.alias_list(\n')
-            self.alias_list.exportLiteral(outfile, level, name_='alias_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('relation_list=[\n')
-        level += 1
+            alias_list_ = self.alias_list
+            alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
-            showIndent(outfile, level)
-            outfile.write('model_.relation_list(\n')
-            relation_list_.exportLiteral(outfile, level, name_='relation-list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -5144,64 +4612,37 @@ class series(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='series'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='series', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.name is not None:
-            showIndent(outfile, level)
-            outfile.write('name=%s,\n' % quote_python(self.name).encode(ExternalEncoding))
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
         if self.disambiguation is not None:
-            showIndent(outfile, level)
-            outfile.write('disambiguation=%s,\n' % quote_python(self.disambiguation).encode(ExternalEncoding))
+            disambiguation_ = self.disambiguation
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}disambiguation').text = self.gds_format_string(disambiguation_)
         if self.ordering_attribute is not None:
-            showIndent(outfile, level)
-            outfile.write('ordering_attribute=%s,\n' % quote_python(self.ordering_attribute).encode(ExternalEncoding))
+            ordering_attribute_ = self.ordering_attribute
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}ordering-attribute').text = self.gds_format_string(ordering_attribute_)
         if self.annotation is not None:
-            showIndent(outfile, level)
-            outfile.write('annotation=model_.annotation(\n')
-            self.annotation.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            annotation_ = self.annotation
+            annotation_.to_etree(element, name_='annotation', mapping_=mapping_)
         if self.alias_list is not None:
-            showIndent(outfile, level)
-            outfile.write('alias_list=model_.alias_list(\n')
-            self.alias_list.exportLiteral(outfile, level, name_='alias_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('relation_list=[\n')
-        level += 1
+            alias_list_ = self.alias_list
+            alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
-            showIndent(outfile, level)
-            outfile.write('model_.relation_list(\n')
-            relation_list_.exportLiteral(outfile, level, name_='relation-list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -5318,33 +4759,21 @@ class url(GeneratedsSuper):
             outfile.write('<%sresource>%s</%sresource>%s' % (namespace_, self.gds_format_string(quote_xml(self.resource).encode(ExternalEncoding), input_name='resource'), namespace_, eol_))
         for relation_list_ in self.relation_list:
             relation_list_.export(outfile, level, namespace_='mmd-2.0:', name_='relation-list', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='url'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='url', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.resource is not None:
-            showIndent(outfile, level)
-            outfile.write('resource=%s,\n' % quote_python(self.resource).encode(ExternalEncoding))
-        showIndent(outfile, level)
-        outfile.write('relation_list=[\n')
-        level += 1
+            resource_ = self.resource
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}resource').text = self.gds_format_string(resource_)
         for relation_list_ in self.relation_list:
-            showIndent(outfile, level)
-            outfile.write('model_.relation_list(\n')
-            relation_list_.exportLiteral(outfile, level, name_='relation-list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -5442,36 +4871,24 @@ class disc(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='disc'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='disc', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.sectors is not None:
-            showIndent(outfile, level)
-            outfile.write('sectors=%d,\n' % self.sectors)
+            sectors_ = self.sectors
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}sectors').text = self.gds_format_integer(sectors_)
         if self.release_list is not None:
-            showIndent(outfile, level)
-            outfile.write('release_list=model_.release_list(\n')
-            self.release_list.exportLiteral(outfile, level, name_='release_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            release_list_ = self.release_list
+            release_list_.to_etree(element, name_='release-list', mapping_=mapping_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -5572,33 +4989,21 @@ class puid(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='puid'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id=%s,\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='puid', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.id)
         if self.recording_list is not None:
-            showIndent(outfile, level)
-            outfile.write('recording_list=model_.recording_list(\n')
-            self.recording_list.exportLiteral(outfile, level, name_='recording_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            recording_list_ = self.recording_list
+            recording_list_.to_etree(element, name_='recording-list', mapping_=mapping_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -5689,33 +5094,21 @@ class isrc(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='isrc'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id=%s,\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='isrc', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.id)
         if self.recording_list is not None:
-            showIndent(outfile, level)
-            outfile.write('recording_list=model_.recording_list(\n')
-            self.recording_list.exportLiteral(outfile, level, name_='recording_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            recording_list_ = self.recording_list
+            recording_list_.to_etree(element, name_='recording-list', mapping_=mapping_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -5794,27 +5187,16 @@ class artist_credit(GeneratedsSuper):
             eol_ = ''
         for name_credit_ in self.name_credit:
             name_credit_.export(outfile, level, namespace_='mmd-2.0:', name_='name-credit', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='artist-credit'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('name_credit=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='artist-credit', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for name_credit_ in self.name_credit:
-            showIndent(outfile, level)
-            outfile.write('model_.name_credit(\n')
-            name_credit_.exportLiteral(outfile, level, name_='name-credit')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            name_credit_.to_etree(element, name_='name-credit', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -5893,27 +5275,22 @@ class name_credit(GeneratedsSuper):
             outfile.write('<%sname>%s</%sname>%s' % (namespace_, self.gds_format_string(quote_xml(self.name).encode(ExternalEncoding), input_name='name'), namespace_, eol_))
         if self.artist is not None:
             self.artist.export(outfile, level, namespace_='mmd-2.0:', name_='artist', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='name-credit'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.joinphrase is not None and 'joinphrase' not in already_processed:
-            already_processed.add('joinphrase')
-            showIndent(outfile, level)
-            outfile.write('joinphrase="%s",\n' % (self.joinphrase,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='name-credit', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.joinphrase is not None:
+            element.set('joinphrase', self.gds_format_string(self.joinphrase))
         if self.name is not None:
-            showIndent(outfile, level)
-            outfile.write('name=%s,\n' % quote_python(self.name).encode(ExternalEncoding))
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
         if self.artist is not None:
-            showIndent(outfile, level)
-            outfile.write('artist=model_.artist(\n')
-            self.artist.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            artist_ = self.artist
+            artist_.to_etree(element, name_='artist', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -6108,115 +5485,71 @@ class relation(GeneratedsSuper):
             self.series.export(outfile, level, namespace_='mmd-2.0:', name_='series', pretty_print=pretty_print)
         if self.anytypeobjs_ is not None:
             self.anytypeobjs_.export(outfile, level, namespace_, pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='relation'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_id is not None and 'type_id' not in already_processed:
-            already_processed.add('type_id')
-            showIndent(outfile, level)
-            outfile.write('type_id="%s",\n' % (self.type_id,))
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='relation', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_id is not None:
+            element.set('type-id', self.gds_format_string(self.type_id))
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
         if self.target is not None:
-            showIndent(outfile, level)
-            outfile.write('target=model_.target(\n')
-            self.target.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            target_ = self.target
+            target_.to_etree(element, name_='target', mapping_=mapping_)
         if self.ordering_key is not None:
-            showIndent(outfile, level)
-            outfile.write('ordering_key=%d,\n' % self.ordering_key)
+            ordering_key_ = self.ordering_key
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}ordering-key').text = self.gds_format_integer(ordering_key_)
         if self.direction is not None:
-            showIndent(outfile, level)
-            outfile.write('direction=%s,\n' % quote_python(self.direction).encode(ExternalEncoding))
+            direction_ = self.direction
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}direction').text = self.gds_format_string(direction_)
         if self.attribute_list is not None:
-            showIndent(outfile, level)
-            outfile.write('attribute_list=model_.attribute_listType1(\n')
-            self.attribute_list.exportLiteral(outfile, level, name_='attribute_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            attribute_list_ = self.attribute_list
+            attribute_list_.to_etree(element, name_='attribute-list', mapping_=mapping_)
         if self.begin is not None:
-            showIndent(outfile, level)
-            outfile.write('begin=%s,\n' % quote_python(self.begin).encode(ExternalEncoding))
+            begin_ = self.begin
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}begin').text = self.gds_format_string(begin_)
         if self.end is not None:
-            showIndent(outfile, level)
-            outfile.write('end=%s,\n' % quote_python(self.end).encode(ExternalEncoding))
+            end_ = self.end
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}end').text = self.gds_format_string(end_)
         if self.ended is not None:
-            showIndent(outfile, level)
-            outfile.write('ended=%s,\n' % quote_python(self.ended).encode(ExternalEncoding))
+            ended_ = self.ended
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}ended').text = self.gds_format_string(ended_)
         if self.artist is not None:
-            showIndent(outfile, level)
-            outfile.write('artist=model_.artist(\n')
-            self.artist.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            artist_ = self.artist
+            artist_.to_etree(element, name_='artist', mapping_=mapping_)
         if self.release is not None:
-            showIndent(outfile, level)
-            outfile.write('release=model_.release(\n')
-            self.release.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            release_ = self.release
+            release_.to_etree(element, name_='release', mapping_=mapping_)
         if self.release_group is not None:
-            showIndent(outfile, level)
-            outfile.write('release_group=model_.release_group(\n')
-            self.release_group.exportLiteral(outfile, level, name_='release_group')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            release_group_ = self.release_group
+            release_group_.to_etree(element, name_='release-group', mapping_=mapping_)
         if self.recording is not None:
-            showIndent(outfile, level)
-            outfile.write('recording=model_.recording(\n')
-            self.recording.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            recording_ = self.recording
+            recording_.to_etree(element, name_='recording', mapping_=mapping_)
         if self.label is not None:
-            showIndent(outfile, level)
-            outfile.write('label=model_.label(\n')
-            self.label.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            label_ = self.label
+            label_.to_etree(element, name_='label', mapping_=mapping_)
         if self.work is not None:
-            showIndent(outfile, level)
-            outfile.write('work=model_.work(\n')
-            self.work.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            work_ = self.work
+            work_.to_etree(element, name_='work', mapping_=mapping_)
         if self.area is not None:
-            showIndent(outfile, level)
-            outfile.write('area=model_.def_area_element_inner(\n')
-            self.area.exportLiteral(outfile, level, name_='area')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            area_ = self.area
+            area_.to_etree(element, name_='area', mapping_=mapping_)
         if self.place is not None:
-            showIndent(outfile, level)
-            outfile.write('place=model_.place(\n')
-            self.place.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            place_ = self.place
+            place_.to_etree(element, name_='place', mapping_=mapping_)
         if self.instrument is not None:
-            showIndent(outfile, level)
-            outfile.write('instrument=model_.instrument(\n')
-            self.instrument.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            instrument_ = self.instrument
+            instrument_.to_etree(element, name_='instrument', mapping_=mapping_)
         if self.series is not None:
-            showIndent(outfile, level)
-            outfile.write('series=model_.series(\n')
-            self.series.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            series_ = self.series
+            series_.to_etree(element, name_='series', mapping_=mapping_)
         if self.anytypeobjs_ is not None:
-            showIndent(outfile, level)
-            outfile.write('anytypeobjs_=model_.anytypeobjs_(\n')
-            self.anytypeobjs_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            self.anytypeobjs_.to_etree(element)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -6378,21 +5711,16 @@ class target(GeneratedsSuper):
             outfile.write(' id=%s' % (self.gds_format_string(quote_attrib(self.id).encode(ExternalEncoding), input_name='id'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='target', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='target'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='target', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -6494,41 +5822,26 @@ class alias(GeneratedsSuper):
             outfile.write(' begin-date=%s' % (quote_attrib(self.begin_date), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='alias', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='alias'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.locale is not None and 'locale' not in already_processed:
-            already_processed.add('locale')
-            showIndent(outfile, level)
-            outfile.write('locale=%s,\n' % (self.locale,))
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-        if self.primary is not None and 'primary' not in already_processed:
-            already_processed.add('primary')
-            showIndent(outfile, level)
-            outfile.write('primary="%s",\n' % (self.primary,))
-        if self.sort_name is not None and 'sort_name' not in already_processed:
-            already_processed.add('sort_name')
-            showIndent(outfile, level)
-            outfile.write('sort_name="%s",\n' % (self.sort_name,))
-        if self.end_date is not None and 'end_date' not in already_processed:
-            already_processed.add('end_date')
-            showIndent(outfile, level)
-            outfile.write('end_date=%s,\n' % (self.end_date,))
-        if self.begin_date is not None and 'begin_date' not in already_processed:
-            already_processed.add('begin_date')
-            showIndent(outfile, level)
-            outfile.write('begin_date=%s,\n' % (self.begin_date,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='alias', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.locale is not None:
+            element.set('locale', self.locale)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if self.primary is not None:
+            element.set('primary', self.gds_format_string(self.primary))
+        if self.sort_name is not None:
+            element.set('sort-name', self.gds_format_string(self.sort_name))
+        if self.end_date is not None:
+            element.set('end-date', self.end_date)
+        if self.begin_date is not None:
+            element.set('begin-date', self.begin_date)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -6614,16 +5927,14 @@ class iswc(GeneratedsSuper):
         pass
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='iswc', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='iswc'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='iswc', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -6692,21 +6003,19 @@ class tag(GeneratedsSuper):
         if self.name is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sname>%s</%sname>%s' % ('mmd-2.0:', self.gds_format_string(quote_xml(self.name).encode(ExternalEncoding), input_name='name'), 'mmd-2.0:', eol_))
-    def exportLiteral(self, outfile, level, name_='tag'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='tag', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
         if self.name is not None:
-            showIndent(outfile, level)
-            outfile.write('name=%s,\n' % quote_python(self.name).encode(ExternalEncoding))
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -6781,18 +6090,17 @@ class user_tag(GeneratedsSuper):
         if self.name is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sname>%s</%sname>%s' % ('mmd-2.0:', self.gds_format_string(quote_xml(self.name).encode(ExternalEncoding), input_name='name'), 'mmd-2.0:', eol_))
-    def exportLiteral(self, outfile, level, name_='user-tag'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='user-tag', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.name is not None:
-            showIndent(outfile, level)
-            outfile.write('name=%s,\n' % quote_python(self.name).encode(ExternalEncoding))
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -6858,21 +6166,16 @@ class rating(GeneratedsSuper):
             outfile.write(' votes-count="%s"' % self.gds_format_integer(self.votes_count, input_name='votes-count'))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='rating', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='rating'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.votes_count is not None and 'votes_count' not in already_processed:
-            already_processed.add('votes_count')
-            showIndent(outfile, level)
-            outfile.write('votes_count=%d,\n' % (self.votes_count,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='rating', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.votes_count is not None:
+            element.set('votes-count', self.gds_format_integer(self.votes_count))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -6951,24 +6254,20 @@ class label_info(GeneratedsSuper):
             outfile.write('<%scatalog-number>%s</%scatalog-number>%s' % (namespace_, self.gds_format_string(quote_xml(self.catalog_number).encode(ExternalEncoding), input_name='catalog-number'), namespace_, eol_))
         if self.label is not None:
             self.label.export(outfile, level, namespace_='mmd-2.0:', name_='label', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='label-info'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='label-info', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.catalog_number is not None:
-            showIndent(outfile, level)
-            outfile.write('catalog_number=%s,\n' % quote_python(self.catalog_number).encode(ExternalEncoding))
+            catalog_number_ = self.catalog_number
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}catalog-number').text = self.gds_format_string(catalog_number_)
         if self.label is not None:
-            showIndent(outfile, level)
-            outfile.write('label=model_.label(\n')
-            self.label.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            label_ = self.label
+            label_.to_etree(element, name_='label', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -7066,36 +6365,29 @@ class medium(GeneratedsSuper):
             self.disc_list.export(outfile, level, namespace_='mmd-2.0:', name_='disc-list', pretty_print=pretty_print)
         if self.track_list is not None:
             self.track_list.export(outfile, level, namespace_, name_='track-list', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='medium'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='medium', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.position is not None:
-            showIndent(outfile, level)
-            outfile.write('position=%d,\n' % self.position)
+            position_ = self.position
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}position').text = self.gds_format_integer(position_)
         if self.format is not None:
-            showIndent(outfile, level)
-            outfile.write('format=%s,\n' % quote_python(self.format).encode(ExternalEncoding))
+            format_ = self.format
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}format').text = self.gds_format_string(format_)
         if self.disc_list is not None:
-            showIndent(outfile, level)
-            outfile.write('disc_list=model_.disc_list(\n')
-            self.disc_list.exportLiteral(outfile, level, name_='disc_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            disc_list_ = self.disc_list
+            disc_list_.to_etree(element, name_='disc-list', mapping_=mapping_)
         if self.track_list is not None:
-            showIndent(outfile, level)
-            outfile.write('track_list=model_.track_listType(\n')
-            self.track_list.exportLiteral(outfile, level, name_='track_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            track_list_ = self.track_list
+            track_list_.to_etree(element, name_='track-list', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -7217,36 +6509,27 @@ class annotation(GeneratedsSuper):
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='annotation'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='annotation', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
         if self.entity is not None:
-            showIndent(outfile, level)
-            outfile.write('entity=%s,\n' % quote_python(self.entity).encode(ExternalEncoding))
+            entity_ = self.entity
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}entity').text = self.gds_format_string(entity_)
         if self.name is not None:
-            showIndent(outfile, level)
-            outfile.write('name=%s,\n' % quote_python(self.name).encode(ExternalEncoding))
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
         if self.text is not None:
-            showIndent(outfile, level)
-            outfile.write('text=%s,\n' % quote_python(self.text).encode(ExternalEncoding))
-        showIndent(outfile, level)
-        outfile.write('def_extension_element=[\n')
-        level += 1
+            text_ = self.text
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}text').text = self.gds_format_string(text_)
         for def_extension_element_ in self.def_extension_element:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(def_extension_element_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -7366,42 +6649,33 @@ class cdstub(GeneratedsSuper):
             self.track_list.export(outfile, level, namespace_, name_='track-list', pretty_print=pretty_print)
         if self.anytypeobjs_ is not None:
             self.anytypeobjs_.export(outfile, level, namespace_, pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='cdstub'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='cdstub', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.artist is not None:
-            showIndent(outfile, level)
-            outfile.write('artist=%s,\n' % quote_python(self.artist).encode(ExternalEncoding))
+            artist_ = self.artist
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}artist').text = self.gds_format_string(artist_)
         if self.barcode is not None:
-            showIndent(outfile, level)
-            outfile.write('barcode=%s,\n' % quote_python(self.barcode).encode(ExternalEncoding))
+            barcode_ = self.barcode
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}barcode').text = self.gds_format_string(barcode_)
         if self.comment is not None:
-            showIndent(outfile, level)
-            outfile.write('comment=%s,\n' % quote_python(self.comment).encode(ExternalEncoding))
+            comment_ = self.comment
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}comment').text = self.gds_format_string(comment_)
         if self.track_list is not None:
-            showIndent(outfile, level)
-            outfile.write('track_list=model_.track_listType3(\n')
-            self.track_list.exportLiteral(outfile, level, name_='track_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            track_list_ = self.track_list
+            track_list_.to_etree(element, name_='track-list', mapping_=mapping_)
         if self.anytypeobjs_ is not None:
-            showIndent(outfile, level)
-            outfile.write('anytypeobjs_=model_.anytypeobjs_(\n')
-            self.anytypeobjs_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            self.anytypeobjs_.to_etree(element)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -7533,42 +6807,33 @@ class freedb_disc(GeneratedsSuper):
             self.track_list.export(outfile, level, namespace_, name_='track-list', pretty_print=pretty_print)
         if self.anytypeobjs_ is not None:
             self.anytypeobjs_.export(outfile, level, namespace_, pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='freedb-disc'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='freedb-disc', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.artist is not None:
-            showIndent(outfile, level)
-            outfile.write('artist=%s,\n' % quote_python(self.artist).encode(ExternalEncoding))
+            artist_ = self.artist
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}artist').text = self.gds_format_string(artist_)
         if self.category is not None:
-            showIndent(outfile, level)
-            outfile.write('category=%s,\n' % quote_python(self.category).encode(ExternalEncoding))
+            category_ = self.category
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}category').text = self.gds_format_string(category_)
         if self.year is not None:
-            showIndent(outfile, level)
-            outfile.write('year=%s,\n' % quote_python(self.year).encode(ExternalEncoding))
+            year_ = self.year
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}year').text = self.gds_format_string(year_)
         if self.track_list is not None:
-            showIndent(outfile, level)
-            outfile.write('track_list=model_.track_listType4(\n')
-            self.track_list.exportLiteral(outfile, level, name_='track_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            track_list_ = self.track_list
+            track_list_.to_etree(element, name_='track-list', mapping_=mapping_)
         if self.anytypeobjs_ is not None:
-            showIndent(outfile, level)
-            outfile.write('anytypeobjs_=model_.anytypeobjs_(\n')
-            self.anytypeobjs_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            self.anytypeobjs_.to_etree(element)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -7650,16 +6915,14 @@ class year(GeneratedsSuper):
         pass
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='year', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='year'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='year', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -7741,30 +7004,25 @@ class collection(GeneratedsSuper):
             outfile.write('<%seditor>%s</%seditor>%s' % (namespace_, self.gds_format_string(quote_xml(self.editor).encode(ExternalEncoding), input_name='editor'), namespace_, eol_))
         if self.release_list is not None:
             self.release_list.export(outfile, level, namespace_='mmd-2.0:', name_='release-list', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='collection'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='collection', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.name is not None:
-            showIndent(outfile, level)
-            outfile.write('name=%s,\n' % quote_python(self.name).encode(ExternalEncoding))
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
         if self.editor is not None:
-            showIndent(outfile, level)
-            outfile.write('editor=%s,\n' % quote_python(self.editor).encode(ExternalEncoding))
+            editor_ = self.editor
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}editor').text = self.gds_format_string(editor_)
         if self.release_list is not None:
-            showIndent(outfile, level)
-            outfile.write('release_list=model_.release_list(\n')
-            self.release_list.exportLiteral(outfile, level, name_='release_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            release_list_ = self.release_list
+            release_list_.to_etree(element, name_='release-list', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -7908,57 +7166,46 @@ class editor(GeneratedsSuper):
             self.language_list.export(outfile, level, namespace_='mmd-2.0:', name_='language-list', pretty_print=pretty_print)
         if self.edit_information is not None:
             self.edit_information.export(outfile, level, namespace_='mmd-2.0:', name_='edit-information', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='editor'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id=%d,\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='editor', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_integer(self.id))
         if self.name is not None:
-            showIndent(outfile, level)
-            outfile.write('name=%s,\n' % quote_python(self.name).encode(ExternalEncoding))
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
         if self.member_since is not None:
-            showIndent(outfile, level)
-            outfile.write('member_since=%s,\n' % quote_python(self.member_since).encode(ExternalEncoding))
+            member_since_ = self.member_since
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}member-since').text = self.gds_format_string(member_since_)
         if self.privs is not None:
-            showIndent(outfile, level)
-            outfile.write('privs=%d,\n' % self.privs)
+            privs_ = self.privs
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}privs').text = self.gds_format_integer(privs_)
         if self.gender is not None:
-            showIndent(outfile, level)
-            outfile.write('gender=%s,\n' % quote_python(self.gender).encode(ExternalEncoding))
+            gender_ = self.gender
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}gender').text = self.gds_format_string(gender_)
         if self.age is not None:
-            showIndent(outfile, level)
-            outfile.write('age=%s,\n' % quote_python(self.age).encode(ExternalEncoding))
+            age_ = self.age
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}age').text = self.gds_format_string(age_)
         if self.homepage is not None:
-            showIndent(outfile, level)
-            outfile.write('homepage=%s,\n' % quote_python(self.homepage).encode(ExternalEncoding))
+            homepage_ = self.homepage
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}homepage').text = self.gds_format_string(homepage_)
         if self.bio is not None:
-            showIndent(outfile, level)
-            outfile.write('bio=%s,\n' % quote_python(self.bio).encode(ExternalEncoding))
+            bio_ = self.bio
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}bio').text = self.gds_format_string(bio_)
         if self.area is not None:
-            showIndent(outfile, level)
-            outfile.write('area=model_.def_area_element_inner(\n')
-            self.area.exportLiteral(outfile, level, name_='area')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            area_ = self.area
+            area_.to_etree(element, name_='area', mapping_=mapping_)
         if self.language_list is not None:
-            showIndent(outfile, level)
-            outfile.write('language_list=model_.language_list(\n')
-            self.language_list.exportLiteral(outfile, level, name_='language_list')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            language_list_ = self.language_list
+            language_list_.to_etree(element, name_='language-list', mapping_=mapping_)
         if self.edit_information is not None:
-            showIndent(outfile, level)
-            outfile.write('edit_information=model_.edit_information(\n')
-            self.edit_information.exportLiteral(outfile, level, name_='edit_information')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            edit_information_ = self.edit_information
+            edit_information_.to_etree(element, name_='edit-information', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -8099,27 +7346,26 @@ class edit_information(GeneratedsSuper):
         if self.edits_failed is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sedits-failed>%s</%sedits-failed>%s' % (namespace_, self.gds_format_integer(self.edits_failed, input_name='edits-failed'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='edit-information'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='edit-information', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.edits_accepted is not None:
-            showIndent(outfile, level)
-            outfile.write('edits_accepted=%d,\n' % self.edits_accepted)
+            edits_accepted_ = self.edits_accepted
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}edits-accepted').text = self.gds_format_integer(edits_accepted_)
         if self.edits_rejected is not None:
-            showIndent(outfile, level)
-            outfile.write('edits_rejected=%d,\n' % self.edits_rejected)
+            edits_rejected_ = self.edits_rejected
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}edits-rejected').text = self.gds_format_integer(edits_rejected_)
         if self.auto_edits_accepted is not None:
-            showIndent(outfile, level)
-            outfile.write('auto_edits_accepted=%d,\n' % self.auto_edits_accepted)
+            auto_edits_accepted_ = self.auto_edits_accepted
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}auto-edits-accepted').text = self.gds_format_integer(auto_edits_accepted_)
         if self.edits_failed is not None:
-            showIndent(outfile, level)
-            outfile.write('edits_failed=%d,\n' % self.edits_failed)
+            edits_failed_ = self.edits_failed
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}edits-failed').text = self.gds_format_integer(edits_failed_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -8237,34 +7483,20 @@ class language_list(GeneratedsSuper):
             eol_ = ''
         for language_ in self.language:
             language_.export(outfile, level, namespace_, name_='language', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='language-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('language=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='language-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for language_ in self.language:
-            showIndent(outfile, level)
-            outfile.write('model_.languageType(\n')
-            language_.exportLiteral(outfile, level, name_='languageType')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            language_.to_etree(element, name_='language', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -8355,24 +7587,20 @@ class release_event(GeneratedsSuper):
             outfile.write('<%sdate>%s</%sdate>%s' % (namespace_, self.gds_format_string(quote_xml(self.date).encode(ExternalEncoding), input_name='date'), namespace_, eol_))
         if self.area is not None:
             self.area.export(outfile, level, namespace_='mmd-2.0:', name_='area', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='release-event'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='release-event', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.date is not None:
-            showIndent(outfile, level)
-            outfile.write('date=%s,\n' % quote_python(self.date).encode(ExternalEncoding))
+            date_ = self.date
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}date').text = self.gds_format_string(date_)
         if self.area is not None:
-            showIndent(outfile, level)
-            outfile.write('area=model_.def_area_element_inner(\n')
-            self.area.exportLiteral(outfile, level, name_='area')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            area_ = self.area
+            area_.to_etree(element, name_='area', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -8459,34 +7687,20 @@ class artist_list(GeneratedsSuper):
             eol_ = ''
         for artist_ in self.artist:
             artist_.export(outfile, level, namespace_='mmd-2.0:', name_='artist', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='artist-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('artist=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='artist-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for artist_ in self.artist:
-            showIndent(outfile, level)
-            outfile.write('model_.artist(\n')
-            artist_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            artist_.to_etree(element, name_='artist', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -8593,37 +7807,23 @@ class medium_list(GeneratedsSuper):
             outfile.write('<%strack-count>%s</%strack-count>%s' % (namespace_, self.gds_format_integer(self.track_count, input_name='track-count'), namespace_, eol_))
         for medium_ in self.medium:
             medium_.export(outfile, level, namespace_='mmd-2.0:', name_='medium', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='medium-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='medium-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         if self.track_count is not None:
-            showIndent(outfile, level)
-            outfile.write('track_count=%d,\n' % self.track_count)
-        showIndent(outfile, level)
-        outfile.write('medium=[\n')
-        level += 1
+            track_count_ = self.track_count
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}track-count').text = self.gds_format_integer(track_count_)
         for medium_ in self.medium:
-            showIndent(outfile, level)
-            outfile.write('model_.medium(\n')
-            medium_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            medium_.to_etree(element, name_='medium', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -8733,34 +7933,20 @@ class release_list(GeneratedsSuper):
             eol_ = ''
         for release_ in self.release:
             release_.export(outfile, level, namespace_='mmd-2.0:', name_='release', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='release-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('release=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='release-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for release_ in self.release:
-            showIndent(outfile, level)
-            outfile.write('model_.release(\n')
-            release_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            release_.to_etree(element, name_='release', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -8860,34 +8046,20 @@ class release_group_list(GeneratedsSuper):
             eol_ = ''
         for release_group_ in self.release_group:
             release_group_.export(outfile, level, namespace_='mmd-2.0:', name_='release-group', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='release-group-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('release_group=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='release-group-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for release_group_ in self.release_group:
-            showIndent(outfile, level)
-            outfile.write('model_.release_group(\n')
-            release_group_.exportLiteral(outfile, level, name_='release-group')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            release_group_.to_etree(element, name_='release-group', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -8987,34 +8159,20 @@ class alias_list(GeneratedsSuper):
             eol_ = ''
         for alias_ in self.alias:
             alias_.export(outfile, level, namespace_='mmd-2.0:', name_='alias', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='alias-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('alias=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='alias-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for alias_ in self.alias:
-            showIndent(outfile, level)
-            outfile.write('model_.alias(\n')
-            alias_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            alias_.to_etree(element, name_='alias', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -9114,34 +8272,20 @@ class recording_list(GeneratedsSuper):
             eol_ = ''
         for recording_ in self.recording:
             recording_.export(outfile, level, namespace_='mmd-2.0:', name_='recording', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='recording-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('recording=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='recording-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for recording_ in self.recording:
-            showIndent(outfile, level)
-            outfile.write('model_.recording(\n')
-            recording_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            recording_.to_etree(element, name_='recording', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -9241,34 +8385,20 @@ class label_list(GeneratedsSuper):
             eol_ = ''
         for label_ in self.label:
             label_.export(outfile, level, namespace_='mmd-2.0:', name_='label', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='label-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('label=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='label-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for label_ in self.label:
-            showIndent(outfile, level)
-            outfile.write('model_.label(\n')
-            label_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            label_.to_etree(element, name_='label', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -9368,34 +8498,20 @@ class label_info_list(GeneratedsSuper):
             eol_ = ''
         for label_info_ in self.label_info:
             label_info_.export(outfile, level, namespace_='mmd-2.0:', name_='label-info', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='label-info-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('label_info=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='label-info-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for label_info_ in self.label_info:
-            showIndent(outfile, level)
-            outfile.write('model_.label_info(\n')
-            label_info_.exportLiteral(outfile, level, name_='label-info')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            label_info_.to_etree(element, name_='label-info', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -9495,34 +8611,20 @@ class work_list(GeneratedsSuper):
             eol_ = ''
         for work_ in self.work:
             work_.export(outfile, level, namespace_='mmd-2.0:', name_='work', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='work-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('work=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='work-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for work_ in self.work:
-            showIndent(outfile, level)
-            outfile.write('model_.work(\n')
-            work_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            work_.to_etree(element, name_='work', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -9622,34 +8724,20 @@ class area_list(GeneratedsSuper):
             eol_ = ''
         for area_ in self.area:
             area_.export(outfile, level, namespace_='mmd-2.0:', name_='area', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='area-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('area=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='area-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for area_ in self.area:
-            showIndent(outfile, level)
-            outfile.write('model_.def_area_element_inner(\n')
-            area_.exportLiteral(outfile, level, name_='def_area-element_inner')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            area_.to_etree(element, name_='area', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -9749,34 +8837,20 @@ class place_list(GeneratedsSuper):
             eol_ = ''
         for place_ in self.place:
             place_.export(outfile, level, namespace_='mmd-2.0:', name_='place', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='place-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('place=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='place-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for place_ in self.place:
-            showIndent(outfile, level)
-            outfile.write('model_.place(\n')
-            place_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            place_.to_etree(element, name_='place', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -9876,34 +8950,20 @@ class instrument_list(GeneratedsSuper):
             eol_ = ''
         for instrument_ in self.instrument:
             instrument_.export(outfile, level, namespace_='mmd-2.0:', name_='instrument', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='instrument-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('instrument=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='instrument-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for instrument_ in self.instrument:
-            showIndent(outfile, level)
-            outfile.write('model_.instrument(\n')
-            instrument_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            instrument_.to_etree(element, name_='instrument', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -10003,34 +9063,20 @@ class series_list(GeneratedsSuper):
             eol_ = ''
         for series_ in self.series:
             series_.export(outfile, level, namespace_='mmd-2.0:', name_='series', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='series-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('series=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='series-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for series_ in self.series:
-            showIndent(outfile, level)
-            outfile.write('model_.series(\n')
-            series_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            series_.to_etree(element, name_='series', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -10130,34 +9176,20 @@ class url_list(GeneratedsSuper):
             eol_ = ''
         for url_ in self.url:
             url_.export(outfile, level, namespace_='mmd-2.0:', name_='url', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='url-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('url=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='url-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for url_ in self.url:
-            showIndent(outfile, level)
-            outfile.write('model_.url(\n')
-            url_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            url_.to_etree(element, name_='url', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -10257,34 +9289,20 @@ class release_event_list(GeneratedsSuper):
             eol_ = ''
         for release_event_ in self.release_event:
             release_event_.export(outfile, level, namespace_='mmd-2.0:', name_='release-event', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='release-event-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('release_event=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='release-event-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for release_event_ in self.release_event:
-            showIndent(outfile, level)
-            outfile.write('model_.release_event(\n')
-            release_event_.exportLiteral(outfile, level, name_='release-event')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            release_event_.to_etree(element, name_='release-event', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -10384,34 +9402,20 @@ class annotation_list(GeneratedsSuper):
             eol_ = ''
         for annotation_ in self.annotation:
             annotation_.export(outfile, level, namespace_='mmd-2.0:', name_='annotation', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='annotation-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('annotation=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='annotation-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for annotation_ in self.annotation:
-            showIndent(outfile, level)
-            outfile.write('model_.annotation(\n')
-            annotation_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            annotation_.to_etree(element, name_='annotation', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -10511,34 +9515,20 @@ class cdstub_list(GeneratedsSuper):
             eol_ = ''
         for cdstub_ in self.cdstub:
             cdstub_.export(outfile, level, namespace_='mmd-2.0:', name_='cdstub', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='cdstub-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('cdstub=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='cdstub-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for cdstub_ in self.cdstub:
-            showIndent(outfile, level)
-            outfile.write('model_.cdstub(\n')
-            cdstub_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            cdstub_.to_etree(element, name_='cdstub', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -10638,34 +9628,20 @@ class freedb_disc_list(GeneratedsSuper):
             eol_ = ''
         for freedb_disc_ in self.freedb_disc:
             freedb_disc_.export(outfile, level, namespace_='mmd-2.0:', name_='freedb-disc', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='freedb-disc-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('freedb_disc=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='freedb-disc-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for freedb_disc_ in self.freedb_disc:
-            showIndent(outfile, level)
-            outfile.write('model_.freedb_disc(\n')
-            freedb_disc_.exportLiteral(outfile, level, name_='freedb-disc')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            freedb_disc_.to_etree(element, name_='freedb-disc', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -10765,34 +9741,20 @@ class disc_list(GeneratedsSuper):
             eol_ = ''
         for disc_ in self.disc:
             disc_.export(outfile, level, namespace_='mmd-2.0:', name_='disc', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='disc-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('disc=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='disc-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for disc_ in self.disc:
-            showIndent(outfile, level)
-            outfile.write('model_.disc(\n')
-            disc_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            disc_.to_etree(element, name_='disc', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -10892,34 +9854,20 @@ class puid_list(GeneratedsSuper):
             eol_ = ''
         for puid_ in self.puid:
             puid_.export(outfile, level, namespace_='mmd-2.0:', name_='puid', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='puid-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('puid=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='puid-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for puid_ in self.puid:
-            showIndent(outfile, level)
-            outfile.write('model_.puid(\n')
-            puid_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            puid_.to_etree(element, name_='puid', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -11019,34 +9967,20 @@ class isrc_list(GeneratedsSuper):
             eol_ = ''
         for isrc_ in self.isrc:
             isrc_.export(outfile, level, namespace_='mmd-2.0:', name_='isrc', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='isrc-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('isrc=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='isrc-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for isrc_ in self.isrc:
-            showIndent(outfile, level)
-            outfile.write('model_.isrc(\n')
-            isrc_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            isrc_.to_etree(element, name_='isrc', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -11152,38 +10086,22 @@ class relation_list(GeneratedsSuper):
             eol_ = ''
         for relation_ in self.relation:
             relation_.export(outfile, level, namespace_='mmd-2.0:', name_='relation', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='relation-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-        if self.target_type is not None and 'target_type' not in already_processed:
-            already_processed.add('target_type')
-            showIndent(outfile, level)
-            outfile.write('target_type="%s",\n' % (self.target_type,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('relation=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='relation-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
+        if self.target_type is not None:
+            element.set('target-type', self.gds_format_string(self.target_type))
         for relation_ in self.relation:
-            showIndent(outfile, level)
-            outfile.write('model_.relation(\n')
-            relation_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            relation_.to_etree(element, name_='relation', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -11287,34 +10205,20 @@ class tag_list(GeneratedsSuper):
             eol_ = ''
         for tag_ in self.tag:
             tag_.export(outfile, level, namespace_='mmd-2.0:', name_='tag', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='tag-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('tag=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='tag-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for tag_ in self.tag:
-            showIndent(outfile, level)
-            outfile.write('model_.tag(\n')
-            tag_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            tag_.to_etree(element, name_='tag', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -11418,31 +10322,20 @@ class iswc_list(GeneratedsSuper):
         for iswc_ in self.iswc:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%siswc>%s</%siswc>%s' % (namespace_, self.gds_format_string(quote_xml(iswc_).encode(ExternalEncoding), input_name='iswc'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='iswc-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('iswc=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='iswc-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for iswc_ in self.iswc:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(iswc_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}iswc').text = self.gds_format_string(iswc_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -11543,34 +10436,20 @@ class user_tag_list(GeneratedsSuper):
             eol_ = ''
         for user_tag_ in self.user_tag:
             user_tag_.export(outfile, level, namespace_='mmd-2.0:', name_='user-tag', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='user-tag-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('user_tag=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='user-tag-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for user_tag_ in self.user_tag:
-            showIndent(outfile, level)
-            outfile.write('model_.user_tag(\n')
-            user_tag_.exportLiteral(outfile, level, name_='user-tag')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            user_tag_.to_etree(element, name_='user-tag', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -11670,34 +10549,20 @@ class collection_list(GeneratedsSuper):
             eol_ = ''
         for collection_ in self.collection:
             collection_.export(outfile, level, namespace_='mmd-2.0:', name_='collection', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='collection-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('collection=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='collection-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for collection_ in self.collection:
-            showIndent(outfile, level)
-            outfile.write('model_.collection(\n')
-            collection_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            collection_.to_etree(element, name_='collection', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -11797,34 +10662,20 @@ class editor_list(GeneratedsSuper):
             eol_ = ''
         for editor_ in self.editor:
             editor_.export(outfile, level, namespace_='mmd-2.0:', name_='editor', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='editor-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('editor=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='editor-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for editor_ in self.editor:
-            showIndent(outfile, level)
-            outfile.write('model_.editor(\n')
-            editor_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            editor_.to_etree(element, name_='editor', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -12023,142 +10874,38 @@ class entity_list(GeneratedsSuper):
             instrument_.export(outfile, level, namespace_='mmd-2.0:', name_='instrument', pretty_print=pretty_print)
         for series_ in self.series:
             series_.export(outfile, level, namespace_='mmd-2.0:', name_='series', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='entity-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('artist=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='entity-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for artist_ in self.artist:
-            showIndent(outfile, level)
-            outfile.write('model_.artist(\n')
-            artist_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-        showIndent(outfile, level)
-        outfile.write('release=[\n')
-        level += 1
+            artist_.to_etree(element, name_='artist', mapping_=mapping_)
         for release_ in self.release:
-            showIndent(outfile, level)
-            outfile.write('model_.release(\n')
-            release_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-        showIndent(outfile, level)
-        outfile.write('release_group=[\n')
-        level += 1
+            release_.to_etree(element, name_='release', mapping_=mapping_)
         for release_group_ in self.release_group:
-            showIndent(outfile, level)
-            outfile.write('model_.release_group(\n')
-            release_group_.exportLiteral(outfile, level, name_='release-group')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-        showIndent(outfile, level)
-        outfile.write('recording=[\n')
-        level += 1
+            release_group_.to_etree(element, name_='release-group', mapping_=mapping_)
         for recording_ in self.recording:
-            showIndent(outfile, level)
-            outfile.write('model_.recording(\n')
-            recording_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-        showIndent(outfile, level)
-        outfile.write('label=[\n')
-        level += 1
+            recording_.to_etree(element, name_='recording', mapping_=mapping_)
         for label_ in self.label:
-            showIndent(outfile, level)
-            outfile.write('model_.label(\n')
-            label_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-        showIndent(outfile, level)
-        outfile.write('work=[\n')
-        level += 1
+            label_.to_etree(element, name_='label', mapping_=mapping_)
         for work_ in self.work:
-            showIndent(outfile, level)
-            outfile.write('model_.work(\n')
-            work_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-        showIndent(outfile, level)
-        outfile.write('area=[\n')
-        level += 1
+            work_.to_etree(element, name_='work', mapping_=mapping_)
         for area_ in self.area:
-            showIndent(outfile, level)
-            outfile.write('model_.def_area_element_inner(\n')
-            area_.exportLiteral(outfile, level, name_='def_area-element_inner')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-        showIndent(outfile, level)
-        outfile.write('place=[\n')
-        level += 1
+            area_.to_etree(element, name_='area', mapping_=mapping_)
         for place_ in self.place:
-            showIndent(outfile, level)
-            outfile.write('model_.place(\n')
-            place_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-        showIndent(outfile, level)
-        outfile.write('instrument=[\n')
-        level += 1
+            place_.to_etree(element, name_='place', mapping_=mapping_)
         for instrument_ in self.instrument:
-            showIndent(outfile, level)
-            outfile.write('model_.instrument(\n')
-            instrument_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-        showIndent(outfile, level)
-        outfile.write('series=[\n')
-        level += 1
+            instrument_.to_etree(element, name_='instrument', mapping_=mapping_)
         for series_ in self.series:
-            showIndent(outfile, level)
-            outfile.write('model_.series(\n')
-            series_.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            series_.to_etree(element, name_='series', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -12328,30 +11075,29 @@ class cover_art_archive(GeneratedsSuper):
         if self.darkened is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdarkened>%s</%sdarkened>%s' % (namespace_, self.gds_format_string(quote_xml(self.darkened).encode(ExternalEncoding), input_name='darkened'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='cover-art-archive'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='cover-art-archive', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.artwork is not None:
-            showIndent(outfile, level)
-            outfile.write('artwork=%s,\n' % quote_python(self.artwork).encode(ExternalEncoding))
+            artwork_ = self.artwork
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}artwork').text = self.gds_format_string(artwork_)
         if self.count is not None:
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % self.count)
+            count_ = self.count
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}count').text = self.gds_format_integer(count_)
         if self.front is not None:
-            showIndent(outfile, level)
-            outfile.write('front=%s,\n' % quote_python(self.front).encode(ExternalEncoding))
+            front_ = self.front
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}front').text = self.gds_format_string(front_)
         if self.back is not None:
-            showIndent(outfile, level)
-            outfile.write('back=%s,\n' % quote_python(self.back).encode(ExternalEncoding))
+            back_ = self.back
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}back').text = self.gds_format_string(back_)
         if self.darkened is not None:
-            showIndent(outfile, level)
-            outfile.write('darkened=%s,\n' % quote_python(self.darkened).encode(ExternalEncoding))
+            darkened_ = self.darkened
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}darkened').text = self.gds_format_string(darkened_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -12438,16 +11184,14 @@ class artwork(GeneratedsSuper):
         pass
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='artwork', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='artwork'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='artwork', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -12501,16 +11245,14 @@ class front(GeneratedsSuper):
         pass
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='front', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='front'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='front', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -12564,16 +11306,14 @@ class back(GeneratedsSuper):
         pass
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='back', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='back'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='back', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -12627,16 +11367,14 @@ class darkened(GeneratedsSuper):
         pass
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='darkened', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='darkened'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='darkened', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -12708,24 +11446,16 @@ class ipi_list(GeneratedsSuper):
         for ipi_ in self.ipi:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sipi>%s</%sipi>%s' % (namespace_, self.gds_format_string(quote_xml(ipi_).encode(ExternalEncoding), input_name='ipi'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='ipi-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('ipi=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='ipi-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for ipi_ in self.ipi:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(ipi_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}ipi').text = self.gds_format_string(ipi_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -12783,16 +11513,14 @@ class ended(GeneratedsSuper):
         pass
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='ended', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='ended'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='ended', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -12846,16 +11574,14 @@ class video(GeneratedsSuper):
         pass
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='video', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='video'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='video', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -12924,24 +11650,16 @@ class iso_3166_1_code_list(GeneratedsSuper):
         for iso_3166_1_code_ in self.iso_3166_1_code:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%siso-3166-1-code>%s</%siso-3166-1-code>%s' % (namespace_, self.gds_format_string(quote_xml(iso_3166_1_code_).encode(ExternalEncoding), input_name='iso-3166-1-code'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='iso-3166-1-code-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('iso_3166_1_code=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='iso-3166-1-code-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for iso_3166_1_code_ in self.iso_3166_1_code:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(iso_3166_1_code_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}iso-3166-1-code').text = self.gds_format_string(iso_3166_1_code_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -13013,24 +11731,16 @@ class iso_3166_2_code_list(GeneratedsSuper):
         for iso_3166_2_code_ in self.iso_3166_2_code:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%siso-3166-2-code>%s</%siso-3166-2-code>%s' % (namespace_, self.gds_format_string(quote_xml(iso_3166_2_code_).encode(ExternalEncoding), input_name='iso-3166-2-code'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='iso-3166-2-code-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('iso_3166_2_code=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='iso-3166-2-code-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for iso_3166_2_code_ in self.iso_3166_2_code:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(iso_3166_2_code_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}iso-3166-2-code').text = self.gds_format_string(iso_3166_2_code_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -13102,24 +11812,16 @@ class iso_3166_3_code_list(GeneratedsSuper):
         for iso_3166_3_code_ in self.iso_3166_3_code:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%siso-3166-3-code>%s</%siso-3166-3-code>%s' % (namespace_, self.gds_format_string(quote_xml(iso_3166_3_code_).encode(ExternalEncoding), input_name='iso-3166-3-code'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='iso-3166-3-code-list'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('iso_3166_3_code=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='iso-3166-3-code-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for iso_3166_3_code_ in self.iso_3166_3_code:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(iso_3166_3_code_).encode(ExternalEncoding))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}iso-3166-3-code').text = self.gds_format_string(iso_3166_3_code_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -13190,27 +11892,16 @@ class attribute_listType(GeneratedsSuper):
             eol_ = ''
         for attribute_ in self.attribute:
             attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='attribute-listType'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('attribute=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='attribute-listType', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for attribute_ in self.attribute:
-            showIndent(outfile, level)
-            outfile.write('model_.attributeType(\n')
-            attribute_.exportLiteral(outfile, level, name_='attributeType')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            attribute_.to_etree(element, name_='attribute', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -13282,21 +11973,16 @@ class attributeType(GeneratedsSuper):
             outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_).encode(ExternalEncoding), input_name='type'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='attributeType'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='attributeType', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -13376,27 +12062,16 @@ class attribute_listType1(GeneratedsSuper):
             eol_ = ''
         for attribute_ in self.attribute:
             attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='attribute-listType1'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('attribute=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='attribute-listType1', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for attribute_ in self.attribute:
-            showIndent(outfile, level)
-            outfile.write('model_.attributeType2(\n')
-            attribute_.exportLiteral(outfile, level, name_='attributeType2')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            attribute_.to_etree(element, name_='attribute', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -13468,21 +12143,16 @@ class attributeType2(GeneratedsSuper):
             outfile.write(' value=%s' % (self.gds_format_string(quote_attrib(self.value).encode(ExternalEncoding), input_name='value'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType2', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='attributeType2'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.value is not None and 'value' not in already_processed:
-            already_processed.add('value')
-            showIndent(outfile, level)
-            outfile.write('value="%s",\n' % (self.value,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='attributeType2', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.value is not None:
+            element.set('value', self.gds_format_string(self.value))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -13568,28 +12238,21 @@ class track_listType(GeneratedsSuper):
             eol_ = ''
         if self.track is not None:
             self.track.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='track-listType'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='track-listType', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         if self.track is not None:
-            showIndent(outfile, level)
-            outfile.write('track=model_.trackType19(\n')
-            self.track.exportLiteral(outfile, level, name_='track')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            track_ = self.track
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -13712,42 +12375,34 @@ class trackType(GeneratedsSuper):
             self.artist_credit.export(outfile, level, namespace_='mmd-2.0:', name_='artist-credit', pretty_print=pretty_print)
         if self.recording is not None:
             self.recording.export(outfile, level, namespace_='mmd-2.0:', name_='recording', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='trackType'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='trackType', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.position is not None:
-            showIndent(outfile, level)
-            outfile.write('position=%d,\n' % self.position)
+            position_ = self.position
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}position').text = self.gds_format_integer(position_)
         if self.number is not None:
-            showIndent(outfile, level)
-            outfile.write('number=%s,\n' % quote_python(self.number).encode(ExternalEncoding))
+            number_ = self.number
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}number').text = self.gds_format_string(number_)
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.length is not None:
-            showIndent(outfile, level)
-            outfile.write('length=%d,\n' % self.length)
+            length_ = self.length
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
         if self.artist_credit is not None:
-            showIndent(outfile, level)
-            outfile.write('artist_credit=model_.artist_credit(\n')
-            self.artist_credit.exportLiteral(outfile, level, name_='artist_credit')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            artist_credit_ = self.artist_credit
+            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
         if self.recording is not None:
-            showIndent(outfile, level)
-            outfile.write('recording=model_.recording(\n')
-            self.recording.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            recording_ = self.recording
+            recording_.to_etree(element, name_='recording', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -13861,28 +12516,21 @@ class track_listType3(GeneratedsSuper):
             eol_ = ''
         if self.track is not None:
             self.track.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='track-listType3'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='track-listType3', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         if self.track is not None:
-            showIndent(outfile, level)
-            outfile.write('track=model_.trackType22(\n')
-            self.track.exportLiteral(outfile, level, name_='track')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            track_ = self.track
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -13977,28 +12625,21 @@ class track_listType4(GeneratedsSuper):
             eol_ = ''
         if self.track is not None:
             self.track.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='track-listType4'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='track-listType4', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         if self.track is not None:
-            showIndent(outfile, level)
-            outfile.write('track=model_.trackType22(\n')
-            self.track.exportLiteral(outfile, level, name_='track')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            track_ = self.track
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -14097,24 +12738,23 @@ class trackType5(GeneratedsSuper):
         if self.length is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='trackType5'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='trackType5', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.artist is not None:
-            showIndent(outfile, level)
-            outfile.write('artist=%s,\n' % quote_python(self.artist).encode(ExternalEncoding))
+            artist_ = self.artist
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}artist').text = self.gds_format_string(artist_)
         if self.length is not None:
-            showIndent(outfile, level)
-            outfile.write('length=%d,\n' % self.length)
+            length_ = self.length
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -14194,21 +12834,16 @@ class languageType(GeneratedsSuper):
             outfile.write(' fluency=%s' % (self.gds_format_string(quote_attrib(self.fluency).encode(ExternalEncoding), input_name='fluency'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='languageType', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='languageType'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.fluency is not None and 'fluency' not in already_processed:
-            already_processed.add('fluency')
-            showIndent(outfile, level)
-            outfile.write('fluency="%s",\n' % (self.fluency,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='languageType', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.fluency is not None:
+            element.set('fluency', self.gds_format_string(self.fluency))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -14292,34 +12927,20 @@ class track_listType6(GeneratedsSuper):
             eol_ = ''
         for track_ in self.track:
             track_.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='track-listType6'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('track=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='track-listType6', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for track_ in self.track:
-            showIndent(outfile, level)
-            outfile.write('model_.trackType7(\n')
-            track_.exportLiteral(outfile, level, name_='trackType7')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -14442,42 +13063,34 @@ class trackType7(GeneratedsSuper):
             self.artist_credit.export(outfile, level, namespace_='mmd-2.0:', name_='artist-credit', pretty_print=pretty_print)
         if self.recording is not None:
             self.recording.export(outfile, level, namespace_='mmd-2.0:', name_='recording', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='trackType7'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='trackType7', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.position is not None:
-            showIndent(outfile, level)
-            outfile.write('position=%d,\n' % self.position)
+            position_ = self.position
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}position').text = self.gds_format_integer(position_)
         if self.number is not None:
-            showIndent(outfile, level)
-            outfile.write('number=%s,\n' % quote_python(self.number).encode(ExternalEncoding))
+            number_ = self.number
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}number').text = self.gds_format_string(number_)
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.length is not None:
-            showIndent(outfile, level)
-            outfile.write('length=%d,\n' % self.length)
+            length_ = self.length
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
         if self.artist_credit is not None:
-            showIndent(outfile, level)
-            outfile.write('artist_credit=model_.artist_credit(\n')
-            self.artist_credit.exportLiteral(outfile, level, name_='artist_credit')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            artist_credit_ = self.artist_credit
+            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
         if self.recording is not None:
-            showIndent(outfile, level)
-            outfile.write('recording=model_.recording(\n')
-            self.recording.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            recording_ = self.recording
+            recording_.to_etree(element, name_='recording', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -14596,34 +13209,20 @@ class track_listType8(GeneratedsSuper):
             eol_ = ''
         for track_ in self.track:
             track_.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='track-listType8'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('track=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='track-listType8', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for track_ in self.track:
-            showIndent(outfile, level)
-            outfile.write('model_.trackType9(\n')
-            track_.exportLiteral(outfile, level, name_='trackType9')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -14722,24 +13321,23 @@ class trackType9(GeneratedsSuper):
         if self.length is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='trackType9'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='trackType9', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.artist is not None:
-            showIndent(outfile, level)
-            outfile.write('artist=%s,\n' % quote_python(self.artist).encode(ExternalEncoding))
+            artist_ = self.artist
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}artist').text = self.gds_format_string(artist_)
         if self.length is not None:
-            showIndent(outfile, level)
-            outfile.write('length=%d,\n' % self.length)
+            length_ = self.length
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -14824,27 +13422,16 @@ class attribute_listType10(GeneratedsSuper):
             eol_ = ''
         for attribute_ in self.attribute:
             attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='attribute-listType10'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('attribute=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='attribute-listType10', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for attribute_ in self.attribute:
-            showIndent(outfile, level)
-            outfile.write('model_.attributeType11(\n')
-            attribute_.exportLiteral(outfile, level, name_='attributeType11')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            attribute_.to_etree(element, name_='attribute', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -14916,21 +13503,16 @@ class attributeType11(GeneratedsSuper):
             outfile.write(' value=%s' % (self.gds_format_string(quote_attrib(self.value).encode(ExternalEncoding), input_name='value'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType11', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='attributeType11'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.value is not None and 'value' not in already_processed:
-            already_processed.add('value')
-            showIndent(outfile, level)
-            outfile.write('value="%s",\n' % (self.value,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='attributeType11', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.value is not None:
+            element.set('value', self.gds_format_string(self.value))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -15010,27 +13592,16 @@ class attribute_listType12(GeneratedsSuper):
             eol_ = ''
         for attribute_ in self.attribute:
             attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='attribute-listType12'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('attribute=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='attribute-listType12', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for attribute_ in self.attribute:
-            showIndent(outfile, level)
-            outfile.write('model_.attributeType13(\n')
-            attribute_.exportLiteral(outfile, level, name_='attributeType13')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            attribute_.to_etree(element, name_='attribute', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -15102,21 +13673,16 @@ class attributeType13(GeneratedsSuper):
             outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_).encode(ExternalEncoding), input_name='type'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType13', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='attributeType13'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='attributeType13', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -15196,27 +13762,16 @@ class attribute_listType14(GeneratedsSuper):
             eol_ = ''
         for attribute_ in self.attribute:
             attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='attribute-listType14'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('attribute=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='attribute-listType14', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for attribute_ in self.attribute:
-            showIndent(outfile, level)
-            outfile.write('model_.attributeType15(\n')
-            attribute_.exportLiteral(outfile, level, name_='attributeType15')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            attribute_.to_etree(element, name_='attribute', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -15288,21 +13843,16 @@ class attributeType15(GeneratedsSuper):
             outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_).encode(ExternalEncoding), input_name='type'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType15', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='attributeType15'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='attributeType15', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -15382,27 +13932,16 @@ class attribute_listType16(GeneratedsSuper):
             eol_ = ''
         for attribute_ in self.attribute:
             attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='attribute-listType16'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('attribute=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='attribute-listType16', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for attribute_ in self.attribute:
-            showIndent(outfile, level)
-            outfile.write('model_.attributeType17(\n')
-            attribute_.exportLiteral(outfile, level, name_='attributeType17')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            attribute_.to_etree(element, name_='attribute', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -15474,21 +14013,16 @@ class attributeType17(GeneratedsSuper):
             outfile.write(' value=%s' % (self.gds_format_string(quote_attrib(self.value).encode(ExternalEncoding), input_name='value'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType17', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='attributeType17'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.value is not None and 'value' not in already_processed:
-            already_processed.add('value')
-            showIndent(outfile, level)
-            outfile.write('value="%s",\n' % (self.value,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='attributeType17', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.value is not None:
+            element.set('value', self.gds_format_string(self.value))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -15574,28 +14108,21 @@ class track_listType18(GeneratedsSuper):
             eol_ = ''
         if self.track is not None:
             self.track.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='track-listType18'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='track-listType18', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         if self.track is not None:
-            showIndent(outfile, level)
-            outfile.write('track=model_.trackType19(\n')
-            self.track.exportLiteral(outfile, level, name_='track')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            track_ = self.track
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -15718,42 +14245,34 @@ class trackType19(GeneratedsSuper):
             self.artist_credit.export(outfile, level, namespace_='mmd-2.0:', name_='artist-credit', pretty_print=pretty_print)
         if self.recording is not None:
             self.recording.export(outfile, level, namespace_='mmd-2.0:', name_='recording', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='trackType19'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='trackType19', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.position is not None:
-            showIndent(outfile, level)
-            outfile.write('position=%d,\n' % self.position)
+            position_ = self.position
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}position').text = self.gds_format_integer(position_)
         if self.number is not None:
-            showIndent(outfile, level)
-            outfile.write('number=%s,\n' % quote_python(self.number).encode(ExternalEncoding))
+            number_ = self.number
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}number').text = self.gds_format_string(number_)
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.length is not None:
-            showIndent(outfile, level)
-            outfile.write('length=%d,\n' % self.length)
+            length_ = self.length
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
         if self.artist_credit is not None:
-            showIndent(outfile, level)
-            outfile.write('artist_credit=model_.artist_credit(\n')
-            self.artist_credit.exportLiteral(outfile, level, name_='artist_credit')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            artist_credit_ = self.artist_credit
+            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
         if self.recording is not None:
-            showIndent(outfile, level)
-            outfile.write('recording=model_.recording(\n')
-            self.recording.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            recording_ = self.recording
+            recording_.to_etree(element, name_='recording', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -15867,28 +14386,21 @@ class track_listType20(GeneratedsSuper):
             eol_ = ''
         if self.track is not None:
             self.track.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='track-listType20'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='track-listType20', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         if self.track is not None:
-            showIndent(outfile, level)
-            outfile.write('track=model_.trackType22(\n')
-            self.track.exportLiteral(outfile, level, name_='track')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            track_ = self.track
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -15983,28 +14495,21 @@ class track_listType21(GeneratedsSuper):
             eol_ = ''
         if self.track is not None:
             self.track.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='track-listType21'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='track-listType21', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         if self.track is not None:
-            showIndent(outfile, level)
-            outfile.write('track=model_.trackType22(\n')
-            self.track.exportLiteral(outfile, level, name_='track')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            track_ = self.track
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -16103,24 +14608,23 @@ class trackType22(GeneratedsSuper):
         if self.length is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='trackType22'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='trackType22', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.artist is not None:
-            showIndent(outfile, level)
-            outfile.write('artist=%s,\n' % quote_python(self.artist).encode(ExternalEncoding))
+            artist_ = self.artist
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}artist').text = self.gds_format_string(artist_)
         if self.length is not None:
-            showIndent(outfile, level)
-            outfile.write('length=%d,\n' % self.length)
+            length_ = self.length
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -16200,21 +14704,16 @@ class languageType23(GeneratedsSuper):
             outfile.write(' fluency=%s' % (self.gds_format_string(quote_attrib(self.fluency).encode(ExternalEncoding), input_name='fluency'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='languageType23', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='languageType23'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.fluency is not None and 'fluency' not in already_processed:
-            already_processed.add('fluency')
-            showIndent(outfile, level)
-            outfile.write('fluency="%s",\n' % (self.fluency,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='languageType23', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.fluency is not None:
+            element.set('fluency', self.gds_format_string(self.fluency))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -16298,34 +14797,20 @@ class track_listType24(GeneratedsSuper):
             eol_ = ''
         for track_ in self.track:
             track_.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='track-listType24'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('track=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='track-listType24', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for track_ in self.track:
-            showIndent(outfile, level)
-            outfile.write('model_.trackType25(\n')
-            track_.exportLiteral(outfile, level, name_='trackType25')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -16448,42 +14933,34 @@ class trackType25(GeneratedsSuper):
             self.artist_credit.export(outfile, level, namespace_='mmd-2.0:', name_='artist-credit', pretty_print=pretty_print)
         if self.recording is not None:
             self.recording.export(outfile, level, namespace_='mmd-2.0:', name_='recording', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='trackType25'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            showIndent(outfile, level)
-            outfile.write('id="%s",\n' % (self.id,))
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='trackType25', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
         if self.position is not None:
-            showIndent(outfile, level)
-            outfile.write('position=%d,\n' % self.position)
+            position_ = self.position
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}position').text = self.gds_format_integer(position_)
         if self.number is not None:
-            showIndent(outfile, level)
-            outfile.write('number=%s,\n' % quote_python(self.number).encode(ExternalEncoding))
+            number_ = self.number
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}number').text = self.gds_format_string(number_)
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.length is not None:
-            showIndent(outfile, level)
-            outfile.write('length=%d,\n' % self.length)
+            length_ = self.length
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
         if self.artist_credit is not None:
-            showIndent(outfile, level)
-            outfile.write('artist_credit=model_.artist_credit(\n')
-            self.artist_credit.exportLiteral(outfile, level, name_='artist_credit')
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            artist_credit_ = self.artist_credit
+            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
         if self.recording is not None:
-            showIndent(outfile, level)
-            outfile.write('recording=model_.recording(\n')
-            self.recording.exportLiteral(outfile, level)
-            showIndent(outfile, level)
-            outfile.write('),\n')
+            recording_ = self.recording
+            recording_.to_etree(element, name_='recording', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -16602,34 +15079,20 @@ class track_listType26(GeneratedsSuper):
             eol_ = ''
         for track_ in self.track:
             track_.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='track-listType26'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            showIndent(outfile, level)
-            outfile.write('count=%d,\n' % (self.count,))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            showIndent(outfile, level)
-            outfile.write('offset=%d,\n' % (self.offset,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('track=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='track-listType26', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
         for track_ in self.track:
-            showIndent(outfile, level)
-            outfile.write('model_.trackType27(\n')
-            track_.exportLiteral(outfile, level, name_='trackType27')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -16728,24 +15191,23 @@ class trackType27(GeneratedsSuper):
         if self.length is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='trackType27'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
+    def to_etree(self, parent_element=None, name_='trackType27', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.title is not None:
-            showIndent(outfile, level)
-            outfile.write('title=%s,\n' % quote_python(self.title).encode(ExternalEncoding))
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
         if self.artist is not None:
-            showIndent(outfile, level)
-            outfile.write('artist=%s,\n' % quote_python(self.artist).encode(ExternalEncoding))
+            artist_ = self.artist
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}artist').text = self.gds_format_string(artist_)
         if self.length is not None:
-            showIndent(outfile, level)
-            outfile.write('length=%d,\n' % self.length)
+            length_ = self.length
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -16830,27 +15292,16 @@ class attribute_listType28(GeneratedsSuper):
             eol_ = ''
         for attribute_ in self.attribute:
             attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='attribute-listType28'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('attribute=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='attribute-listType28', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for attribute_ in self.attribute:
-            showIndent(outfile, level)
-            outfile.write('model_.attributeType29(\n')
-            attribute_.exportLiteral(outfile, level, name_='attributeType29')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            attribute_.to_etree(element, name_='attribute', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -16922,21 +15373,16 @@ class attributeType29(GeneratedsSuper):
             outfile.write(' value=%s' % (self.gds_format_string(quote_attrib(self.value).encode(ExternalEncoding), input_name='value'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType29', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='attributeType29'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.value is not None and 'value' not in already_processed:
-            already_processed.add('value')
-            showIndent(outfile, level)
-            outfile.write('value="%s",\n' % (self.value,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='attributeType29', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.value is not None:
+            element.set('value', self.gds_format_string(self.value))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -17016,27 +15462,16 @@ class attribute_listType30(GeneratedsSuper):
             eol_ = ''
         for attribute_ in self.attribute:
             attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
-    def exportLiteral(self, outfile, level, name_='attribute-listType30'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('attribute=[\n')
-        level += 1
+    def to_etree(self, parent_element=None, name_='attribute-listType30', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         for attribute_ in self.attribute:
-            showIndent(outfile, level)
-            outfile.write('model_.attributeType31(\n')
-            attribute_.exportLiteral(outfile, level, name_='attributeType31')
-            showIndent(outfile, level)
-            outfile.write('),\n')
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
+            attribute_.to_etree(element, name_='attribute', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -17108,21 +15543,16 @@ class attributeType31(GeneratedsSuper):
             outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_).encode(ExternalEncoding), input_name='type'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType31', fromsubclass_=False, pretty_print=True):
         pass
-    def exportLiteral(self, outfile, level, name_='attributeType31'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-        showIndent(outfile, level)
-        outfile.write('valueOf_ = """%s""",\n' % (self.valueOf_,))
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            showIndent(outfile, level)
-            outfile.write('type_="%s",\n' % (self.type_,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        pass
+    def to_etree(self, parent_element=None, name_='attributeType31', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
