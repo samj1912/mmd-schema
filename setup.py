@@ -26,22 +26,22 @@ def update_version_py():
                               "--tags", "--dirty", "--always"],
                              stdout=subprocess.PIPE)
     except EnvironmentError:
-        print("unable to run git, leaving mb/__init__.py alone")
+        print("unable to run git, leaving mbrng/__init__.py alone")
         return
     stdout = p.communicate()[0]
     if p.returncode != 0:
-        print("unable to run git, leaving mb/__init__.py alone")
+        print("unable to run git, leaving mbrng/__init__.py alone")
         return
     ver = stdout.strip()
-    f = open("mb/__init__.py", "w")
+    f = open("mbrng/__init__.py", "w")
     f.write(VERSION_PY % ver)
     f.close()
-    print("set mb/__init__.py to '%s'" % ver)
+    print("set mbrng/__init__.py to '%s'" % ver)
 
 
 def get_version():
     try:
-        f = open("mb/__init__.py")
+        f = open("mbrng/__init__.py")
     except IOError, e:
         import errno
         if e.errno == errno.ENOENT:
@@ -58,7 +58,7 @@ def get_version():
 
 
 class Version(Command):
-    description = "update mb/__init__.py from Git repo"
+    description = "update mbrng/__init__.py from Git repo"
     user_options = []
     boolean_options = []
 
@@ -96,8 +96,8 @@ setup(name="mb-rngpy",
       version=get_version(),
       author="Wieland Hoffmann",
       author_email="themineo@gmail.com",
-      packages=["mb"],
-      package_dir={"mb": "mb"},
+      packages=["mbrng"],
+      package_dir={"mbrng": "mbrng"},
       download_url=["https://github.com/mineo/mb-rngpy/tarball/master"],
       url=["http://github.com/mineo/mb-rngpy"],
       license="MIT",
