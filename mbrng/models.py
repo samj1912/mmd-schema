@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Thu Jul 24 15:07:03 2014 by generateDS.py version 2.12d.
+# Generated Mon Dec 22 21:23:13 2014 by generateDS.py version 2.12d.
 #
 # Command line options:
 #   ('-o', 'mbrng/models.py')
@@ -630,7 +630,7 @@ def _cast(typ, value):
 class metadata(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, generator=None, created=None, artist=None, release=None, release_group=None, recording=None, label=None, work=None, area=None, place=None, instrument=None, series=None, url=None, puid=None, isrc=None, disc=None, rating=None, user_rating=None, collection=None, editor=None, artist_list=None, release_list=None, release_group_list=None, recording_list=None, label_list=None, work_list=None, area_list=None, place_list=None, instrument_list=None, series_list=None, url_list=None, isrc_list=None, annotation_list=None, cdstub_list=None, freedb_disc_list=None, tag_list=None, user_tag_list=None, collection_list=None, editor_list=None, entity_list=None, anytypeobjs_=None):
+    def __init__(self, generator=None, created=None, artist=None, release=None, release_group=None, recording=None, label=None, work=None, area=None, place=None, instrument=None, series=None, event=None, url=None, puid=None, isrc=None, disc=None, rating=None, user_rating=None, collection=None, editor=None, artist_list=None, release_list=None, release_group_list=None, recording_list=None, label_list=None, work_list=None, area_list=None, place_list=None, instrument_list=None, series_list=None, event_list=None, url_list=None, isrc_list=None, annotation_list=None, cdstub_list=None, freedb_disc_list=None, tag_list=None, user_tag_list=None, collection_list=None, editor_list=None, entity_list=None, anytypeobjs_=None):
         self.original_tagname_ = None
         self.generator = _cast(None, generator)
         if isinstance(created, basestring):
@@ -648,6 +648,7 @@ class metadata(GeneratedsSuper):
         self.place = place
         self.instrument = instrument
         self.series = series
+        self.event = event
         self.url = url
         self.puid = puid
         self.isrc = isrc
@@ -666,6 +667,7 @@ class metadata(GeneratedsSuper):
         self.place_list = place_list
         self.instrument_list = instrument_list
         self.series_list = series_list
+        self.event_list = event_list
         self.url_list = url_list
         self.isrc_list = isrc_list
         self.annotation_list = annotation_list
@@ -703,6 +705,8 @@ class metadata(GeneratedsSuper):
     def set_instrument(self, instrument): self.instrument = instrument
     def get_series(self): return self.series
     def set_series(self, series): self.series = series
+    def get_event(self): return self.event
+    def set_event(self, event): self.event = event
     def get_url(self): return self.url
     def set_url(self, url): self.url = url
     def get_puid(self): return self.puid
@@ -739,6 +743,8 @@ class metadata(GeneratedsSuper):
     def set_instrument_list(self, instrument_list): self.instrument_list = instrument_list
     def get_series_list(self): return self.series_list
     def set_series_list(self, series_list): self.series_list = series_list
+    def get_event_list(self): return self.event_list
+    def set_event_list(self, event_list): self.event_list = event_list
     def get_url_list(self): return self.url_list
     def set_url_list(self, url_list): self.url_list = url_list
     def get_isrc_list(self): return self.isrc_list
@@ -777,6 +783,7 @@ class metadata(GeneratedsSuper):
             self.place is not None or
             self.instrument is not None or
             self.series is not None or
+            self.event is not None or
             self.url is not None or
             self.puid is not None or
             self.isrc is not None or
@@ -795,6 +802,7 @@ class metadata(GeneratedsSuper):
             self.place_list is not None or
             self.instrument_list is not None or
             self.series_list is not None or
+            self.event_list is not None or
             self.url_list is not None or
             self.isrc_list is not None or
             self.annotation_list is not None or
@@ -860,6 +868,8 @@ class metadata(GeneratedsSuper):
             self.instrument.export(outfile, level, namespace_='mmd-2.0:', name_='instrument', pretty_print=pretty_print)
         if self.series is not None:
             self.series.export(outfile, level, namespace_='mmd-2.0:', name_='series', pretty_print=pretty_print)
+        if self.event is not None:
+            self.event.export(outfile, level, namespace_='mmd-2.0:', name_='event', pretty_print=pretty_print)
         if self.url is not None:
             self.url.export(outfile, level, namespace_='mmd-2.0:', name_='url', pretty_print=pretty_print)
         if self.puid is not None:
@@ -897,6 +907,8 @@ class metadata(GeneratedsSuper):
             self.instrument_list.export(outfile, level, namespace_='mmd-2.0:', name_='instrument-list', pretty_print=pretty_print)
         if self.series_list is not None:
             self.series_list.export(outfile, level, namespace_='mmd-2.0:', name_='series-list', pretty_print=pretty_print)
+        if self.event_list is not None:
+            self.event_list.export(outfile, level, namespace_='mmd-2.0:', name_='event-list', pretty_print=pretty_print)
         if self.url_list is not None:
             self.url_list.export(outfile, level, namespace_='mmd-2.0:', name_='url-list', pretty_print=pretty_print)
         if self.isrc_list is not None:
@@ -958,6 +970,9 @@ class metadata(GeneratedsSuper):
         if self.series is not None:
             series_ = self.series
             series_.to_etree(element, name_='series', mapping_=mapping_)
+        if self.event is not None:
+            event_ = self.event
+            event_.to_etree(element, name_='event', mapping_=mapping_)
         if self.url is not None:
             url_ = self.url
             url_.to_etree(element, name_='url', mapping_=mapping_)
@@ -1012,6 +1027,9 @@ class metadata(GeneratedsSuper):
         if self.series_list is not None:
             series_list_ = self.series_list
             series_list_.to_etree(element, name_='series-list', mapping_=mapping_)
+        if self.event_list is not None:
+            event_list_ = self.event_list
+            event_list_.to_etree(element, name_='event-list', mapping_=mapping_)
         if self.url_list is not None:
             url_list_ = self.url_list
             url_list_.to_etree(element, name_='url-list', mapping_=mapping_)
@@ -1117,6 +1135,11 @@ class metadata(GeneratedsSuper):
             obj_.build(child_)
             self.series = obj_
             obj_.original_tagname_ = 'series'
+        elif nodeName_ == 'event':
+            obj_ = event.factory()
+            obj_.build(child_)
+            self.event = obj_
+            obj_.original_tagname_ = 'event'
         elif nodeName_ == 'url':
             obj_ = url.factory()
             obj_.build(child_)
@@ -1212,6 +1235,11 @@ class metadata(GeneratedsSuper):
             obj_.build(child_)
             self.series_list = obj_
             obj_.original_tagname_ = 'series-list'
+        elif nodeName_ == 'event-list':
+            obj_ = event_list.factory()
+            obj_.build(child_)
+            self.event_list = obj_
+            obj_.original_tagname_ = 'event-list'
         elif nodeName_ == 'url-list':
             obj_ = url_list.factory()
             obj_.build(child_)
@@ -3722,7 +3750,7 @@ class work(GeneratedsSuper):
 class def_area_element_inner(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, type_=None, id=None, name=None, sort_name=None, disambiguation=None, iso_3166_1_code_list=None, iso_3166_2_code_list=None, iso_3166_3_code_list=None, annotation=None, life_span=None, alias_list=None, relation_list=None, anytypeobjs_=None):
+    def __init__(self, type_=None, id=None, name=None, sort_name=None, disambiguation=None, iso_3166_1_code_list=None, iso_3166_2_code_list=None, iso_3166_3_code_list=None, annotation=None, life_span=None, alias_list=None, relation_list=None, tag_list=None, user_tag_list=None, anytypeobjs_=None):
         self.original_tagname_ = None
         self.type_ = _cast(None, type_)
         self.id = _cast(None, id)
@@ -3739,6 +3767,8 @@ class def_area_element_inner(GeneratedsSuper):
             self.relation_list = []
         else:
             self.relation_list = relation_list
+        self.tag_list = tag_list
+        self.user_tag_list = user_tag_list
         self.anytypeobjs_ = anytypeobjs_
     def factory(*args_, **kwargs_):
         if def_area_element_inner.subclass:
@@ -3768,6 +3798,10 @@ class def_area_element_inner(GeneratedsSuper):
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
     def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def get_tag_list(self): return self.tag_list
+    def set_tag_list(self, tag_list): self.tag_list = tag_list
+    def get_user_tag_list(self): return self.user_tag_list
+    def set_user_tag_list(self, user_tag_list): self.user_tag_list = user_tag_list
     def get_anytypeobjs_(self): return self.anytypeobjs_
     def set_anytypeobjs_(self, anytypeobjs_): self.anytypeobjs_ = anytypeobjs_
     def get_type(self): return self.type_
@@ -3786,6 +3820,8 @@ class def_area_element_inner(GeneratedsSuper):
             self.life_span is not None or
             self.alias_list is not None or
             self.relation_list or
+            self.tag_list is not None or
+            self.user_tag_list is not None or
             self.anytypeobjs_ is not None
         ):
             return True
@@ -3844,6 +3880,10 @@ class def_area_element_inner(GeneratedsSuper):
             self.alias_list.export(outfile, level, namespace_='mmd-2.0:', name_='alias-list', pretty_print=pretty_print)
         for relation_list_ in self.relation_list:
             relation_list_.export(outfile, level, namespace_='mmd-2.0:', name_='relation-list', pretty_print=pretty_print)
+        if self.tag_list is not None:
+            self.tag_list.export(outfile, level, namespace_='mmd-2.0:', name_='tag-list', pretty_print=pretty_print)
+        if self.user_tag_list is not None:
+            self.user_tag_list.export(outfile, level, namespace_='mmd-2.0:', name_='user-tag-list', pretty_print=pretty_print)
         if self.anytypeobjs_ is not None:
             self.anytypeobjs_.export(outfile, level, namespace_, pretty_print=pretty_print)
     def to_etree(self, parent_element=None, name_='def_area-element_inner', mapping_=None):
@@ -3884,6 +3924,12 @@ class def_area_element_inner(GeneratedsSuper):
             alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
             relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
+        if self.tag_list is not None:
+            tag_list_ = self.tag_list
+            tag_list_.to_etree(element, name_='tag-list', mapping_=mapping_)
+        if self.user_tag_list is not None:
+            user_tag_list_ = self.user_tag_list
+            user_tag_list_.to_etree(element, name_='user-tag-list', mapping_=mapping_)
         if self.anytypeobjs_ is not None:
             self.anytypeobjs_.to_etree(element)
         if mapping_ is not None:
@@ -3953,6 +3999,16 @@ class def_area_element_inner(GeneratedsSuper):
             obj_.build(child_)
             self.relation_list.append(obj_)
             obj_.original_tagname_ = 'relation-list'
+        elif nodeName_ == 'tag-list':
+            obj_ = tag_list.factory()
+            obj_.build(child_)
+            self.tag_list = obj_
+            obj_.original_tagname_ = 'tag-list'
+        elif nodeName_ == 'user-tag-list':
+            obj_ = user_tag_list.factory()
+            obj_.build(child_)
+            self.user_tag_list = obj_
+            obj_.original_tagname_ = 'user-tag-list'
         else:
             obj_ = self.gds_build_any(child_, 'def_area-element_inner')
             if obj_ is not None:
@@ -4315,7 +4371,7 @@ class coordinates(GeneratedsSuper):
 class instrument(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, type_=None, id=None, name=None, disambiguation=None, description=None, annotation=None, alias_list=None, relation_list=None, def_extension_element=None):
+    def __init__(self, type_=None, id=None, name=None, disambiguation=None, description=None, annotation=None, alias_list=None, relation_list=None, tag_list=None, user_tag_list=None, def_extension_element=None):
         self.original_tagname_ = None
         self.type_ = _cast(None, type_)
         self.id = _cast(None, id)
@@ -4328,6 +4384,8 @@ class instrument(GeneratedsSuper):
             self.relation_list = []
         else:
             self.relation_list = relation_list
+        self.tag_list = tag_list
+        self.user_tag_list = user_tag_list
         if def_extension_element is None:
             self.def_extension_element = []
         else:
@@ -4352,6 +4410,10 @@ class instrument(GeneratedsSuper):
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
     def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def get_tag_list(self): return self.tag_list
+    def set_tag_list(self, tag_list): self.tag_list = tag_list
+    def get_user_tag_list(self): return self.user_tag_list
+    def set_user_tag_list(self, user_tag_list): self.user_tag_list = user_tag_list
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
@@ -4368,6 +4430,8 @@ class instrument(GeneratedsSuper):
             self.annotation is not None or
             self.alias_list is not None or
             self.relation_list or
+            self.tag_list is not None or
+            self.user_tag_list is not None or
             self.def_extension_element
         ):
             return True
@@ -4418,6 +4482,10 @@ class instrument(GeneratedsSuper):
             self.alias_list.export(outfile, level, namespace_='mmd-2.0:', name_='alias-list', pretty_print=pretty_print)
         for relation_list_ in self.relation_list:
             relation_list_.export(outfile, level, namespace_='mmd-2.0:', name_='relation-list', pretty_print=pretty_print)
+        if self.tag_list is not None:
+            self.tag_list.export(outfile, level, namespace_='mmd-2.0:', name_='tag-list', pretty_print=pretty_print)
+        if self.user_tag_list is not None:
+            self.user_tag_list.export(outfile, level, namespace_='mmd-2.0:', name_='user-tag-list', pretty_print=pretty_print)
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
@@ -4447,6 +4515,12 @@ class instrument(GeneratedsSuper):
             alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
             relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
+        if self.tag_list is not None:
+            tag_list_ = self.tag_list
+            tag_list_.to_etree(element, name_='tag-list', mapping_=mapping_)
+        if self.user_tag_list is not None:
+            user_tag_list_ = self.user_tag_list
+            user_tag_list_.to_etree(element, name_='user-tag-list', mapping_=mapping_)
         for def_extension_element_ in self.def_extension_element:
             etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
         if mapping_ is not None:
@@ -4496,6 +4570,16 @@ class instrument(GeneratedsSuper):
             obj_.build(child_)
             self.relation_list.append(obj_)
             obj_.original_tagname_ = 'relation-list'
+        elif nodeName_ == 'tag-list':
+            obj_ = tag_list.factory()
+            obj_.build(child_)
+            self.tag_list = obj_
+            obj_.original_tagname_ = 'tag-list'
+        elif nodeName_ == 'user-tag-list':
+            obj_ = user_tag_list.factory()
+            obj_.build(child_)
+            self.user_tag_list = obj_
+            obj_.original_tagname_ = 'user-tag-list'
         elif nodeName_ == 'def_extension_element':
             def_extension_element_ = child_.text
             def_extension_element_ = self.gds_validate_string(def_extension_element_, node, 'def_extension_element')
@@ -4506,7 +4590,7 @@ class instrument(GeneratedsSuper):
 class series(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, type_=None, id=None, name=None, disambiguation=None, ordering_attribute=None, annotation=None, alias_list=None, relation_list=None, def_extension_element=None):
+    def __init__(self, type_=None, id=None, name=None, disambiguation=None, ordering_attribute=None, annotation=None, alias_list=None, relation_list=None, tag_list=None, user_tag_list=None, def_extension_element=None):
         self.original_tagname_ = None
         self.type_ = _cast(None, type_)
         self.id = _cast(None, id)
@@ -4519,6 +4603,8 @@ class series(GeneratedsSuper):
             self.relation_list = []
         else:
             self.relation_list = relation_list
+        self.tag_list = tag_list
+        self.user_tag_list = user_tag_list
         if def_extension_element is None:
             self.def_extension_element = []
         else:
@@ -4543,6 +4629,10 @@ class series(GeneratedsSuper):
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
     def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def get_tag_list(self): return self.tag_list
+    def set_tag_list(self, tag_list): self.tag_list = tag_list
+    def get_user_tag_list(self): return self.user_tag_list
+    def set_user_tag_list(self, user_tag_list): self.user_tag_list = user_tag_list
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
@@ -4559,6 +4649,8 @@ class series(GeneratedsSuper):
             self.annotation is not None or
             self.alias_list is not None or
             self.relation_list or
+            self.tag_list is not None or
+            self.user_tag_list is not None or
             self.def_extension_element
         ):
             return True
@@ -4609,6 +4701,10 @@ class series(GeneratedsSuper):
             self.alias_list.export(outfile, level, namespace_='mmd-2.0:', name_='alias-list', pretty_print=pretty_print)
         for relation_list_ in self.relation_list:
             relation_list_.export(outfile, level, namespace_='mmd-2.0:', name_='relation-list', pretty_print=pretty_print)
+        if self.tag_list is not None:
+            self.tag_list.export(outfile, level, namespace_='mmd-2.0:', name_='tag-list', pretty_print=pretty_print)
+        if self.user_tag_list is not None:
+            self.user_tag_list.export(outfile, level, namespace_='mmd-2.0:', name_='user-tag-list', pretty_print=pretty_print)
         for def_extension_element_ in self.def_extension_element:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
@@ -4638,6 +4734,12 @@ class series(GeneratedsSuper):
             alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
             relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
+        if self.tag_list is not None:
+            tag_list_ = self.tag_list
+            tag_list_.to_etree(element, name_='tag-list', mapping_=mapping_)
+        if self.user_tag_list is not None:
+            user_tag_list_ = self.user_tag_list
+            user_tag_list_.to_etree(element, name_='user-tag-list', mapping_=mapping_)
         for def_extension_element_ in self.def_extension_element:
             etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
         if mapping_ is not None:
@@ -4687,11 +4789,321 @@ class series(GeneratedsSuper):
             obj_.build(child_)
             self.relation_list.append(obj_)
             obj_.original_tagname_ = 'relation-list'
+        elif nodeName_ == 'tag-list':
+            obj_ = tag_list.factory()
+            obj_.build(child_)
+            self.tag_list = obj_
+            obj_.original_tagname_ = 'tag-list'
+        elif nodeName_ == 'user-tag-list':
+            obj_ = user_tag_list.factory()
+            obj_.build(child_)
+            self.user_tag_list = obj_
+            obj_.original_tagname_ = 'user-tag-list'
         elif nodeName_ == 'def_extension_element':
             def_extension_element_ = child_.text
             def_extension_element_ = self.gds_validate_string(def_extension_element_, node, 'def_extension_element')
             self.def_extension_element.append(def_extension_element_)
 # end class series
+
+
+class event(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, type_=None, id=None, name=None, disambiguation=None, cancelled=None, life_span=None, time=None, setlist=None, annotation=None, alias_list=None, relation_list=None, tag_list=None, user_tag_list=None, rating=None, user_rating=None, def_extension_element=None):
+        self.original_tagname_ = None
+        self.type_ = _cast(None, type_)
+        self.id = _cast(None, id)
+        self.name = name
+        self.disambiguation = disambiguation
+        self.cancelled = cancelled
+        self.life_span = life_span
+        self.time = time
+        self.setlist = setlist
+        self.annotation = annotation
+        self.alias_list = alias_list
+        if relation_list is None:
+            self.relation_list = []
+        else:
+            self.relation_list = relation_list
+        self.tag_list = tag_list
+        self.user_tag_list = user_tag_list
+        self.rating = rating
+        self.user_rating = user_rating
+        if def_extension_element is None:
+            self.def_extension_element = []
+        else:
+            self.def_extension_element = def_extension_element
+    def factory(*args_, **kwargs_):
+        if event.subclass:
+            return event.subclass(*args_, **kwargs_)
+        else:
+            return event(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_name(self): return self.name
+    def set_name(self, name): self.name = name
+    def get_disambiguation(self): return self.disambiguation
+    def set_disambiguation(self, disambiguation): self.disambiguation = disambiguation
+    def get_cancelled(self): return self.cancelled
+    def set_cancelled(self, cancelled): self.cancelled = cancelled
+    def get_life_span(self): return self.life_span
+    def set_life_span(self, life_span): self.life_span = life_span
+    def get_time(self): return self.time
+    def set_time(self, time): self.time = time
+    def get_setlist(self): return self.setlist
+    def set_setlist(self, setlist): self.setlist = setlist
+    def get_annotation(self): return self.annotation
+    def set_annotation(self, annotation): self.annotation = annotation
+    def get_alias_list(self): return self.alias_list
+    def set_alias_list(self, alias_list): self.alias_list = alias_list
+    def get_relation_list(self): return self.relation_list
+    def set_relation_list(self, relation_list): self.relation_list = relation_list
+    def add_relation_list(self, value): self.relation_list.append(value)
+    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def get_tag_list(self): return self.tag_list
+    def set_tag_list(self, tag_list): self.tag_list = tag_list
+    def get_user_tag_list(self): return self.user_tag_list
+    def set_user_tag_list(self, user_tag_list): self.user_tag_list = user_tag_list
+    def get_rating(self): return self.rating
+    def set_rating(self, rating): self.rating = rating
+    def get_user_rating(self): return self.user_rating
+    def set_user_rating(self, user_rating): self.user_rating = user_rating
+    def get_def_extension_element(self): return self.def_extension_element
+    def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
+    def add_def_extension_element(self, value): self.def_extension_element.append(value)
+    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def get_type(self): return self.type_
+    def set_type(self, type_): self.type_ = type_
+    def get_id(self): return self.id
+    def set_id(self, id): self.id = id
+    def validate_cancelled(self, value):
+        # Validate type cancelled, a restriction on xs:token.
+        pass
+    def hasContent_(self):
+        if (
+            self.name is not None or
+            self.disambiguation is not None or
+            self.cancelled is not None or
+            self.life_span is not None or
+            self.time is not None or
+            self.setlist is not None or
+            self.annotation is not None or
+            self.alias_list is not None or
+            self.relation_list or
+            self.tag_list is not None or
+            self.user_tag_list is not None or
+            self.rating is not None or
+            self.user_rating is not None or
+            self.def_extension_element
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='event', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='event')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='event', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='event'):
+        if self.type_ is not None and 'type_' not in already_processed:
+            already_processed.add('type_')
+            outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_).encode(ExternalEncoding), input_name='type'), ))
+        if self.id is not None and 'id' not in already_processed:
+            already_processed.add('id')
+            outfile.write(' id=%s' % (self.gds_format_string(quote_attrib(self.id).encode(ExternalEncoding), input_name='id'), ))
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='event', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.name is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sname>%s</%sname>%s' % (namespace_, self.gds_format_string(quote_xml(self.name).encode(ExternalEncoding), input_name='name'), namespace_, eol_))
+        if self.disambiguation is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sdisambiguation>%s</%sdisambiguation>%s' % (namespace_, self.gds_format_string(quote_xml(self.disambiguation).encode(ExternalEncoding), input_name='disambiguation'), namespace_, eol_))
+        if self.cancelled is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%scancelled>%s</%scancelled>%s' % (namespace_, self.gds_format_string(quote_xml(self.cancelled).encode(ExternalEncoding), input_name='cancelled'), namespace_, eol_))
+        if self.life_span is not None:
+            self.life_span.export(outfile, level, namespace_, name_='life-span', pretty_print=pretty_print)
+        if self.time is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%stime>%s</%stime>%s' % (namespace_, self.gds_format_string(quote_xml(self.time).encode(ExternalEncoding), input_name='time'), namespace_, eol_))
+        if self.setlist is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%ssetlist>%s</%ssetlist>%s' % (namespace_, self.gds_format_string(quote_xml(self.setlist).encode(ExternalEncoding), input_name='setlist'), namespace_, eol_))
+        if self.annotation is not None:
+            self.annotation.export(outfile, level, namespace_='mmd-2.0:', name_='annotation', pretty_print=pretty_print)
+        if self.alias_list is not None:
+            self.alias_list.export(outfile, level, namespace_='mmd-2.0:', name_='alias-list', pretty_print=pretty_print)
+        for relation_list_ in self.relation_list:
+            relation_list_.export(outfile, level, namespace_='mmd-2.0:', name_='relation-list', pretty_print=pretty_print)
+        if self.tag_list is not None:
+            self.tag_list.export(outfile, level, namespace_='mmd-2.0:', name_='tag-list', pretty_print=pretty_print)
+        if self.user_tag_list is not None:
+            self.user_tag_list.export(outfile, level, namespace_='mmd-2.0:', name_='user-tag-list', pretty_print=pretty_print)
+        if self.rating is not None:
+            self.rating.export(outfile, level, namespace_='mmd-2.0:', name_='rating', pretty_print=pretty_print)
+        if self.user_rating is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%suser-rating>%s</%suser-rating>%s' % (namespace_, self.gds_format_integer(self.user_rating, input_name='user-rating'), namespace_, eol_))
+        for def_extension_element_ in self.def_extension_element:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sdef_extension_element>%s</%sdef_extension_element>%s' % (namespace_, self.gds_format_string(quote_xml(def_extension_element_).encode(ExternalEncoding), input_name='def_extension_element'), namespace_, eol_))
+    def to_etree(self, parent_element=None, name_='event', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
+        if self.name is not None:
+            name_ = self.name
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
+        if self.disambiguation is not None:
+            disambiguation_ = self.disambiguation
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}disambiguation').text = self.gds_format_string(disambiguation_)
+        if self.cancelled is not None:
+            cancelled_ = self.cancelled
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}cancelled').text = self.gds_format_string(cancelled_)
+        if self.life_span is not None:
+            life_span_ = self.life_span
+            life_span_.to_etree(element, name_='life-span', mapping_=mapping_)
+        if self.time is not None:
+            time_ = self.time
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}time').text = self.gds_format_string(time_)
+        if self.setlist is not None:
+            setlist_ = self.setlist
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}setlist').text = self.gds_format_string(setlist_)
+        if self.annotation is not None:
+            annotation_ = self.annotation
+            annotation_.to_etree(element, name_='annotation', mapping_=mapping_)
+        if self.alias_list is not None:
+            alias_list_ = self.alias_list
+            alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
+        for relation_list_ in self.relation_list:
+            relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
+        if self.tag_list is not None:
+            tag_list_ = self.tag_list
+            tag_list_.to_etree(element, name_='tag-list', mapping_=mapping_)
+        if self.user_tag_list is not None:
+            user_tag_list_ = self.user_tag_list
+            user_tag_list_.to_etree(element, name_='user-tag-list', mapping_=mapping_)
+        if self.rating is not None:
+            rating_ = self.rating
+            rating_.to_etree(element, name_='rating', mapping_=mapping_)
+        if self.user_rating is not None:
+            user_rating_ = self.user_rating
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}user-rating').text = self.gds_format_integer(user_rating_)
+        for def_extension_element_ in self.def_extension_element:
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}def_extension_element').text = self.gds_format_string(def_extension_element_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('type', node)
+        if value is not None and 'type' not in already_processed:
+            already_processed.add('type')
+            self.type_ = value
+        value = find_attr_value_('id', node)
+        if value is not None and 'id' not in already_processed:
+            already_processed.add('id')
+            self.id = value
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'name':
+            name_ = child_.text
+            name_ = self.gds_validate_string(name_, node, 'name')
+            self.name = name_
+        elif nodeName_ == 'disambiguation':
+            disambiguation_ = child_.text
+            disambiguation_ = self.gds_validate_string(disambiguation_, node, 'disambiguation')
+            self.disambiguation = disambiguation_
+        elif nodeName_ == 'cancelled':
+            cancelled_ = child_.text
+            cancelled_ = re_.sub(String_cleanup_pat_, " ", cancelled_).strip()
+            cancelled_ = self.gds_validate_string(cancelled_, node, 'cancelled')
+            self.cancelled = cancelled_
+            self.validate_cancelled(self.cancelled)    # validate type cancelled
+        elif nodeName_ == 'life-span':
+            obj_ = life_spanType.factory()
+            obj_.build(child_)
+            self.life_span = obj_
+            obj_.original_tagname_ = 'life-span'
+        elif nodeName_ == 'time':
+            time_ = child_.text
+            time_ = self.gds_validate_string(time_, node, 'time')
+            self.time = time_
+        elif nodeName_ == 'setlist':
+            setlist_ = child_.text
+            setlist_ = self.gds_validate_string(setlist_, node, 'setlist')
+            self.setlist = setlist_
+        elif nodeName_ == 'annotation':
+            obj_ = annotation.factory()
+            obj_.build(child_)
+            self.annotation = obj_
+            obj_.original_tagname_ = 'annotation'
+        elif nodeName_ == 'alias-list':
+            obj_ = alias_list.factory()
+            obj_.build(child_)
+            self.alias_list = obj_
+            obj_.original_tagname_ = 'alias-list'
+        elif nodeName_ == 'relation-list':
+            obj_ = relation_list.factory()
+            obj_.build(child_)
+            self.relation_list.append(obj_)
+            obj_.original_tagname_ = 'relation-list'
+        elif nodeName_ == 'tag-list':
+            obj_ = tag_list.factory()
+            obj_.build(child_)
+            self.tag_list = obj_
+            obj_.original_tagname_ = 'tag-list'
+        elif nodeName_ == 'user-tag-list':
+            obj_ = user_tag_list.factory()
+            obj_.build(child_)
+            self.user_tag_list = obj_
+            obj_.original_tagname_ = 'user-tag-list'
+        elif nodeName_ == 'rating':
+            obj_ = rating.factory()
+            obj_.build(child_)
+            self.rating = obj_
+            obj_.original_tagname_ = 'rating'
+        elif nodeName_ == 'user-rating':
+            sval_ = child_.text
+            try:
+                ival_ = int(sval_)
+            except (TypeError, ValueError), exp:
+                raise_parse_error(child_, 'requires integer: %s' % exp)
+            if ival_ < 0:
+                raise_parse_error(child_, 'requires nonNegativeInteger')
+            ival_ = self.gds_validate_integer(ival_, node, 'user_rating')
+            self.user_rating = ival_
+        elif nodeName_ == 'def_extension_element':
+            def_extension_element_ = child_.text
+            def_extension_element_ = self.gds_validate_string(def_extension_element_, node, 'def_extension_element')
+            self.def_extension_element.append(def_extension_element_)
+# end class event
 
 
 class url(GeneratedsSuper):
@@ -5319,7 +5731,7 @@ class name_credit(GeneratedsSuper):
 class relation(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, type_id=None, type_=None, target=None, ordering_key=None, direction=None, attribute_list=None, begin=None, end=None, ended=None, artist=None, release=None, release_group=None, recording=None, label=None, work=None, area=None, place=None, instrument=None, series=None, anytypeobjs_=None):
+    def __init__(self, type_id=None, type_=None, target=None, ordering_key=None, direction=None, attribute_list=None, begin=None, end=None, ended=None, artist=None, release=None, release_group=None, recording=None, label=None, work=None, area=None, place=None, instrument=None, series=None, event=None, anytypeobjs_=None):
         self.original_tagname_ = None
         self.type_id = _cast(None, type_id)
         self.type_ = _cast(None, type_)
@@ -5340,6 +5752,7 @@ class relation(GeneratedsSuper):
         self.place = place
         self.instrument = instrument
         self.series = series
+        self.event = event
         self.anytypeobjs_ = anytypeobjs_
     def factory(*args_, **kwargs_):
         if relation.subclass:
@@ -5381,6 +5794,8 @@ class relation(GeneratedsSuper):
     def set_instrument(self, instrument): self.instrument = instrument
     def get_series(self): return self.series
     def set_series(self, series): self.series = series
+    def get_event(self): return self.event
+    def set_event(self, event): self.event = event
     def get_anytypeobjs_(self): return self.anytypeobjs_
     def set_anytypeobjs_(self, anytypeobjs_): self.anytypeobjs_ = anytypeobjs_
     def get_type_id(self): return self.type_id
@@ -5409,6 +5824,7 @@ class relation(GeneratedsSuper):
             self.place is not None or
             self.instrument is not None or
             self.series is not None or
+            self.event is not None or
             self.anytypeobjs_ is not None
         ):
             return True
@@ -5483,6 +5899,8 @@ class relation(GeneratedsSuper):
             self.instrument.export(outfile, level, namespace_='mmd-2.0:', name_='instrument', pretty_print=pretty_print)
         if self.series is not None:
             self.series.export(outfile, level, namespace_='mmd-2.0:', name_='series', pretty_print=pretty_print)
+        if self.event is not None:
+            self.event.export(outfile, level, namespace_='mmd-2.0:', name_='event', pretty_print=pretty_print)
         if self.anytypeobjs_ is not None:
             self.anytypeobjs_.export(outfile, level, namespace_, pretty_print=pretty_print)
     def to_etree(self, parent_element=None, name_='relation', mapping_=None):
@@ -5545,6 +5963,9 @@ class relation(GeneratedsSuper):
         if self.series is not None:
             series_ = self.series
             series_.to_etree(element, name_='series', mapping_=mapping_)
+        if self.event is not None:
+            event_ = self.event
+            event_.to_etree(element, name_='event', mapping_=mapping_)
         if self.anytypeobjs_ is not None:
             self.anytypeobjs_.to_etree(element)
         if mapping_ is not None:
@@ -5656,6 +6077,11 @@ class relation(GeneratedsSuper):
             obj_.build(child_)
             self.series = obj_
             obj_.original_tagname_ = 'series'
+        elif nodeName_ == 'event':
+            obj_ = event.factory()
+            obj_.build(child_)
+            self.event = obj_
+            obj_.original_tagname_ = 'event'
         else:
             obj_ = self.gds_build_any(child_, 'relation')
             if obj_ is not None:
@@ -6293,13 +6719,15 @@ class label_info(GeneratedsSuper):
 class medium(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, title=None, position=None, format=None, disc_list=None, track_list=None):
+    def __init__(self, title=None, position=None, format=None, disc_list=None, pregap=None, track_list=None, data_track_list=None):
         self.original_tagname_ = None
         self.title = title
         self.position = position
         self.format = format
         self.disc_list = disc_list
+        self.pregap = pregap
         self.track_list = track_list
+        self.data_track_list = data_track_list
     def factory(*args_, **kwargs_):
         if medium.subclass:
             return medium.subclass(*args_, **kwargs_)
@@ -6314,15 +6742,21 @@ class medium(GeneratedsSuper):
     def set_format(self, format): self.format = format
     def get_disc_list(self): return self.disc_list
     def set_disc_list(self, disc_list): self.disc_list = disc_list
+    def get_pregap(self): return self.pregap
+    def set_pregap(self, pregap): self.pregap = pregap
     def get_track_list(self): return self.track_list
     def set_track_list(self, track_list): self.track_list = track_list
+    def get_data_track_list(self): return self.data_track_list
+    def set_data_track_list(self, data_track_list): self.data_track_list = data_track_list
     def hasContent_(self):
         if (
             self.title is not None or
             self.position is not None or
             self.format is not None or
             self.disc_list is not None or
-            self.track_list is not None
+            self.pregap is not None or
+            self.track_list is not None or
+            self.data_track_list is not None
         ):
             return True
         else:
@@ -6363,8 +6797,12 @@ class medium(GeneratedsSuper):
             outfile.write('<%sformat>%s</%sformat>%s' % (namespace_, self.gds_format_string(quote_xml(self.format).encode(ExternalEncoding), input_name='format'), namespace_, eol_))
         if self.disc_list is not None:
             self.disc_list.export(outfile, level, namespace_='mmd-2.0:', name_='disc-list', pretty_print=pretty_print)
+        if self.pregap is not None:
+            self.pregap.export(outfile, level, namespace_='mmd-2.0:', name_='pregap', pretty_print=pretty_print)
         if self.track_list is not None:
             self.track_list.export(outfile, level, namespace_, name_='track-list', pretty_print=pretty_print)
+        if self.data_track_list is not None:
+            self.data_track_list.export(outfile, level, namespace_='mmd-2.0:', name_='data-track-list', pretty_print=pretty_print)
     def to_etree(self, parent_element=None, name_='medium', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
@@ -6382,9 +6820,15 @@ class medium(GeneratedsSuper):
         if self.disc_list is not None:
             disc_list_ = self.disc_list
             disc_list_.to_etree(element, name_='disc-list', mapping_=mapping_)
+        if self.pregap is not None:
+            pregap_ = self.pregap
+            pregap_.to_etree(element, name_='pregap', mapping_=mapping_)
         if self.track_list is not None:
             track_list_ = self.track_list
             track_list_.to_etree(element, name_='track-list', mapping_=mapping_)
+        if self.data_track_list is not None:
+            data_track_list_ = self.data_track_list
+            data_track_list_.to_etree(element, name_='data-track-list', mapping_=mapping_)
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -6421,12 +6865,191 @@ class medium(GeneratedsSuper):
             obj_.build(child_)
             self.disc_list = obj_
             obj_.original_tagname_ = 'disc-list'
+        elif nodeName_ == 'pregap':
+            obj_ = def_track_data.factory()
+            obj_.build(child_)
+            self.pregap = obj_
+            obj_.original_tagname_ = 'pregap'
         elif nodeName_ == 'track-list':
             obj_ = track_listType.factory()
             obj_.build(child_)
             self.track_list = obj_
             obj_.original_tagname_ = 'track-list'
+        elif nodeName_ == 'data-track-list':
+            obj_ = data_track_list.factory()
+            obj_.build(child_)
+            self.data_track_list = obj_
+            obj_.original_tagname_ = 'data-track-list'
 # end class medium
+
+
+class def_track_data(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, id=None, position=None, number=None, title=None, length=None, artist_credit=None, recording=None):
+        self.original_tagname_ = None
+        self.id = _cast(None, id)
+        self.position = position
+        self.number = number
+        self.title = title
+        self.length = length
+        self.artist_credit = artist_credit
+        self.recording = recording
+    def factory(*args_, **kwargs_):
+        if def_track_data.subclass:
+            return def_track_data.subclass(*args_, **kwargs_)
+        else:
+            return def_track_data(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_position(self): return self.position
+    def set_position(self, position): self.position = position
+    def get_number(self): return self.number
+    def set_number(self, number): self.number = number
+    def get_title(self): return self.title
+    def set_title(self, title): self.title = title
+    def get_length(self): return self.length
+    def set_length(self, length): self.length = length
+    def get_artist_credit(self): return self.artist_credit
+    def set_artist_credit(self, artist_credit): self.artist_credit = artist_credit
+    def get_recording(self): return self.recording
+    def set_recording(self, recording): self.recording = recording
+    def get_id(self): return self.id
+    def set_id(self, id): self.id = id
+    def hasContent_(self):
+        if (
+            self.position is not None or
+            self.number is not None or
+            self.title is not None or
+            self.length is not None or
+            self.artist_credit is not None or
+            self.recording is not None
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='def_track-data', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='def_track-data')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='def_track-data', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='def_track-data'):
+        if self.id is not None and 'id' not in already_processed:
+            already_processed.add('id')
+            outfile.write(' id=%s' % (self.gds_format_string(quote_attrib(self.id).encode(ExternalEncoding), input_name='id'), ))
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='def_track-data', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.position is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sposition>%s</%sposition>%s' % (namespace_, self.gds_format_integer(self.position, input_name='position'), namespace_, eol_))
+        if self.number is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%snumber>%s</%snumber>%s' % (namespace_, self.gds_format_string(quote_xml(self.number).encode(ExternalEncoding), input_name='number'), namespace_, eol_))
+        if self.title is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%stitle>%s</%stitle>%s' % (namespace_, self.gds_format_string(quote_xml(self.title).encode(ExternalEncoding), input_name='title'), namespace_, eol_))
+        if self.length is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
+        if self.artist_credit is not None:
+            self.artist_credit.export(outfile, level, namespace_='mmd-2.0:', name_='artist-credit', pretty_print=pretty_print)
+        if self.recording is not None:
+            self.recording.export(outfile, level, namespace_='mmd-2.0:', name_='recording', pretty_print=pretty_print)
+    def to_etree(self, parent_element=None, name_='def_track-data', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.id is not None:
+            element.set('id', self.gds_format_string(self.id))
+        if self.position is not None:
+            position_ = self.position
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}position').text = self.gds_format_integer(position_)
+        if self.number is not None:
+            number_ = self.number
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}number').text = self.gds_format_string(number_)
+        if self.title is not None:
+            title_ = self.title
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
+        if self.length is not None:
+            length_ = self.length
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
+        if self.artist_credit is not None:
+            artist_credit_ = self.artist_credit
+            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
+        if self.recording is not None:
+            recording_ = self.recording
+            recording_.to_etree(element, name_='recording', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('id', node)
+        if value is not None and 'id' not in already_processed:
+            already_processed.add('id')
+            self.id = value
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'position':
+            sval_ = child_.text
+            try:
+                ival_ = int(sval_)
+            except (TypeError, ValueError), exp:
+                raise_parse_error(child_, 'requires integer: %s' % exp)
+            if ival_ < 0:
+                raise_parse_error(child_, 'requires nonNegativeInteger')
+            ival_ = self.gds_validate_integer(ival_, node, 'position')
+            self.position = ival_
+        elif nodeName_ == 'number':
+            number_ = child_.text
+            number_ = self.gds_validate_string(number_, node, 'number')
+            self.number = number_
+        elif nodeName_ == 'title':
+            title_ = child_.text
+            title_ = self.gds_validate_string(title_, node, 'title')
+            self.title = title_
+        elif nodeName_ == 'length':
+            sval_ = child_.text
+            try:
+                ival_ = int(sval_)
+            except (TypeError, ValueError), exp:
+                raise_parse_error(child_, 'requires integer: %s' % exp)
+            if ival_ < 0:
+                raise_parse_error(child_, 'requires nonNegativeInteger')
+            ival_ = self.gds_validate_integer(ival_, node, 'length')
+            self.length = ival_
+        elif nodeName_ == 'artist-credit':
+            obj_ = artist_credit.factory()
+            obj_.build(child_)
+            self.artist_credit = obj_
+            obj_.original_tagname_ = 'artist-credit'
+        elif nodeName_ == 'recording':
+            obj_ = recording.factory()
+            obj_.build(child_)
+            self.recording = obj_
+            obj_.original_tagname_ = 'recording'
+# end class def_track_data
 
 
 class annotation(GeneratedsSuper):
@@ -6940,12 +7563,15 @@ class year(GeneratedsSuper):
 class collection(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, id=None, name=None, editor=None, release_list=None):
+    def __init__(self, type_=None, id=None, entity_type=None, name=None, editor=None, release_list=None, event_list=None):
         self.original_tagname_ = None
+        self.type_ = _cast(None, type_)
         self.id = _cast(None, id)
+        self.entity_type = _cast(None, entity_type)
         self.name = name
         self.editor = editor
         self.release_list = release_list
+        self.event_list = event_list
     def factory(*args_, **kwargs_):
         if collection.subclass:
             return collection.subclass(*args_, **kwargs_)
@@ -6958,13 +7584,20 @@ class collection(GeneratedsSuper):
     def set_editor(self, editor): self.editor = editor
     def get_release_list(self): return self.release_list
     def set_release_list(self, release_list): self.release_list = release_list
+    def get_event_list(self): return self.event_list
+    def set_event_list(self, event_list): self.event_list = event_list
+    def get_type(self): return self.type_
+    def set_type(self, type_): self.type_ = type_
     def get_id(self): return self.id
     def set_id(self, id): self.id = id
+    def get_entity_type(self): return self.entity_type
+    def set_entity_type(self, entity_type): self.entity_type = entity_type
     def hasContent_(self):
         if (
             self.name is not None or
             self.editor is not None or
-            self.release_list is not None
+            self.release_list is not None or
+            self.event_list is not None
         ):
             return True
         else:
@@ -6988,9 +7621,15 @@ class collection(GeneratedsSuper):
         else:
             outfile.write('/>%s' % (eol_, ))
     def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='collection'):
+        if self.type_ is not None and 'type_' not in already_processed:
+            already_processed.add('type_')
+            outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_).encode(ExternalEncoding), input_name='type'), ))
         if self.id is not None and 'id' not in already_processed:
             already_processed.add('id')
             outfile.write(' id=%s' % (self.gds_format_string(quote_attrib(self.id).encode(ExternalEncoding), input_name='id'), ))
+        if self.entity_type is not None and 'entity_type' not in already_processed:
+            already_processed.add('entity_type')
+            outfile.write(' entity-type=%s' % (self.gds_format_string(quote_attrib(self.entity_type).encode(ExternalEncoding), input_name='entity-type'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='collection', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
@@ -7004,13 +7643,19 @@ class collection(GeneratedsSuper):
             outfile.write('<%seditor>%s</%seditor>%s' % (namespace_, self.gds_format_string(quote_xml(self.editor).encode(ExternalEncoding), input_name='editor'), namespace_, eol_))
         if self.release_list is not None:
             self.release_list.export(outfile, level, namespace_='mmd-2.0:', name_='release-list', pretty_print=pretty_print)
+        if self.event_list is not None:
+            self.event_list.export(outfile, level, namespace_='mmd-2.0:', name_='event-list', pretty_print=pretty_print)
     def to_etree(self, parent_element=None, name_='collection', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
         if self.id is not None:
             element.set('id', self.gds_format_string(self.id))
+        if self.entity_type is not None:
+            element.set('entity-type', self.gds_format_string(self.entity_type))
         if self.name is not None:
             name_ = self.name
             etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}name').text = self.gds_format_string(name_)
@@ -7020,6 +7665,9 @@ class collection(GeneratedsSuper):
         if self.release_list is not None:
             release_list_ = self.release_list
             release_list_.to_etree(element, name_='release-list', mapping_=mapping_)
+        if self.event_list is not None:
+            event_list_ = self.event_list
+            event_list_.to_etree(element, name_='event-list', mapping_=mapping_)
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -7031,10 +7679,18 @@ class collection(GeneratedsSuper):
             self.buildChildren(child, node, nodeName_)
         return self
     def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('type', node)
+        if value is not None and 'type' not in already_processed:
+            already_processed.add('type')
+            self.type_ = value
         value = find_attr_value_('id', node)
         if value is not None and 'id' not in already_processed:
             already_processed.add('id')
             self.id = value
+        value = find_attr_value_('entity-type', node)
+        if value is not None and 'entity-type' not in already_processed:
+            already_processed.add('entity-type')
+            self.entity_type = value
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'name':
             name_ = child_.text
@@ -7049,6 +7705,11 @@ class collection(GeneratedsSuper):
             obj_.build(child_)
             self.release_list = obj_
             obj_.original_tagname_ = 'release-list'
+        elif nodeName_ == 'event-list':
+            obj_ = event_list.factory()
+            obj_.build(child_)
+            self.event_list = obj_
+            obj_.original_tagname_ = 'event-list'
 # end class collection
 
 
@@ -8321,6 +8982,119 @@ class recording_list(GeneratedsSuper):
 # end class recording_list
 
 
+class data_track_list(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, count=None, offset=None, track=None):
+        self.original_tagname_ = None
+        self.count = _cast(int, count)
+        self.offset = _cast(int, offset)
+        if track is None:
+            self.track = []
+        else:
+            self.track = track
+    def factory(*args_, **kwargs_):
+        if data_track_list.subclass:
+            return data_track_list.subclass(*args_, **kwargs_)
+        else:
+            return data_track_list(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_track(self): return self.track
+    def set_track(self, track): self.track = track
+    def add_track(self, value): self.track.append(value)
+    def insert_track(self, index, value): self.track[index] = value
+    def get_count(self): return self.count
+    def set_count(self, count): self.count = count
+    def get_offset(self): return self.offset
+    def set_offset(self, offset): self.offset = offset
+    def hasContent_(self):
+        if (
+            self.track
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='data-track-list', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='data-track-list')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='data-track-list', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='data-track-list'):
+        if self.count is not None and 'count' not in already_processed:
+            already_processed.add('count')
+            outfile.write(' count="%s"' % self.gds_format_integer(self.count, input_name='count'))
+        if self.offset is not None and 'offset' not in already_processed:
+            already_processed.add('offset')
+            outfile.write(' offset="%s"' % self.gds_format_integer(self.offset, input_name='offset'))
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='data-track-list', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        for track_ in self.track:
+            track_.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
+    def to_etree(self, parent_element=None, name_='data-track-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
+        for track_ in self.track:
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('count', node)
+        if value is not None and 'count' not in already_processed:
+            already_processed.add('count')
+            try:
+                self.count = int(value)
+            except ValueError, exp:
+                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
+            if self.count < 0:
+                raise_parse_error(node, 'Invalid NonNegativeInteger')
+        value = find_attr_value_('offset', node)
+        if value is not None and 'offset' not in already_processed:
+            already_processed.add('offset')
+            try:
+                self.offset = int(value)
+            except ValueError, exp:
+                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
+            if self.offset < 0:
+                raise_parse_error(node, 'Invalid NonNegativeInteger')
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'track':
+            obj_ = def_track_data.factory()
+            obj_.build(child_)
+            self.track.append(obj_)
+            obj_.original_tagname_ = 'track'
+# end class data_track_list
+
+
 class label_list(GeneratedsSuper):
     subclass = None
     superclass = None
@@ -9110,6 +9884,119 @@ class series_list(GeneratedsSuper):
             self.series.append(obj_)
             obj_.original_tagname_ = 'series'
 # end class series_list
+
+
+class event_list(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, count=None, offset=None, event=None):
+        self.original_tagname_ = None
+        self.count = _cast(int, count)
+        self.offset = _cast(int, offset)
+        if event is None:
+            self.event = []
+        else:
+            self.event = event
+    def factory(*args_, **kwargs_):
+        if event_list.subclass:
+            return event_list.subclass(*args_, **kwargs_)
+        else:
+            return event_list(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_event(self): return self.event
+    def set_event(self, event): self.event = event
+    def add_event(self, value): self.event.append(value)
+    def insert_event(self, index, value): self.event[index] = value
+    def get_count(self): return self.count
+    def set_count(self, count): self.count = count
+    def get_offset(self): return self.offset
+    def set_offset(self, offset): self.offset = offset
+    def hasContent_(self):
+        if (
+            self.event
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='event-list', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='event-list')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='event-list', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='event-list'):
+        if self.count is not None and 'count' not in already_processed:
+            already_processed.add('count')
+            outfile.write(' count="%s"' % self.gds_format_integer(self.count, input_name='count'))
+        if self.offset is not None and 'offset' not in already_processed:
+            already_processed.add('offset')
+            outfile.write(' offset="%s"' % self.gds_format_integer(self.offset, input_name='offset'))
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='event-list', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        for event_ in self.event:
+            event_.export(outfile, level, namespace_='mmd-2.0:', name_='event', pretty_print=pretty_print)
+    def to_etree(self, parent_element=None, name_='event-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
+        for event_ in self.event:
+            event_.to_etree(element, name_='event', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('count', node)
+        if value is not None and 'count' not in already_processed:
+            already_processed.add('count')
+            try:
+                self.count = int(value)
+            except ValueError, exp:
+                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
+            if self.count < 0:
+                raise_parse_error(node, 'Invalid NonNegativeInteger')
+        value = find_attr_value_('offset', node)
+        if value is not None and 'offset' not in already_processed:
+            already_processed.add('offset')
+            try:
+                self.offset = int(value)
+            except ValueError, exp:
+                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
+            if self.offset < 0:
+                raise_parse_error(node, 'Invalid NonNegativeInteger')
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'event':
+            obj_ = event.factory()
+            obj_.build(child_)
+            self.event.append(obj_)
+            obj_.original_tagname_ = 'event'
+# end class event_list
 
 
 class url_list(GeneratedsSuper):
@@ -10714,7 +11601,7 @@ class editor_list(GeneratedsSuper):
 class entity_list(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, count=None, offset=None, artist=None, release=None, release_group=None, recording=None, label=None, work=None, area=None, place=None, instrument=None, series=None):
+    def __init__(self, count=None, offset=None, artist=None, release=None, release_group=None, recording=None, label=None, work=None, area=None, place=None, instrument=None, series=None, event=None):
         self.original_tagname_ = None
         self.count = _cast(int, count)
         self.offset = _cast(int, offset)
@@ -10758,6 +11645,10 @@ class entity_list(GeneratedsSuper):
             self.series = []
         else:
             self.series = series
+        if event is None:
+            self.event = []
+        else:
+            self.event = event
     def factory(*args_, **kwargs_):
         if entity_list.subclass:
             return entity_list.subclass(*args_, **kwargs_)
@@ -10804,6 +11695,10 @@ class entity_list(GeneratedsSuper):
     def set_series(self, series): self.series = series
     def add_series(self, value): self.series.append(value)
     def insert_series(self, index, value): self.series[index] = value
+    def get_event(self): return self.event
+    def set_event(self, event): self.event = event
+    def add_event(self, value): self.event.append(value)
+    def insert_event(self, index, value): self.event[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -10819,7 +11714,8 @@ class entity_list(GeneratedsSuper):
             self.area or
             self.place or
             self.instrument or
-            self.series
+            self.series or
+            self.event
         ):
             return True
         else:
@@ -10874,6 +11770,8 @@ class entity_list(GeneratedsSuper):
             instrument_.export(outfile, level, namespace_='mmd-2.0:', name_='instrument', pretty_print=pretty_print)
         for series_ in self.series:
             series_.export(outfile, level, namespace_='mmd-2.0:', name_='series', pretty_print=pretty_print)
+        for event_ in self.event:
+            event_.export(outfile, level, namespace_='mmd-2.0:', name_='event', pretty_print=pretty_print)
     def to_etree(self, parent_element=None, name_='entity-list', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
@@ -10903,6 +11801,8 @@ class entity_list(GeneratedsSuper):
             instrument_.to_etree(element, name_='instrument', mapping_=mapping_)
         for series_ in self.series:
             series_.to_etree(element, name_='series', mapping_=mapping_)
+        for event_ in self.event:
+            event_.to_etree(element, name_='event', mapping_=mapping_)
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -10983,6 +11883,11 @@ class entity_list(GeneratedsSuper):
             obj_.build(child_)
             self.series.append(obj_)
             obj_.original_tagname_ = 'series'
+        elif nodeName_ == 'event':
+            obj_ = event.factory()
+            obj_.build(child_)
+            self.event.append(obj_)
+            obj_.original_tagname_ = 'event'
 # end class entity_list
 
 
@@ -11535,6 +12440,67 @@ class ended(GeneratedsSuper):
 # end class ended
 
 
+class cancelled(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self):
+        self.original_tagname_ = None
+    def factory(*args_, **kwargs_):
+        if cancelled.subclass:
+            return cancelled.subclass(*args_, **kwargs_)
+        else:
+            return cancelled(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def hasContent_(self):
+        if (
+
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='cancelled', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='cancelled')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='cancelled', pretty_print=pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='cancelled'):
+        pass
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='cancelled', fromsubclass_=False, pretty_print=True):
+        pass
+    def to_etree(self, parent_element=None, name_='cancelled', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        pass
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        pass
+# end class cancelled
+
+
 class video(GeneratedsSuper):
     subclass = None
     superclass = None
@@ -12009,6 +12975,97 @@ class attributeType(GeneratedsSuper):
 # end class attributeType
 
 
+class life_spanType(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, begin=None, end=None):
+        self.original_tagname_ = None
+        self.begin = begin
+        self.end = end
+    def factory(*args_, **kwargs_):
+        if life_spanType.subclass:
+            return life_spanType.subclass(*args_, **kwargs_)
+        else:
+            return life_spanType(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_begin(self): return self.begin
+    def set_begin(self, begin): self.begin = begin
+    def get_end(self): return self.end
+    def set_end(self, end): self.end = end
+    def hasContent_(self):
+        if (
+            self.begin is not None or
+            self.end is not None
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='life-spanType', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='life-spanType')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='life-spanType', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='life-spanType'):
+        pass
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='life-spanType', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.begin is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sbegin>%s</%sbegin>%s' % (namespace_, self.gds_format_string(quote_xml(self.begin).encode(ExternalEncoding), input_name='begin'), namespace_, eol_))
+        if self.end is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%send>%s</%send>%s' % (namespace_, self.gds_format_string(quote_xml(self.end).encode(ExternalEncoding), input_name='end'), namespace_, eol_))
+    def to_etree(self, parent_element=None, name_='life-spanType', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.begin is not None:
+            begin_ = self.begin
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}begin').text = self.gds_format_string(begin_)
+        if self.end is not None:
+            end_ = self.end
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}end').text = self.gds_format_string(end_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        pass
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'begin':
+            begin_ = child_.text
+            begin_ = self.gds_validate_string(begin_, node, 'begin')
+            self.begin = begin_
+        elif nodeName_ == 'end':
+            end_ = child_.text
+            end_ = self.gds_validate_string(end_, node, 'end')
+            self.end = end_
+# end class life_spanType
+
+
 class attribute_listType1(GeneratedsSuper):
     subclass = None
     superclass = None
@@ -12093,8 +13150,9 @@ class attribute_listType1(GeneratedsSuper):
 class attributeType2(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, value=None, valueOf_=None, mixedclass_=None, content_=None):
+    def __init__(self, credited_as=None, value=None, valueOf_=None, mixedclass_=None, content_=None):
         self.original_tagname_ = None
+        self.credited_as = _cast(None, credited_as)
         self.value = _cast(None, value)
         self.valueOf_ = valueOf_
         if mixedclass_ is None:
@@ -12112,6 +13170,8 @@ class attributeType2(GeneratedsSuper):
         else:
             return attributeType2(*args_, **kwargs_)
     factory = staticmethod(factory)
+    def get_credited_as(self): return self.credited_as
+    def set_credited_as(self, credited_as): self.credited_as = credited_as
     def get_value(self): return self.value
     def set_value(self, value): self.value = value
     def get_valueOf_(self): return self.valueOf_
@@ -12138,6 +13198,9 @@ class attributeType2(GeneratedsSuper):
         self.exportChildren(outfile, level + 1, namespace_, name_, pretty_print=pretty_print)
         outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
     def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attributeType2'):
+        if self.credited_as is not None and 'credited_as' not in already_processed:
+            already_processed.add('credited_as')
+            outfile.write(' credited-as=%s' % (self.gds_format_string(quote_attrib(self.credited_as).encode(ExternalEncoding), input_name='credited-as'), ))
         if self.value is not None and 'value' not in already_processed:
             already_processed.add('value')
             outfile.write(' value=%s' % (self.gds_format_string(quote_attrib(self.value).encode(ExternalEncoding), input_name='value'), ))
@@ -12148,6 +13211,8 @@ class attributeType2(GeneratedsSuper):
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.credited_as is not None:
+            element.set('credited-as', self.gds_format_string(self.credited_as))
         if self.value is not None:
             element.set('value', self.gds_format_string(self.value))
         if mapping_ is not None:
@@ -12166,6 +13231,10 @@ class attributeType2(GeneratedsSuper):
             self.buildChildren(child, node, nodeName_)
         return self
     def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('credited-as', node)
+        if value is not None and 'credited-as' not in already_processed:
+            already_processed.add('credited-as')
+            self.credited_as = value
         value = find_attr_value_('value', node)
         if value is not None and 'value' not in already_processed:
             already_processed.add('value')
@@ -12281,180 +13350,11 @@ class track_listType(GeneratedsSuper):
                 raise_parse_error(node, 'Invalid NonNegativeInteger')
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'track':
-            obj_ = trackType19.factory()
+            obj_ = def_track_data.factory()
             obj_.build(child_)
             self.track = obj_
             obj_.original_tagname_ = 'track'
 # end class track_listType
-
-
-class trackType(GeneratedsSuper):
-    subclass = None
-    superclass = None
-    def __init__(self, id=None, position=None, number=None, title=None, length=None, artist_credit=None, recording=None):
-        self.original_tagname_ = None
-        self.id = _cast(None, id)
-        self.position = position
-        self.number = number
-        self.title = title
-        self.length = length
-        self.artist_credit = artist_credit
-        self.recording = recording
-    def factory(*args_, **kwargs_):
-        if trackType.subclass:
-            return trackType.subclass(*args_, **kwargs_)
-        else:
-            return trackType(*args_, **kwargs_)
-    factory = staticmethod(factory)
-    def get_position(self): return self.position
-    def set_position(self, position): self.position = position
-    def get_number(self): return self.number
-    def set_number(self, number): self.number = number
-    def get_title(self): return self.title
-    def set_title(self, title): self.title = title
-    def get_length(self): return self.length
-    def set_length(self, length): self.length = length
-    def get_artist_credit(self): return self.artist_credit
-    def set_artist_credit(self, artist_credit): self.artist_credit = artist_credit
-    def get_recording(self): return self.recording
-    def set_recording(self, recording): self.recording = recording
-    def get_id(self): return self.id
-    def set_id(self, id): self.id = id
-    def hasContent_(self):
-        if (
-            self.position is not None or
-            self.number is not None or
-            self.title is not None or
-            self.length is not None or
-            self.artist_credit is not None or
-            self.recording is not None
-        ):
-            return True
-        else:
-            return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='trackType', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.original_tagname_ is not None:
-            name_ = self.original_tagname_
-        showIndent(outfile, level, pretty_print)
-        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
-        already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='trackType')
-        if self.hasContent_():
-            outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='trackType', pretty_print=pretty_print)
-            showIndent(outfile, level, pretty_print)
-            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
-        else:
-            outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='trackType'):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            outfile.write(' id=%s' % (self.gds_format_string(quote_attrib(self.id).encode(ExternalEncoding), input_name='id'), ))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='trackType', fromsubclass_=False, pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.position is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%sposition>%s</%sposition>%s' % (namespace_, self.gds_format_integer(self.position, input_name='position'), namespace_, eol_))
-        if self.number is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%snumber>%s</%snumber>%s' % (namespace_, self.gds_format_string(quote_xml(self.number).encode(ExternalEncoding), input_name='number'), namespace_, eol_))
-        if self.title is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%stitle>%s</%stitle>%s' % (namespace_, self.gds_format_string(quote_xml(self.title).encode(ExternalEncoding), input_name='title'), namespace_, eol_))
-        if self.length is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
-        if self.artist_credit is not None:
-            self.artist_credit.export(outfile, level, namespace_='mmd-2.0:', name_='artist-credit', pretty_print=pretty_print)
-        if self.recording is not None:
-            self.recording.export(outfile, level, namespace_='mmd-2.0:', name_='recording', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='trackType', mapping_=None):
-        if parent_element is None:
-            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        else:
-            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        if self.id is not None:
-            element.set('id', self.gds_format_string(self.id))
-        if self.position is not None:
-            position_ = self.position
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}position').text = self.gds_format_integer(position_)
-        if self.number is not None:
-            number_ = self.number
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}number').text = self.gds_format_string(number_)
-        if self.title is not None:
-            title_ = self.title
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
-        if self.length is not None:
-            length_ = self.length
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
-        if self.artist_credit is not None:
-            artist_credit_ = self.artist_credit
-            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
-        if self.recording is not None:
-            recording_ = self.recording
-            recording_.to_etree(element, name_='recording', mapping_=mapping_)
-        if mapping_ is not None:
-            mapping_[self] = element
-        return element
-    def build(self, node):
-        already_processed = set()
-        self.buildAttributes(node, node.attrib, already_processed)
-        for child in node:
-            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
-            self.buildChildren(child, node, nodeName_)
-        return self
-    def buildAttributes(self, node, attrs, already_processed):
-        value = find_attr_value_('id', node)
-        if value is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            self.id = value
-    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
-        if nodeName_ == 'position':
-            sval_ = child_.text
-            try:
-                ival_ = int(sval_)
-            except (TypeError, ValueError), exp:
-                raise_parse_error(child_, 'requires integer: %s' % exp)
-            if ival_ < 0:
-                raise_parse_error(child_, 'requires nonNegativeInteger')
-            ival_ = self.gds_validate_integer(ival_, node, 'position')
-            self.position = ival_
-        elif nodeName_ == 'number':
-            number_ = child_.text
-            number_ = self.gds_validate_string(number_, node, 'number')
-            self.number = number_
-        elif nodeName_ == 'title':
-            title_ = child_.text
-            title_ = self.gds_validate_string(title_, node, 'title')
-            self.title = title_
-        elif nodeName_ == 'length':
-            sval_ = child_.text
-            try:
-                ival_ = int(sval_)
-            except (TypeError, ValueError), exp:
-                raise_parse_error(child_, 'requires integer: %s' % exp)
-            if ival_ < 0:
-                raise_parse_error(child_, 'requires nonNegativeInteger')
-            ival_ = self.gds_validate_integer(ival_, node, 'length')
-            self.length = ival_
-        elif nodeName_ == 'artist-credit':
-            obj_ = artist_credit.factory()
-            obj_.build(child_)
-            self.artist_credit = obj_
-            obj_.original_tagname_ = 'artist-credit'
-        elif nodeName_ == 'recording':
-            obj_ = recording.factory()
-            obj_.build(child_)
-            self.recording = obj_
-            obj_.original_tagname_ = 'recording'
-# end class trackType
 
 
 class track_listType3(GeneratedsSuper):
@@ -12559,7 +13459,7 @@ class track_listType3(GeneratedsSuper):
                 raise_parse_error(node, 'Invalid NonNegativeInteger')
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'track':
-            obj_ = trackType22.factory()
+            obj_ = trackType20.factory()
             obj_.build(child_)
             self.track = obj_
             obj_.original_tagname_ = 'track'
@@ -12668,14 +13568,14 @@ class track_listType4(GeneratedsSuper):
                 raise_parse_error(node, 'Invalid NonNegativeInteger')
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'track':
-            obj_ = trackType22.factory()
+            obj_ = trackType20.factory()
             obj_.build(child_)
             self.track = obj_
             obj_.original_tagname_ = 'track'
 # end class track_listType4
 
 
-class trackType5(GeneratedsSuper):
+class trackType(GeneratedsSuper):
     subclass = None
     superclass = None
     def __init__(self, title=None, artist=None, length=None):
@@ -12684,10 +13584,10 @@ class trackType5(GeneratedsSuper):
         self.artist = artist
         self.length = length
     def factory(*args_, **kwargs_):
-        if trackType5.subclass:
-            return trackType5.subclass(*args_, **kwargs_)
+        if trackType.subclass:
+            return trackType.subclass(*args_, **kwargs_)
         else:
-            return trackType5(*args_, **kwargs_)
+            return trackType(*args_, **kwargs_)
     factory = staticmethod(factory)
     def get_title(self): return self.title
     def set_title(self, title): self.title = title
@@ -12704,7 +13604,7 @@ class trackType5(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='trackType5', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='trackType', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -12714,17 +13614,17 @@ class trackType5(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='trackType5')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='trackType')
         if self.hasContent_():
             outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='trackType5', pretty_print=pretty_print)
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='trackType', pretty_print=pretty_print)
             showIndent(outfile, level, pretty_print)
             outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
         else:
             outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='trackType5'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='trackType'):
         pass
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='trackType5', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='trackType', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -12738,7 +13638,7 @@ class trackType5(GeneratedsSuper):
         if self.length is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
-    def to_etree(self, parent_element=None, name_='trackType5', mapping_=None):
+    def to_etree(self, parent_element=None, name_='trackType', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
@@ -12783,7 +13683,7 @@ class trackType5(GeneratedsSuper):
                 raise_parse_error(child_, 'requires nonNegativeInteger')
             ival_ = self.gds_validate_integer(ival_, node, 'length')
             self.length = ival_
-# end class trackType5
+# end class trackType
 
 
 class languageType(GeneratedsSuper):
@@ -12861,6 +13761,119 @@ class languageType(GeneratedsSuper):
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         pass
 # end class languageType
+
+
+class track_listType5(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, count=None, offset=None, track=None):
+        self.original_tagname_ = None
+        self.count = _cast(int, count)
+        self.offset = _cast(int, offset)
+        if track is None:
+            self.track = []
+        else:
+            self.track = track
+    def factory(*args_, **kwargs_):
+        if track_listType5.subclass:
+            return track_listType5.subclass(*args_, **kwargs_)
+        else:
+            return track_listType5(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_track(self): return self.track
+    def set_track(self, track): self.track = track
+    def add_track(self, value): self.track.append(value)
+    def insert_track(self, index, value): self.track[index] = value
+    def get_count(self): return self.count
+    def set_count(self, count): self.count = count
+    def get_offset(self): return self.offset
+    def set_offset(self, offset): self.offset = offset
+    def hasContent_(self):
+        if (
+            self.track
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType5', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='track-listType5')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='track-listType5', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='track-listType5'):
+        if self.count is not None and 'count' not in already_processed:
+            already_processed.add('count')
+            outfile.write(' count="%s"' % self.gds_format_integer(self.count, input_name='count'))
+        if self.offset is not None and 'offset' not in already_processed:
+            already_processed.add('offset')
+            outfile.write(' offset="%s"' % self.gds_format_integer(self.offset, input_name='offset'))
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType5', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        for track_ in self.track:
+            track_.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
+    def to_etree(self, parent_element=None, name_='track-listType5', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
+        for track_ in self.track:
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('count', node)
+        if value is not None and 'count' not in already_processed:
+            already_processed.add('count')
+            try:
+                self.count = int(value)
+            except ValueError, exp:
+                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
+            if self.count < 0:
+                raise_parse_error(node, 'Invalid NonNegativeInteger')
+        value = find_attr_value_('offset', node)
+        if value is not None and 'offset' not in already_processed:
+            already_processed.add('offset')
+            try:
+                self.offset = int(value)
+            except ValueError, exp:
+                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
+            if self.offset < 0:
+                raise_parse_error(node, 'Invalid NonNegativeInteger')
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'track':
+            obj_ = def_track_data.factory()
+            obj_.build(child_)
+            self.track.append(obj_)
+            obj_.original_tagname_ = 'track'
+# end class track_listType5
 
 
 class track_listType6(GeneratedsSuper):
@@ -12979,43 +13992,28 @@ class track_listType6(GeneratedsSuper):
 class trackType7(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, id=None, position=None, number=None, title=None, length=None, artist_credit=None, recording=None):
+    def __init__(self, title=None, artist=None, length=None):
         self.original_tagname_ = None
-        self.id = _cast(None, id)
-        self.position = position
-        self.number = number
         self.title = title
+        self.artist = artist
         self.length = length
-        self.artist_credit = artist_credit
-        self.recording = recording
     def factory(*args_, **kwargs_):
         if trackType7.subclass:
             return trackType7.subclass(*args_, **kwargs_)
         else:
             return trackType7(*args_, **kwargs_)
     factory = staticmethod(factory)
-    def get_position(self): return self.position
-    def set_position(self, position): self.position = position
-    def get_number(self): return self.number
-    def set_number(self, number): self.number = number
     def get_title(self): return self.title
     def set_title(self, title): self.title = title
+    def get_artist(self): return self.artist
+    def set_artist(self, artist): self.artist = artist
     def get_length(self): return self.length
     def set_length(self, length): self.length = length
-    def get_artist_credit(self): return self.artist_credit
-    def set_artist_credit(self, artist_credit): self.artist_credit = artist_credit
-    def get_recording(self): return self.recording
-    def set_recording(self, recording): self.recording = recording
-    def get_id(self): return self.id
-    def set_id(self, id): self.id = id
     def hasContent_(self):
         if (
-            self.position is not None or
-            self.number is not None or
             self.title is not None or
-            self.length is not None or
-            self.artist_credit is not None or
-            self.recording is not None
+            self.artist is not None or
+            self.length is not None
         ):
             return True
         else:
@@ -13039,275 +14037,8 @@ class trackType7(GeneratedsSuper):
         else:
             outfile.write('/>%s' % (eol_, ))
     def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='trackType7'):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            outfile.write(' id=%s' % (self.gds_format_string(quote_attrib(self.id).encode(ExternalEncoding), input_name='id'), ))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='trackType7', fromsubclass_=False, pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.position is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%sposition>%s</%sposition>%s' % (namespace_, self.gds_format_integer(self.position, input_name='position'), namespace_, eol_))
-        if self.number is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%snumber>%s</%snumber>%s' % (namespace_, self.gds_format_string(quote_xml(self.number).encode(ExternalEncoding), input_name='number'), namespace_, eol_))
-        if self.title is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%stitle>%s</%stitle>%s' % (namespace_, self.gds_format_string(quote_xml(self.title).encode(ExternalEncoding), input_name='title'), namespace_, eol_))
-        if self.length is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
-        if self.artist_credit is not None:
-            self.artist_credit.export(outfile, level, namespace_='mmd-2.0:', name_='artist-credit', pretty_print=pretty_print)
-        if self.recording is not None:
-            self.recording.export(outfile, level, namespace_='mmd-2.0:', name_='recording', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='trackType7', mapping_=None):
-        if parent_element is None:
-            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        else:
-            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        if self.id is not None:
-            element.set('id', self.gds_format_string(self.id))
-        if self.position is not None:
-            position_ = self.position
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}position').text = self.gds_format_integer(position_)
-        if self.number is not None:
-            number_ = self.number
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}number').text = self.gds_format_string(number_)
-        if self.title is not None:
-            title_ = self.title
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
-        if self.length is not None:
-            length_ = self.length
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
-        if self.artist_credit is not None:
-            artist_credit_ = self.artist_credit
-            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
-        if self.recording is not None:
-            recording_ = self.recording
-            recording_.to_etree(element, name_='recording', mapping_=mapping_)
-        if mapping_ is not None:
-            mapping_[self] = element
-        return element
-    def build(self, node):
-        already_processed = set()
-        self.buildAttributes(node, node.attrib, already_processed)
-        for child in node:
-            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
-            self.buildChildren(child, node, nodeName_)
-        return self
-    def buildAttributes(self, node, attrs, already_processed):
-        value = find_attr_value_('id', node)
-        if value is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            self.id = value
-    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
-        if nodeName_ == 'position':
-            sval_ = child_.text
-            try:
-                ival_ = int(sval_)
-            except (TypeError, ValueError), exp:
-                raise_parse_error(child_, 'requires integer: %s' % exp)
-            if ival_ < 0:
-                raise_parse_error(child_, 'requires nonNegativeInteger')
-            ival_ = self.gds_validate_integer(ival_, node, 'position')
-            self.position = ival_
-        elif nodeName_ == 'number':
-            number_ = child_.text
-            number_ = self.gds_validate_string(number_, node, 'number')
-            self.number = number_
-        elif nodeName_ == 'title':
-            title_ = child_.text
-            title_ = self.gds_validate_string(title_, node, 'title')
-            self.title = title_
-        elif nodeName_ == 'length':
-            sval_ = child_.text
-            try:
-                ival_ = int(sval_)
-            except (TypeError, ValueError), exp:
-                raise_parse_error(child_, 'requires integer: %s' % exp)
-            if ival_ < 0:
-                raise_parse_error(child_, 'requires nonNegativeInteger')
-            ival_ = self.gds_validate_integer(ival_, node, 'length')
-            self.length = ival_
-        elif nodeName_ == 'artist-credit':
-            obj_ = artist_credit.factory()
-            obj_.build(child_)
-            self.artist_credit = obj_
-            obj_.original_tagname_ = 'artist-credit'
-        elif nodeName_ == 'recording':
-            obj_ = recording.factory()
-            obj_.build(child_)
-            self.recording = obj_
-            obj_.original_tagname_ = 'recording'
-# end class trackType7
-
-
-class track_listType8(GeneratedsSuper):
-    subclass = None
-    superclass = None
-    def __init__(self, count=None, offset=None, track=None):
-        self.original_tagname_ = None
-        self.count = _cast(int, count)
-        self.offset = _cast(int, offset)
-        if track is None:
-            self.track = []
-        else:
-            self.track = track
-    def factory(*args_, **kwargs_):
-        if track_listType8.subclass:
-            return track_listType8.subclass(*args_, **kwargs_)
-        else:
-            return track_listType8(*args_, **kwargs_)
-    factory = staticmethod(factory)
-    def get_track(self): return self.track
-    def set_track(self, track): self.track = track
-    def add_track(self, value): self.track.append(value)
-    def insert_track(self, index, value): self.track[index] = value
-    def get_count(self): return self.count
-    def set_count(self, count): self.count = count
-    def get_offset(self): return self.offset
-    def set_offset(self, offset): self.offset = offset
-    def hasContent_(self):
-        if (
-            self.track
-        ):
-            return True
-        else:
-            return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType8', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.original_tagname_ is not None:
-            name_ = self.original_tagname_
-        showIndent(outfile, level, pretty_print)
-        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
-        already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='track-listType8')
-        if self.hasContent_():
-            outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='track-listType8', pretty_print=pretty_print)
-            showIndent(outfile, level, pretty_print)
-            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
-        else:
-            outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='track-listType8'):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            outfile.write(' count="%s"' % self.gds_format_integer(self.count, input_name='count'))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            outfile.write(' offset="%s"' % self.gds_format_integer(self.offset, input_name='offset'))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType8', fromsubclass_=False, pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        for track_ in self.track:
-            track_.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='track-listType8', mapping_=None):
-        if parent_element is None:
-            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        else:
-            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        if self.count is not None:
-            element.set('count', self.gds_format_integer(self.count))
-        if self.offset is not None:
-            element.set('offset', self.gds_format_integer(self.offset))
-        for track_ in self.track:
-            track_.to_etree(element, name_='track', mapping_=mapping_)
-        if mapping_ is not None:
-            mapping_[self] = element
-        return element
-    def build(self, node):
-        already_processed = set()
-        self.buildAttributes(node, node.attrib, already_processed)
-        for child in node:
-            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
-            self.buildChildren(child, node, nodeName_)
-        return self
-    def buildAttributes(self, node, attrs, already_processed):
-        value = find_attr_value_('count', node)
-        if value is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            try:
-                self.count = int(value)
-            except ValueError, exp:
-                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
-            if self.count < 0:
-                raise_parse_error(node, 'Invalid NonNegativeInteger')
-        value = find_attr_value_('offset', node)
-        if value is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            try:
-                self.offset = int(value)
-            except ValueError, exp:
-                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
-            if self.offset < 0:
-                raise_parse_error(node, 'Invalid NonNegativeInteger')
-    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
-        if nodeName_ == 'track':
-            obj_ = trackType9.factory()
-            obj_.build(child_)
-            self.track.append(obj_)
-            obj_.original_tagname_ = 'track'
-# end class track_listType8
-
-
-class trackType9(GeneratedsSuper):
-    subclass = None
-    superclass = None
-    def __init__(self, title=None, artist=None, length=None):
-        self.original_tagname_ = None
-        self.title = title
-        self.artist = artist
-        self.length = length
-    def factory(*args_, **kwargs_):
-        if trackType9.subclass:
-            return trackType9.subclass(*args_, **kwargs_)
-        else:
-            return trackType9(*args_, **kwargs_)
-    factory = staticmethod(factory)
-    def get_title(self): return self.title
-    def set_title(self, title): self.title = title
-    def get_artist(self): return self.artist
-    def set_artist(self, artist): self.artist = artist
-    def get_length(self): return self.length
-    def set_length(self, length): self.length = length
-    def hasContent_(self):
-        if (
-            self.title is not None or
-            self.artist is not None or
-            self.length is not None
-        ):
-            return True
-        else:
-            return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='trackType9', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.original_tagname_ is not None:
-            name_ = self.original_tagname_
-        showIndent(outfile, level, pretty_print)
-        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
-        already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='trackType9')
-        if self.hasContent_():
-            outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='trackType9', pretty_print=pretty_print)
-            showIndent(outfile, level, pretty_print)
-            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
-        else:
-            outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='trackType9'):
         pass
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='trackType9', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='trackType7', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -13321,7 +14052,7 @@ class trackType9(GeneratedsSuper):
         if self.length is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
-    def to_etree(self, parent_element=None, name_='trackType9', mapping_=None):
+    def to_etree(self, parent_element=None, name_='trackType7', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
@@ -13366,7 +14097,189 @@ class trackType9(GeneratedsSuper):
                 raise_parse_error(child_, 'requires nonNegativeInteger')
             ival_ = self.gds_validate_integer(ival_, node, 'length')
             self.length = ival_
-# end class trackType9
+# end class trackType7
+
+
+class attribute_listType8(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, attribute=None):
+        self.original_tagname_ = None
+        if attribute is None:
+            self.attribute = []
+        else:
+            self.attribute = attribute
+    def factory(*args_, **kwargs_):
+        if attribute_listType8.subclass:
+            return attribute_listType8.subclass(*args_, **kwargs_)
+        else:
+            return attribute_listType8(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_attribute(self): return self.attribute
+    def set_attribute(self, attribute): self.attribute = attribute
+    def add_attribute(self, value): self.attribute.append(value)
+    def insert_attribute(self, index, value): self.attribute[index] = value
+    def hasContent_(self):
+        if (
+            self.attribute
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType8', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attribute-listType8')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='attribute-listType8', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attribute-listType8'):
+        pass
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType8', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        for attribute_ in self.attribute:
+            attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
+    def to_etree(self, parent_element=None, name_='attribute-listType8', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        for attribute_ in self.attribute:
+            attribute_.to_etree(element, name_='attribute', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        pass
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'attribute':
+            obj_ = attributeType9.factory()
+            obj_.build(child_)
+            self.attribute.append(obj_)
+            obj_.original_tagname_ = 'attribute'
+# end class attribute_listType8
+
+
+class attributeType9(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, credited_as=None, value=None, valueOf_=None, mixedclass_=None, content_=None):
+        self.original_tagname_ = None
+        self.credited_as = _cast(None, credited_as)
+        self.value = _cast(None, value)
+        self.valueOf_ = valueOf_
+        if mixedclass_ is None:
+            self.mixedclass_ = MixedContainer
+        else:
+            self.mixedclass_ = mixedclass_
+        if content_ is None:
+            self.content_ = []
+        else:
+            self.content_ = content_
+        self.valueOf_ = valueOf_
+    def factory(*args_, **kwargs_):
+        if attributeType9.subclass:
+            return attributeType9.subclass(*args_, **kwargs_)
+        else:
+            return attributeType9(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_credited_as(self): return self.credited_as
+    def set_credited_as(self, credited_as): self.credited_as = credited_as
+    def get_value(self): return self.value
+    def set_value(self, value): self.value = value
+    def get_valueOf_(self): return self.valueOf_
+    def set_valueOf_(self, valueOf_): self.valueOf_ = valueOf_
+    def hasContent_(self):
+        if (
+            self.valueOf_
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType9', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attributeType9')
+        outfile.write('>')
+        self.exportChildren(outfile, level + 1, namespace_, name_, pretty_print=pretty_print)
+        outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attributeType9'):
+        if self.credited_as is not None and 'credited_as' not in already_processed:
+            already_processed.add('credited_as')
+            outfile.write(' credited-as=%s' % (self.gds_format_string(quote_attrib(self.credited_as).encode(ExternalEncoding), input_name='credited-as'), ))
+        if self.value is not None and 'value' not in already_processed:
+            already_processed.add('value')
+            outfile.write(' value=%s' % (self.gds_format_string(quote_attrib(self.value).encode(ExternalEncoding), input_name='value'), ))
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType9', fromsubclass_=False, pretty_print=True):
+        pass
+    def to_etree(self, parent_element=None, name_='attributeType9', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.credited_as is not None:
+            element.set('credited-as', self.gds_format_string(self.credited_as))
+        if self.value is not None:
+            element.set('value', self.gds_format_string(self.value))
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        self.valueOf_ = get_all_text_(node)
+        if node.text is not None:
+            obj_ = self.mixedclass_(MixedContainer.CategoryText,
+                MixedContainer.TypeNone, '', node.text)
+            self.content_.append(obj_)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('credited-as', node)
+        if value is not None and 'credited-as' not in already_processed:
+            already_processed.add('credited-as')
+            self.credited_as = value
+        value = find_attr_value_('value', node)
+        if value is not None and 'value' not in already_processed:
+            already_processed.add('value')
+            self.value = value
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if not fromsubclass_ and child_.tail is not None:
+            obj_ = self.mixedclass_(MixedContainer.CategoryText,
+                MixedContainer.TypeNone, '', child_.tail)
+            self.content_.append(obj_)
+        pass
+# end class attributeType9
 
 
 class attribute_listType10(GeneratedsSuper):
@@ -13453,9 +14366,9 @@ class attribute_listType10(GeneratedsSuper):
 class attributeType11(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, value=None, valueOf_=None, mixedclass_=None, content_=None):
+    def __init__(self, type_=None, valueOf_=None, mixedclass_=None, content_=None):
         self.original_tagname_ = None
-        self.value = _cast(None, value)
+        self.type_ = _cast(None, type_)
         self.valueOf_ = valueOf_
         if mixedclass_ is None:
             self.mixedclass_ = MixedContainer
@@ -13472,8 +14385,8 @@ class attributeType11(GeneratedsSuper):
         else:
             return attributeType11(*args_, **kwargs_)
     factory = staticmethod(factory)
-    def get_value(self): return self.value
-    def set_value(self, value): self.value = value
+    def get_type(self): return self.type_
+    def set_type(self, type_): self.type_ = type_
     def get_valueOf_(self): return self.valueOf_
     def set_valueOf_(self, valueOf_): self.valueOf_ = valueOf_
     def hasContent_(self):
@@ -13498,9 +14411,9 @@ class attributeType11(GeneratedsSuper):
         self.exportChildren(outfile, level + 1, namespace_, name_, pretty_print=pretty_print)
         outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
     def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attributeType11'):
-        if self.value is not None and 'value' not in already_processed:
-            already_processed.add('value')
-            outfile.write(' value=%s' % (self.gds_format_string(quote_attrib(self.value).encode(ExternalEncoding), input_name='value'), ))
+        if self.type_ is not None and 'type_' not in already_processed:
+            already_processed.add('type_')
+            outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_).encode(ExternalEncoding), input_name='type'), ))
     def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType11', fromsubclass_=False, pretty_print=True):
         pass
     def to_etree(self, parent_element=None, name_='attributeType11', mapping_=None):
@@ -13508,8 +14421,8 @@ class attributeType11(GeneratedsSuper):
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        if self.value is not None:
-            element.set('value', self.gds_format_string(self.value))
+        if self.type_ is not None:
+            element.set('type', self.gds_format_string(self.type_))
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -13526,10 +14439,10 @@ class attributeType11(GeneratedsSuper):
             self.buildChildren(child, node, nodeName_)
         return self
     def buildAttributes(self, node, attrs, already_processed):
-        value = find_attr_value_('value', node)
-        if value is not None and 'value' not in already_processed:
-            already_processed.add('value')
-            self.value = value
+        value = find_attr_value_('type', node)
+        if value is not None and 'type' not in already_processed:
+            already_processed.add('type')
+            self.type_ = value
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if not fromsubclass_ and child_.tail is not None:
             obj_ = self.mixedclass_(MixedContainer.CategoryText,
@@ -13709,7 +14622,98 @@ class attributeType13(GeneratedsSuper):
 # end class attributeType13
 
 
-class attribute_listType14(GeneratedsSuper):
+class life_spanType14(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, begin=None, end=None):
+        self.original_tagname_ = None
+        self.begin = begin
+        self.end = end
+    def factory(*args_, **kwargs_):
+        if life_spanType14.subclass:
+            return life_spanType14.subclass(*args_, **kwargs_)
+        else:
+            return life_spanType14(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_begin(self): return self.begin
+    def set_begin(self, begin): self.begin = begin
+    def get_end(self): return self.end
+    def set_end(self, end): self.end = end
+    def hasContent_(self):
+        if (
+            self.begin is not None or
+            self.end is not None
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='life-spanType14', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='life-spanType14')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='life-spanType14', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='life-spanType14'):
+        pass
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='life-spanType14', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.begin is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sbegin>%s</%sbegin>%s' % (namespace_, self.gds_format_string(quote_xml(self.begin).encode(ExternalEncoding), input_name='begin'), namespace_, eol_))
+        if self.end is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%send>%s</%send>%s' % (namespace_, self.gds_format_string(quote_xml(self.end).encode(ExternalEncoding), input_name='end'), namespace_, eol_))
+    def to_etree(self, parent_element=None, name_='life-spanType14', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.begin is not None:
+            begin_ = self.begin
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}begin').text = self.gds_format_string(begin_)
+        if self.end is not None:
+            end_ = self.end
+            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}end').text = self.gds_format_string(end_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        pass
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'begin':
+            begin_ = child_.text
+            begin_ = self.gds_validate_string(begin_, node, 'begin')
+            self.begin = begin_
+        elif nodeName_ == 'end':
+            end_ = child_.text
+            end_ = self.gds_validate_string(end_, node, 'end')
+            self.end = end_
+# end class life_spanType14
+
+
+class attribute_listType15(GeneratedsSuper):
     subclass = None
     superclass = None
     def __init__(self, attribute=None):
@@ -13719,10 +14723,10 @@ class attribute_listType14(GeneratedsSuper):
         else:
             self.attribute = attribute
     def factory(*args_, **kwargs_):
-        if attribute_listType14.subclass:
-            return attribute_listType14.subclass(*args_, **kwargs_)
+        if attribute_listType15.subclass:
+            return attribute_listType15.subclass(*args_, **kwargs_)
         else:
-            return attribute_listType14(*args_, **kwargs_)
+            return attribute_listType15(*args_, **kwargs_)
     factory = staticmethod(factory)
     def get_attribute(self): return self.attribute
     def set_attribute(self, attribute): self.attribute = attribute
@@ -13735,7 +14739,7 @@ class attribute_listType14(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType14', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType15', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -13745,24 +14749,24 @@ class attribute_listType14(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attribute-listType14')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attribute-listType15')
         if self.hasContent_():
             outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='attribute-listType14', pretty_print=pretty_print)
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='attribute-listType15', pretty_print=pretty_print)
             showIndent(outfile, level, pretty_print)
             outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
         else:
             outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attribute-listType14'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attribute-listType15'):
         pass
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType14', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType15', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
             eol_ = ''
         for attribute_ in self.attribute:
             attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='attribute-listType14', mapping_=None):
+    def to_etree(self, parent_element=None, name_='attribute-listType15', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
@@ -13783,188 +14787,19 @@ class attribute_listType14(GeneratedsSuper):
         pass
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'attribute':
-            obj_ = attributeType15.factory()
+            obj_ = attributeType16.factory()
             obj_.build(child_)
             self.attribute.append(obj_)
             obj_.original_tagname_ = 'attribute'
-# end class attribute_listType14
+# end class attribute_listType15
 
 
-class attributeType15(GeneratedsSuper):
+class attributeType16(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, type_=None, valueOf_=None, mixedclass_=None, content_=None):
+    def __init__(self, credited_as=None, value=None, valueOf_=None, mixedclass_=None, content_=None):
         self.original_tagname_ = None
-        self.type_ = _cast(None, type_)
-        self.valueOf_ = valueOf_
-        if mixedclass_ is None:
-            self.mixedclass_ = MixedContainer
-        else:
-            self.mixedclass_ = mixedclass_
-        if content_ is None:
-            self.content_ = []
-        else:
-            self.content_ = content_
-        self.valueOf_ = valueOf_
-    def factory(*args_, **kwargs_):
-        if attributeType15.subclass:
-            return attributeType15.subclass(*args_, **kwargs_)
-        else:
-            return attributeType15(*args_, **kwargs_)
-    factory = staticmethod(factory)
-    def get_type(self): return self.type_
-    def set_type(self, type_): self.type_ = type_
-    def get_valueOf_(self): return self.valueOf_
-    def set_valueOf_(self, valueOf_): self.valueOf_ = valueOf_
-    def hasContent_(self):
-        if (
-            self.valueOf_
-        ):
-            return True
-        else:
-            return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType15', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.original_tagname_ is not None:
-            name_ = self.original_tagname_
-        showIndent(outfile, level, pretty_print)
-        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
-        already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attributeType15')
-        outfile.write('>')
-        self.exportChildren(outfile, level + 1, namespace_, name_, pretty_print=pretty_print)
-        outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attributeType15'):
-        if self.type_ is not None and 'type_' not in already_processed:
-            already_processed.add('type_')
-            outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_).encode(ExternalEncoding), input_name='type'), ))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType15', fromsubclass_=False, pretty_print=True):
-        pass
-    def to_etree(self, parent_element=None, name_='attributeType15', mapping_=None):
-        if parent_element is None:
-            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        else:
-            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        if self.type_ is not None:
-            element.set('type', self.gds_format_string(self.type_))
-        if mapping_ is not None:
-            mapping_[self] = element
-        return element
-    def build(self, node):
-        already_processed = set()
-        self.buildAttributes(node, node.attrib, already_processed)
-        self.valueOf_ = get_all_text_(node)
-        if node.text is not None:
-            obj_ = self.mixedclass_(MixedContainer.CategoryText,
-                MixedContainer.TypeNone, '', node.text)
-            self.content_.append(obj_)
-        for child in node:
-            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
-            self.buildChildren(child, node, nodeName_)
-        return self
-    def buildAttributes(self, node, attrs, already_processed):
-        value = find_attr_value_('type', node)
-        if value is not None and 'type' not in already_processed:
-            already_processed.add('type')
-            self.type_ = value
-    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
-        if not fromsubclass_ and child_.tail is not None:
-            obj_ = self.mixedclass_(MixedContainer.CategoryText,
-                MixedContainer.TypeNone, '', child_.tail)
-            self.content_.append(obj_)
-        pass
-# end class attributeType15
-
-
-class attribute_listType16(GeneratedsSuper):
-    subclass = None
-    superclass = None
-    def __init__(self, attribute=None):
-        self.original_tagname_ = None
-        if attribute is None:
-            self.attribute = []
-        else:
-            self.attribute = attribute
-    def factory(*args_, **kwargs_):
-        if attribute_listType16.subclass:
-            return attribute_listType16.subclass(*args_, **kwargs_)
-        else:
-            return attribute_listType16(*args_, **kwargs_)
-    factory = staticmethod(factory)
-    def get_attribute(self): return self.attribute
-    def set_attribute(self, attribute): self.attribute = attribute
-    def add_attribute(self, value): self.attribute.append(value)
-    def insert_attribute(self, index, value): self.attribute[index] = value
-    def hasContent_(self):
-        if (
-            self.attribute
-        ):
-            return True
-        else:
-            return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType16', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.original_tagname_ is not None:
-            name_ = self.original_tagname_
-        showIndent(outfile, level, pretty_print)
-        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
-        already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attribute-listType16')
-        if self.hasContent_():
-            outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='attribute-listType16', pretty_print=pretty_print)
-            showIndent(outfile, level, pretty_print)
-            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
-        else:
-            outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attribute-listType16'):
-        pass
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType16', fromsubclass_=False, pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        for attribute_ in self.attribute:
-            attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='attribute-listType16', mapping_=None):
-        if parent_element is None:
-            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        else:
-            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        for attribute_ in self.attribute:
-            attribute_.to_etree(element, name_='attribute', mapping_=mapping_)
-        if mapping_ is not None:
-            mapping_[self] = element
-        return element
-    def build(self, node):
-        already_processed = set()
-        self.buildAttributes(node, node.attrib, already_processed)
-        for child in node:
-            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
-            self.buildChildren(child, node, nodeName_)
-        return self
-    def buildAttributes(self, node, attrs, already_processed):
-        pass
-    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
-        if nodeName_ == 'attribute':
-            obj_ = attributeType17.factory()
-            obj_.build(child_)
-            self.attribute.append(obj_)
-            obj_.original_tagname_ = 'attribute'
-# end class attribute_listType16
-
-
-class attributeType17(GeneratedsSuper):
-    subclass = None
-    superclass = None
-    def __init__(self, value=None, valueOf_=None, mixedclass_=None, content_=None):
-        self.original_tagname_ = None
+        self.credited_as = _cast(None, credited_as)
         self.value = _cast(None, value)
         self.valueOf_ = valueOf_
         if mixedclass_ is None:
@@ -13977,11 +14812,13 @@ class attributeType17(GeneratedsSuper):
             self.content_ = content_
         self.valueOf_ = valueOf_
     def factory(*args_, **kwargs_):
-        if attributeType17.subclass:
-            return attributeType17.subclass(*args_, **kwargs_)
+        if attributeType16.subclass:
+            return attributeType16.subclass(*args_, **kwargs_)
         else:
-            return attributeType17(*args_, **kwargs_)
+            return attributeType16(*args_, **kwargs_)
     factory = staticmethod(factory)
+    def get_credited_as(self): return self.credited_as
+    def set_credited_as(self, credited_as): self.credited_as = credited_as
     def get_value(self): return self.value
     def set_value(self, value): self.value = value
     def get_valueOf_(self): return self.valueOf_
@@ -13993,7 +14830,7 @@ class attributeType17(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType17', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType16', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -14003,21 +14840,26 @@ class attributeType17(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attributeType17')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attributeType16')
         outfile.write('>')
         self.exportChildren(outfile, level + 1, namespace_, name_, pretty_print=pretty_print)
         outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attributeType17'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attributeType16'):
+        if self.credited_as is not None and 'credited_as' not in already_processed:
+            already_processed.add('credited_as')
+            outfile.write(' credited-as=%s' % (self.gds_format_string(quote_attrib(self.credited_as).encode(ExternalEncoding), input_name='credited-as'), ))
         if self.value is not None and 'value' not in already_processed:
             already_processed.add('value')
             outfile.write(' value=%s' % (self.gds_format_string(quote_attrib(self.value).encode(ExternalEncoding), input_name='value'), ))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType17', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType16', fromsubclass_=False, pretty_print=True):
         pass
-    def to_etree(self, parent_element=None, name_='attributeType17', mapping_=None):
+    def to_etree(self, parent_element=None, name_='attributeType16', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.credited_as is not None:
+            element.set('credited-as', self.gds_format_string(self.credited_as))
         if self.value is not None:
             element.set('value', self.gds_format_string(self.value))
         if mapping_ is not None:
@@ -14036,6 +14878,10 @@ class attributeType17(GeneratedsSuper):
             self.buildChildren(child, node, nodeName_)
         return self
     def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('credited-as', node)
+        if value is not None and 'credited-as' not in already_processed:
+            already_processed.add('credited-as')
+            self.credited_as = value
         value = find_attr_value_('value', node)
         if value is not None and 'value' not in already_processed:
             already_processed.add('value')
@@ -14046,7 +14892,116 @@ class attributeType17(GeneratedsSuper):
                 MixedContainer.TypeNone, '', child_.tail)
             self.content_.append(obj_)
         pass
-# end class attributeType17
+# end class attributeType16
+
+
+class track_listType17(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, count=None, offset=None, track=None):
+        self.original_tagname_ = None
+        self.count = _cast(int, count)
+        self.offset = _cast(int, offset)
+        self.track = track
+    def factory(*args_, **kwargs_):
+        if track_listType17.subclass:
+            return track_listType17.subclass(*args_, **kwargs_)
+        else:
+            return track_listType17(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_track(self): return self.track
+    def set_track(self, track): self.track = track
+    def get_count(self): return self.count
+    def set_count(self, count): self.count = count
+    def get_offset(self): return self.offset
+    def set_offset(self, offset): self.offset = offset
+    def hasContent_(self):
+        if (
+            self.track is not None
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType17', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='track-listType17')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='track-listType17', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='track-listType17'):
+        if self.count is not None and 'count' not in already_processed:
+            already_processed.add('count')
+            outfile.write(' count="%s"' % self.gds_format_integer(self.count, input_name='count'))
+        if self.offset is not None and 'offset' not in already_processed:
+            already_processed.add('offset')
+            outfile.write(' offset="%s"' % self.gds_format_integer(self.offset, input_name='offset'))
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType17', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.track is not None:
+            self.track.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
+    def to_etree(self, parent_element=None, name_='track-listType17', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset is not None:
+            element.set('offset', self.gds_format_integer(self.offset))
+        if self.track is not None:
+            track_ = self.track
+            track_.to_etree(element, name_='track', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('count', node)
+        if value is not None and 'count' not in already_processed:
+            already_processed.add('count')
+            try:
+                self.count = int(value)
+            except ValueError, exp:
+                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
+            if self.count < 0:
+                raise_parse_error(node, 'Invalid NonNegativeInteger')
+        value = find_attr_value_('offset', node)
+        if value is not None and 'offset' not in already_processed:
+            already_processed.add('offset')
+            try:
+                self.offset = int(value)
+            except ValueError, exp:
+                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
+            if self.offset < 0:
+                raise_parse_error(node, 'Invalid NonNegativeInteger')
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'track':
+            obj_ = def_track_data.factory()
+            obj_.build(child_)
+            self.track = obj_
+            obj_.original_tagname_ = 'track'
+# end class track_listType17
 
 
 class track_listType18(GeneratedsSuper):
@@ -14151,183 +15106,14 @@ class track_listType18(GeneratedsSuper):
                 raise_parse_error(node, 'Invalid NonNegativeInteger')
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'track':
-            obj_ = trackType19.factory()
+            obj_ = trackType20.factory()
             obj_.build(child_)
             self.track = obj_
             obj_.original_tagname_ = 'track'
 # end class track_listType18
 
 
-class trackType19(GeneratedsSuper):
-    subclass = None
-    superclass = None
-    def __init__(self, id=None, position=None, number=None, title=None, length=None, artist_credit=None, recording=None):
-        self.original_tagname_ = None
-        self.id = _cast(None, id)
-        self.position = position
-        self.number = number
-        self.title = title
-        self.length = length
-        self.artist_credit = artist_credit
-        self.recording = recording
-    def factory(*args_, **kwargs_):
-        if trackType19.subclass:
-            return trackType19.subclass(*args_, **kwargs_)
-        else:
-            return trackType19(*args_, **kwargs_)
-    factory = staticmethod(factory)
-    def get_position(self): return self.position
-    def set_position(self, position): self.position = position
-    def get_number(self): return self.number
-    def set_number(self, number): self.number = number
-    def get_title(self): return self.title
-    def set_title(self, title): self.title = title
-    def get_length(self): return self.length
-    def set_length(self, length): self.length = length
-    def get_artist_credit(self): return self.artist_credit
-    def set_artist_credit(self, artist_credit): self.artist_credit = artist_credit
-    def get_recording(self): return self.recording
-    def set_recording(self, recording): self.recording = recording
-    def get_id(self): return self.id
-    def set_id(self, id): self.id = id
-    def hasContent_(self):
-        if (
-            self.position is not None or
-            self.number is not None or
-            self.title is not None or
-            self.length is not None or
-            self.artist_credit is not None or
-            self.recording is not None
-        ):
-            return True
-        else:
-            return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='trackType19', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.original_tagname_ is not None:
-            name_ = self.original_tagname_
-        showIndent(outfile, level, pretty_print)
-        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
-        already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='trackType19')
-        if self.hasContent_():
-            outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='trackType19', pretty_print=pretty_print)
-            showIndent(outfile, level, pretty_print)
-            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
-        else:
-            outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='trackType19'):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            outfile.write(' id=%s' % (self.gds_format_string(quote_attrib(self.id).encode(ExternalEncoding), input_name='id'), ))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='trackType19', fromsubclass_=False, pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.position is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%sposition>%s</%sposition>%s' % (namespace_, self.gds_format_integer(self.position, input_name='position'), namespace_, eol_))
-        if self.number is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%snumber>%s</%snumber>%s' % (namespace_, self.gds_format_string(quote_xml(self.number).encode(ExternalEncoding), input_name='number'), namespace_, eol_))
-        if self.title is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%stitle>%s</%stitle>%s' % (namespace_, self.gds_format_string(quote_xml(self.title).encode(ExternalEncoding), input_name='title'), namespace_, eol_))
-        if self.length is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
-        if self.artist_credit is not None:
-            self.artist_credit.export(outfile, level, namespace_='mmd-2.0:', name_='artist-credit', pretty_print=pretty_print)
-        if self.recording is not None:
-            self.recording.export(outfile, level, namespace_='mmd-2.0:', name_='recording', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='trackType19', mapping_=None):
-        if parent_element is None:
-            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        else:
-            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        if self.id is not None:
-            element.set('id', self.gds_format_string(self.id))
-        if self.position is not None:
-            position_ = self.position
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}position').text = self.gds_format_integer(position_)
-        if self.number is not None:
-            number_ = self.number
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}number').text = self.gds_format_string(number_)
-        if self.title is not None:
-            title_ = self.title
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
-        if self.length is not None:
-            length_ = self.length
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
-        if self.artist_credit is not None:
-            artist_credit_ = self.artist_credit
-            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
-        if self.recording is not None:
-            recording_ = self.recording
-            recording_.to_etree(element, name_='recording', mapping_=mapping_)
-        if mapping_ is not None:
-            mapping_[self] = element
-        return element
-    def build(self, node):
-        already_processed = set()
-        self.buildAttributes(node, node.attrib, already_processed)
-        for child in node:
-            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
-            self.buildChildren(child, node, nodeName_)
-        return self
-    def buildAttributes(self, node, attrs, already_processed):
-        value = find_attr_value_('id', node)
-        if value is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            self.id = value
-    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
-        if nodeName_ == 'position':
-            sval_ = child_.text
-            try:
-                ival_ = int(sval_)
-            except (TypeError, ValueError), exp:
-                raise_parse_error(child_, 'requires integer: %s' % exp)
-            if ival_ < 0:
-                raise_parse_error(child_, 'requires nonNegativeInteger')
-            ival_ = self.gds_validate_integer(ival_, node, 'position')
-            self.position = ival_
-        elif nodeName_ == 'number':
-            number_ = child_.text
-            number_ = self.gds_validate_string(number_, node, 'number')
-            self.number = number_
-        elif nodeName_ == 'title':
-            title_ = child_.text
-            title_ = self.gds_validate_string(title_, node, 'title')
-            self.title = title_
-        elif nodeName_ == 'length':
-            sval_ = child_.text
-            try:
-                ival_ = int(sval_)
-            except (TypeError, ValueError), exp:
-                raise_parse_error(child_, 'requires integer: %s' % exp)
-            if ival_ < 0:
-                raise_parse_error(child_, 'requires nonNegativeInteger')
-            ival_ = self.gds_validate_integer(ival_, node, 'length')
-            self.length = ival_
-        elif nodeName_ == 'artist-credit':
-            obj_ = artist_credit.factory()
-            obj_.build(child_)
-            self.artist_credit = obj_
-            obj_.original_tagname_ = 'artist-credit'
-        elif nodeName_ == 'recording':
-            obj_ = recording.factory()
-            obj_.build(child_)
-            self.recording = obj_
-            obj_.original_tagname_ = 'recording'
-# end class trackType19
-
-
-class track_listType20(GeneratedsSuper):
+class track_listType19(GeneratedsSuper):
     subclass = None
     superclass = None
     def __init__(self, count=None, offset=None, track=None):
@@ -14336,10 +15122,10 @@ class track_listType20(GeneratedsSuper):
         self.offset = _cast(int, offset)
         self.track = track
     def factory(*args_, **kwargs_):
-        if track_listType20.subclass:
-            return track_listType20.subclass(*args_, **kwargs_)
+        if track_listType19.subclass:
+            return track_listType19.subclass(*args_, **kwargs_)
         else:
-            return track_listType20(*args_, **kwargs_)
+            return track_listType19(*args_, **kwargs_)
     factory = staticmethod(factory)
     def get_track(self): return self.track
     def set_track(self, track): self.track = track
@@ -14354,7 +15140,7 @@ class track_listType20(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType20', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType19', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -14364,29 +15150,29 @@ class track_listType20(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='track-listType20')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='track-listType19')
         if self.hasContent_():
             outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='track-listType20', pretty_print=pretty_print)
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='track-listType19', pretty_print=pretty_print)
             showIndent(outfile, level, pretty_print)
             outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
         else:
             outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='track-listType20'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='track-listType19'):
         if self.count is not None and 'count' not in already_processed:
             already_processed.add('count')
             outfile.write(' count="%s"' % self.gds_format_integer(self.count, input_name='count'))
         if self.offset is not None and 'offset' not in already_processed:
             already_processed.add('offset')
             outfile.write(' offset="%s"' % self.gds_format_integer(self.offset, input_name='offset'))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType20', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType19', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
             eol_ = ''
         if self.track is not None:
             self.track.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='track-listType20', mapping_=None):
+    def to_etree(self, parent_element=None, name_='track-listType19', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
@@ -14429,123 +15215,14 @@ class track_listType20(GeneratedsSuper):
                 raise_parse_error(node, 'Invalid NonNegativeInteger')
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'track':
-            obj_ = trackType22.factory()
+            obj_ = trackType20.factory()
             obj_.build(child_)
             self.track = obj_
             obj_.original_tagname_ = 'track'
-# end class track_listType20
+# end class track_listType19
 
 
-class track_listType21(GeneratedsSuper):
-    subclass = None
-    superclass = None
-    def __init__(self, count=None, offset=None, track=None):
-        self.original_tagname_ = None
-        self.count = _cast(int, count)
-        self.offset = _cast(int, offset)
-        self.track = track
-    def factory(*args_, **kwargs_):
-        if track_listType21.subclass:
-            return track_listType21.subclass(*args_, **kwargs_)
-        else:
-            return track_listType21(*args_, **kwargs_)
-    factory = staticmethod(factory)
-    def get_track(self): return self.track
-    def set_track(self, track): self.track = track
-    def get_count(self): return self.count
-    def set_count(self, count): self.count = count
-    def get_offset(self): return self.offset
-    def set_offset(self, offset): self.offset = offset
-    def hasContent_(self):
-        if (
-            self.track is not None
-        ):
-            return True
-        else:
-            return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType21', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.original_tagname_ is not None:
-            name_ = self.original_tagname_
-        showIndent(outfile, level, pretty_print)
-        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
-        already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='track-listType21')
-        if self.hasContent_():
-            outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='track-listType21', pretty_print=pretty_print)
-            showIndent(outfile, level, pretty_print)
-            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
-        else:
-            outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='track-listType21'):
-        if self.count is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            outfile.write(' count="%s"' % self.gds_format_integer(self.count, input_name='count'))
-        if self.offset is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            outfile.write(' offset="%s"' % self.gds_format_integer(self.offset, input_name='offset'))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType21', fromsubclass_=False, pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.track is not None:
-            self.track.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='track-listType21', mapping_=None):
-        if parent_element is None:
-            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        else:
-            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        if self.count is not None:
-            element.set('count', self.gds_format_integer(self.count))
-        if self.offset is not None:
-            element.set('offset', self.gds_format_integer(self.offset))
-        if self.track is not None:
-            track_ = self.track
-            track_.to_etree(element, name_='track', mapping_=mapping_)
-        if mapping_ is not None:
-            mapping_[self] = element
-        return element
-    def build(self, node):
-        already_processed = set()
-        self.buildAttributes(node, node.attrib, already_processed)
-        for child in node:
-            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
-            self.buildChildren(child, node, nodeName_)
-        return self
-    def buildAttributes(self, node, attrs, already_processed):
-        value = find_attr_value_('count', node)
-        if value is not None and 'count' not in already_processed:
-            already_processed.add('count')
-            try:
-                self.count = int(value)
-            except ValueError, exp:
-                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
-            if self.count < 0:
-                raise_parse_error(node, 'Invalid NonNegativeInteger')
-        value = find_attr_value_('offset', node)
-        if value is not None and 'offset' not in already_processed:
-            already_processed.add('offset')
-            try:
-                self.offset = int(value)
-            except ValueError, exp:
-                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
-            if self.offset < 0:
-                raise_parse_error(node, 'Invalid NonNegativeInteger')
-    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
-        if nodeName_ == 'track':
-            obj_ = trackType22.factory()
-            obj_.build(child_)
-            self.track = obj_
-            obj_.original_tagname_ = 'track'
-# end class track_listType21
-
-
-class trackType22(GeneratedsSuper):
+class trackType20(GeneratedsSuper):
     subclass = None
     superclass = None
     def __init__(self, title=None, artist=None, length=None):
@@ -14554,10 +15231,10 @@ class trackType22(GeneratedsSuper):
         self.artist = artist
         self.length = length
     def factory(*args_, **kwargs_):
-        if trackType22.subclass:
-            return trackType22.subclass(*args_, **kwargs_)
+        if trackType20.subclass:
+            return trackType20.subclass(*args_, **kwargs_)
         else:
-            return trackType22(*args_, **kwargs_)
+            return trackType20(*args_, **kwargs_)
     factory = staticmethod(factory)
     def get_title(self): return self.title
     def set_title(self, title): self.title = title
@@ -14574,7 +15251,7 @@ class trackType22(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='trackType22', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='trackType20', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -14584,17 +15261,17 @@ class trackType22(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='trackType22')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='trackType20')
         if self.hasContent_():
             outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='trackType22', pretty_print=pretty_print)
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='trackType20', pretty_print=pretty_print)
             showIndent(outfile, level, pretty_print)
             outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
         else:
             outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='trackType22'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='trackType20'):
         pass
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='trackType22', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='trackType20', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -14608,7 +15285,7 @@ class trackType22(GeneratedsSuper):
         if self.length is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
-    def to_etree(self, parent_element=None, name_='trackType22', mapping_=None):
+    def to_etree(self, parent_element=None, name_='trackType20', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
@@ -14653,10 +15330,10 @@ class trackType22(GeneratedsSuper):
                 raise_parse_error(child_, 'requires nonNegativeInteger')
             ival_ = self.gds_validate_integer(ival_, node, 'length')
             self.length = ival_
-# end class trackType22
+# end class trackType20
 
 
-class languageType23(GeneratedsSuper):
+class languageType21(GeneratedsSuper):
     subclass = None
     superclass = None
     def __init__(self, fluency=None, valueOf_=None):
@@ -14664,10 +15341,10 @@ class languageType23(GeneratedsSuper):
         self.fluency = _cast(None, fluency)
         self.valueOf_ = valueOf_
     def factory(*args_, **kwargs_):
-        if languageType23.subclass:
-            return languageType23.subclass(*args_, **kwargs_)
+        if languageType21.subclass:
+            return languageType21.subclass(*args_, **kwargs_)
         else:
-            return languageType23(*args_, **kwargs_)
+            return languageType21(*args_, **kwargs_)
     factory = staticmethod(factory)
     def get_fluency(self): return self.fluency
     def set_fluency(self, fluency): self.fluency = fluency
@@ -14680,7 +15357,7 @@ class languageType23(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='languageType23', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='languageType21', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -14690,21 +15367,21 @@ class languageType23(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='languageType23')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='languageType21')
         if self.hasContent_():
             outfile.write('>')
             outfile.write(str(self.valueOf_).encode(ExternalEncoding))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='languageType23', pretty_print=pretty_print)
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='languageType21', pretty_print=pretty_print)
             outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
         else:
             outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='languageType23'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='languageType21'):
         if self.fluency is not None and 'fluency' not in already_processed:
             already_processed.add('fluency')
             outfile.write(' fluency=%s' % (self.gds_format_string(quote_attrib(self.fluency).encode(ExternalEncoding), input_name='fluency'), ))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='languageType23', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='languageType21', fromsubclass_=False, pretty_print=True):
         pass
-    def to_etree(self, parent_element=None, name_='languageType23', mapping_=None):
+    def to_etree(self, parent_element=None, name_='languageType21', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
@@ -14730,10 +15407,10 @@ class languageType23(GeneratedsSuper):
             self.fluency = ' '.join(self.fluency.split())
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         pass
-# end class languageType23
+# end class languageType21
 
 
-class track_listType24(GeneratedsSuper):
+class track_listType22(GeneratedsSuper):
     subclass = None
     superclass = None
     def __init__(self, count=None, offset=None, track=None):
@@ -14745,10 +15422,10 @@ class track_listType24(GeneratedsSuper):
         else:
             self.track = track
     def factory(*args_, **kwargs_):
-        if track_listType24.subclass:
-            return track_listType24.subclass(*args_, **kwargs_)
+        if track_listType22.subclass:
+            return track_listType22.subclass(*args_, **kwargs_)
         else:
-            return track_listType24(*args_, **kwargs_)
+            return track_listType22(*args_, **kwargs_)
     factory = staticmethod(factory)
     def get_track(self): return self.track
     def set_track(self, track): self.track = track
@@ -14765,7 +15442,7 @@ class track_listType24(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType24', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType22', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -14775,29 +15452,29 @@ class track_listType24(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='track-listType24')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='track-listType22')
         if self.hasContent_():
             outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='track-listType24', pretty_print=pretty_print)
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='track-listType22', pretty_print=pretty_print)
             showIndent(outfile, level, pretty_print)
             outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
         else:
             outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='track-listType24'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='track-listType22'):
         if self.count is not None and 'count' not in already_processed:
             already_processed.add('count')
             outfile.write(' count="%s"' % self.gds_format_integer(self.count, input_name='count'))
         if self.offset is not None and 'offset' not in already_processed:
             already_processed.add('offset')
             outfile.write(' offset="%s"' % self.gds_format_integer(self.offset, input_name='offset'))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType24', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType22', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
             eol_ = ''
         for track_ in self.track:
             track_.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='track-listType24', mapping_=None):
+    def to_etree(self, parent_element=None, name_='track-listType22', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
@@ -14839,183 +15516,14 @@ class track_listType24(GeneratedsSuper):
                 raise_parse_error(node, 'Invalid NonNegativeInteger')
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'track':
-            obj_ = trackType25.factory()
+            obj_ = def_track_data.factory()
             obj_.build(child_)
             self.track.append(obj_)
             obj_.original_tagname_ = 'track'
-# end class track_listType24
+# end class track_listType22
 
 
-class trackType25(GeneratedsSuper):
-    subclass = None
-    superclass = None
-    def __init__(self, id=None, position=None, number=None, title=None, length=None, artist_credit=None, recording=None):
-        self.original_tagname_ = None
-        self.id = _cast(None, id)
-        self.position = position
-        self.number = number
-        self.title = title
-        self.length = length
-        self.artist_credit = artist_credit
-        self.recording = recording
-    def factory(*args_, **kwargs_):
-        if trackType25.subclass:
-            return trackType25.subclass(*args_, **kwargs_)
-        else:
-            return trackType25(*args_, **kwargs_)
-    factory = staticmethod(factory)
-    def get_position(self): return self.position
-    def set_position(self, position): self.position = position
-    def get_number(self): return self.number
-    def set_number(self, number): self.number = number
-    def get_title(self): return self.title
-    def set_title(self, title): self.title = title
-    def get_length(self): return self.length
-    def set_length(self, length): self.length = length
-    def get_artist_credit(self): return self.artist_credit
-    def set_artist_credit(self, artist_credit): self.artist_credit = artist_credit
-    def get_recording(self): return self.recording
-    def set_recording(self, recording): self.recording = recording
-    def get_id(self): return self.id
-    def set_id(self, id): self.id = id
-    def hasContent_(self):
-        if (
-            self.position is not None or
-            self.number is not None or
-            self.title is not None or
-            self.length is not None or
-            self.artist_credit is not None or
-            self.recording is not None
-        ):
-            return True
-        else:
-            return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='trackType25', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.original_tagname_ is not None:
-            name_ = self.original_tagname_
-        showIndent(outfile, level, pretty_print)
-        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
-        already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='trackType25')
-        if self.hasContent_():
-            outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='trackType25', pretty_print=pretty_print)
-            showIndent(outfile, level, pretty_print)
-            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
-        else:
-            outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='trackType25'):
-        if self.id is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            outfile.write(' id=%s' % (self.gds_format_string(quote_attrib(self.id).encode(ExternalEncoding), input_name='id'), ))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='trackType25', fromsubclass_=False, pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.position is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%sposition>%s</%sposition>%s' % (namespace_, self.gds_format_integer(self.position, input_name='position'), namespace_, eol_))
-        if self.number is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%snumber>%s</%snumber>%s' % (namespace_, self.gds_format_string(quote_xml(self.number).encode(ExternalEncoding), input_name='number'), namespace_, eol_))
-        if self.title is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%stitle>%s</%stitle>%s' % (namespace_, self.gds_format_string(quote_xml(self.title).encode(ExternalEncoding), input_name='title'), namespace_, eol_))
-        if self.length is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
-        if self.artist_credit is not None:
-            self.artist_credit.export(outfile, level, namespace_='mmd-2.0:', name_='artist-credit', pretty_print=pretty_print)
-        if self.recording is not None:
-            self.recording.export(outfile, level, namespace_='mmd-2.0:', name_='recording', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='trackType25', mapping_=None):
-        if parent_element is None:
-            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        else:
-            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
-        if self.id is not None:
-            element.set('id', self.gds_format_string(self.id))
-        if self.position is not None:
-            position_ = self.position
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}position').text = self.gds_format_integer(position_)
-        if self.number is not None:
-            number_ = self.number
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}number').text = self.gds_format_string(number_)
-        if self.title is not None:
-            title_ = self.title
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}title').text = self.gds_format_string(title_)
-        if self.length is not None:
-            length_ = self.length
-            etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}length').text = self.gds_format_integer(length_)
-        if self.artist_credit is not None:
-            artist_credit_ = self.artist_credit
-            artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
-        if self.recording is not None:
-            recording_ = self.recording
-            recording_.to_etree(element, name_='recording', mapping_=mapping_)
-        if mapping_ is not None:
-            mapping_[self] = element
-        return element
-    def build(self, node):
-        already_processed = set()
-        self.buildAttributes(node, node.attrib, already_processed)
-        for child in node:
-            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
-            self.buildChildren(child, node, nodeName_)
-        return self
-    def buildAttributes(self, node, attrs, already_processed):
-        value = find_attr_value_('id', node)
-        if value is not None and 'id' not in already_processed:
-            already_processed.add('id')
-            self.id = value
-    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
-        if nodeName_ == 'position':
-            sval_ = child_.text
-            try:
-                ival_ = int(sval_)
-            except (TypeError, ValueError), exp:
-                raise_parse_error(child_, 'requires integer: %s' % exp)
-            if ival_ < 0:
-                raise_parse_error(child_, 'requires nonNegativeInteger')
-            ival_ = self.gds_validate_integer(ival_, node, 'position')
-            self.position = ival_
-        elif nodeName_ == 'number':
-            number_ = child_.text
-            number_ = self.gds_validate_string(number_, node, 'number')
-            self.number = number_
-        elif nodeName_ == 'title':
-            title_ = child_.text
-            title_ = self.gds_validate_string(title_, node, 'title')
-            self.title = title_
-        elif nodeName_ == 'length':
-            sval_ = child_.text
-            try:
-                ival_ = int(sval_)
-            except (TypeError, ValueError), exp:
-                raise_parse_error(child_, 'requires integer: %s' % exp)
-            if ival_ < 0:
-                raise_parse_error(child_, 'requires nonNegativeInteger')
-            ival_ = self.gds_validate_integer(ival_, node, 'length')
-            self.length = ival_
-        elif nodeName_ == 'artist-credit':
-            obj_ = artist_credit.factory()
-            obj_.build(child_)
-            self.artist_credit = obj_
-            obj_.original_tagname_ = 'artist-credit'
-        elif nodeName_ == 'recording':
-            obj_ = recording.factory()
-            obj_.build(child_)
-            self.recording = obj_
-            obj_.original_tagname_ = 'recording'
-# end class trackType25
-
-
-class track_listType26(GeneratedsSuper):
+class track_listType23(GeneratedsSuper):
     subclass = None
     superclass = None
     def __init__(self, count=None, offset=None, track=None):
@@ -15027,10 +15535,10 @@ class track_listType26(GeneratedsSuper):
         else:
             self.track = track
     def factory(*args_, **kwargs_):
-        if track_listType26.subclass:
-            return track_listType26.subclass(*args_, **kwargs_)
+        if track_listType23.subclass:
+            return track_listType23.subclass(*args_, **kwargs_)
         else:
-            return track_listType26(*args_, **kwargs_)
+            return track_listType23(*args_, **kwargs_)
     factory = staticmethod(factory)
     def get_track(self): return self.track
     def set_track(self, track): self.track = track
@@ -15047,7 +15555,7 @@ class track_listType26(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType26', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType23', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -15057,29 +15565,29 @@ class track_listType26(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='track-listType26')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='track-listType23')
         if self.hasContent_():
             outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='track-listType26', pretty_print=pretty_print)
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='track-listType23', pretty_print=pretty_print)
             showIndent(outfile, level, pretty_print)
             outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
         else:
             outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='track-listType26'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='track-listType23'):
         if self.count is not None and 'count' not in already_processed:
             already_processed.add('count')
             outfile.write(' count="%s"' % self.gds_format_integer(self.count, input_name='count'))
         if self.offset is not None and 'offset' not in already_processed:
             already_processed.add('offset')
             outfile.write(' offset="%s"' % self.gds_format_integer(self.offset, input_name='offset'))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType26', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='track-listType23', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
             eol_ = ''
         for track_ in self.track:
             track_.export(outfile, level, namespace_, name_='track', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='track-listType26', mapping_=None):
+    def to_etree(self, parent_element=None, name_='track-listType23', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
@@ -15121,14 +15629,14 @@ class track_listType26(GeneratedsSuper):
                 raise_parse_error(node, 'Invalid NonNegativeInteger')
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'track':
-            obj_ = trackType27.factory()
+            obj_ = trackType24.factory()
             obj_.build(child_)
             self.track.append(obj_)
             obj_.original_tagname_ = 'track'
-# end class track_listType26
+# end class track_listType23
 
 
-class trackType27(GeneratedsSuper):
+class trackType24(GeneratedsSuper):
     subclass = None
     superclass = None
     def __init__(self, title=None, artist=None, length=None):
@@ -15137,10 +15645,10 @@ class trackType27(GeneratedsSuper):
         self.artist = artist
         self.length = length
     def factory(*args_, **kwargs_):
-        if trackType27.subclass:
-            return trackType27.subclass(*args_, **kwargs_)
+        if trackType24.subclass:
+            return trackType24.subclass(*args_, **kwargs_)
         else:
-            return trackType27(*args_, **kwargs_)
+            return trackType24(*args_, **kwargs_)
     factory = staticmethod(factory)
     def get_title(self): return self.title
     def set_title(self, title): self.title = title
@@ -15157,7 +15665,7 @@ class trackType27(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='trackType27', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='trackType24', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -15167,17 +15675,17 @@ class trackType27(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='trackType27')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='trackType24')
         if self.hasContent_():
             outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='trackType27', pretty_print=pretty_print)
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='trackType24', pretty_print=pretty_print)
             showIndent(outfile, level, pretty_print)
             outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
         else:
             outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='trackType27'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='trackType24'):
         pass
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='trackType27', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='trackType24', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -15191,7 +15699,7 @@ class trackType27(GeneratedsSuper):
         if self.length is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%slength>%s</%slength>%s' % (namespace_, self.gds_format_integer(self.length, input_name='length'), namespace_, eol_))
-    def to_etree(self, parent_element=None, name_='trackType27', mapping_=None):
+    def to_etree(self, parent_element=None, name_='trackType24', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
@@ -15236,10 +15744,10 @@ class trackType27(GeneratedsSuper):
                 raise_parse_error(child_, 'requires nonNegativeInteger')
             ival_ = self.gds_validate_integer(ival_, node, 'length')
             self.length = ival_
-# end class trackType27
+# end class trackType24
 
 
-class attribute_listType28(GeneratedsSuper):
+class attribute_listType25(GeneratedsSuper):
     subclass = None
     superclass = None
     def __init__(self, attribute=None):
@@ -15249,10 +15757,10 @@ class attribute_listType28(GeneratedsSuper):
         else:
             self.attribute = attribute
     def factory(*args_, **kwargs_):
-        if attribute_listType28.subclass:
-            return attribute_listType28.subclass(*args_, **kwargs_)
+        if attribute_listType25.subclass:
+            return attribute_listType25.subclass(*args_, **kwargs_)
         else:
-            return attribute_listType28(*args_, **kwargs_)
+            return attribute_listType25(*args_, **kwargs_)
     factory = staticmethod(factory)
     def get_attribute(self): return self.attribute
     def set_attribute(self, attribute): self.attribute = attribute
@@ -15265,7 +15773,7 @@ class attribute_listType28(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType28', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType25', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -15275,24 +15783,24 @@ class attribute_listType28(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attribute-listType28')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attribute-listType25')
         if self.hasContent_():
             outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='attribute-listType28', pretty_print=pretty_print)
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='attribute-listType25', pretty_print=pretty_print)
             showIndent(outfile, level, pretty_print)
             outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
         else:
             outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attribute-listType28'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attribute-listType25'):
         pass
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType28', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType25', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
             eol_ = ''
         for attribute_ in self.attribute:
             attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='attribute-listType28', mapping_=None):
+    def to_etree(self, parent_element=None, name_='attribute-listType25', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
@@ -15313,18 +15821,19 @@ class attribute_listType28(GeneratedsSuper):
         pass
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'attribute':
-            obj_ = attributeType29.factory()
+            obj_ = attributeType26.factory()
             obj_.build(child_)
             self.attribute.append(obj_)
             obj_.original_tagname_ = 'attribute'
-# end class attribute_listType28
+# end class attribute_listType25
 
 
-class attributeType29(GeneratedsSuper):
+class attributeType26(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, value=None, valueOf_=None, mixedclass_=None, content_=None):
+    def __init__(self, credited_as=None, value=None, valueOf_=None, mixedclass_=None, content_=None):
         self.original_tagname_ = None
+        self.credited_as = _cast(None, credited_as)
         self.value = _cast(None, value)
         self.valueOf_ = valueOf_
         if mixedclass_ is None:
@@ -15337,11 +15846,13 @@ class attributeType29(GeneratedsSuper):
             self.content_ = content_
         self.valueOf_ = valueOf_
     def factory(*args_, **kwargs_):
-        if attributeType29.subclass:
-            return attributeType29.subclass(*args_, **kwargs_)
+        if attributeType26.subclass:
+            return attributeType26.subclass(*args_, **kwargs_)
         else:
-            return attributeType29(*args_, **kwargs_)
+            return attributeType26(*args_, **kwargs_)
     factory = staticmethod(factory)
+    def get_credited_as(self): return self.credited_as
+    def set_credited_as(self, credited_as): self.credited_as = credited_as
     def get_value(self): return self.value
     def set_value(self, value): self.value = value
     def get_valueOf_(self): return self.valueOf_
@@ -15353,7 +15864,7 @@ class attributeType29(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType29', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType26', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -15363,21 +15874,26 @@ class attributeType29(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attributeType29')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attributeType26')
         outfile.write('>')
         self.exportChildren(outfile, level + 1, namespace_, name_, pretty_print=pretty_print)
         outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attributeType29'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attributeType26'):
+        if self.credited_as is not None and 'credited_as' not in already_processed:
+            already_processed.add('credited_as')
+            outfile.write(' credited-as=%s' % (self.gds_format_string(quote_attrib(self.credited_as).encode(ExternalEncoding), input_name='credited-as'), ))
         if self.value is not None and 'value' not in already_processed:
             already_processed.add('value')
             outfile.write(' value=%s' % (self.gds_format_string(quote_attrib(self.value).encode(ExternalEncoding), input_name='value'), ))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType29', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType26', fromsubclass_=False, pretty_print=True):
         pass
-    def to_etree(self, parent_element=None, name_='attributeType29', mapping_=None):
+    def to_etree(self, parent_element=None, name_='attributeType26', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.credited_as is not None:
+            element.set('credited-as', self.gds_format_string(self.credited_as))
         if self.value is not None:
             element.set('value', self.gds_format_string(self.value))
         if mapping_ is not None:
@@ -15396,6 +15912,10 @@ class attributeType29(GeneratedsSuper):
             self.buildChildren(child, node, nodeName_)
         return self
     def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('credited-as', node)
+        if value is not None and 'credited-as' not in already_processed:
+            already_processed.add('credited-as')
+            self.credited_as = value
         value = find_attr_value_('value', node)
         if value is not None and 'value' not in already_processed:
             already_processed.add('value')
@@ -15406,10 +15926,10 @@ class attributeType29(GeneratedsSuper):
                 MixedContainer.TypeNone, '', child_.tail)
             self.content_.append(obj_)
         pass
-# end class attributeType29
+# end class attributeType26
 
 
-class attribute_listType30(GeneratedsSuper):
+class attribute_listType27(GeneratedsSuper):
     subclass = None
     superclass = None
     def __init__(self, attribute=None):
@@ -15419,10 +15939,10 @@ class attribute_listType30(GeneratedsSuper):
         else:
             self.attribute = attribute
     def factory(*args_, **kwargs_):
-        if attribute_listType30.subclass:
-            return attribute_listType30.subclass(*args_, **kwargs_)
+        if attribute_listType27.subclass:
+            return attribute_listType27.subclass(*args_, **kwargs_)
         else:
-            return attribute_listType30(*args_, **kwargs_)
+            return attribute_listType27(*args_, **kwargs_)
     factory = staticmethod(factory)
     def get_attribute(self): return self.attribute
     def set_attribute(self, attribute): self.attribute = attribute
@@ -15435,7 +15955,7 @@ class attribute_listType30(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType30', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType27', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -15445,24 +15965,24 @@ class attribute_listType30(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attribute-listType30')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attribute-listType27')
         if self.hasContent_():
             outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='attribute-listType30', pretty_print=pretty_print)
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='attribute-listType27', pretty_print=pretty_print)
             showIndent(outfile, level, pretty_print)
             outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
         else:
             outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attribute-listType30'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attribute-listType27'):
         pass
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType30', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attribute-listType27', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
             eol_ = ''
         for attribute_ in self.attribute:
             attribute_.export(outfile, level, namespace_, name_='attribute', pretty_print=pretty_print)
-    def to_etree(self, parent_element=None, name_='attribute-listType30', mapping_=None):
+    def to_etree(self, parent_element=None, name_='attribute-listType27', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
@@ -15483,14 +16003,14 @@ class attribute_listType30(GeneratedsSuper):
         pass
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'attribute':
-            obj_ = attributeType31.factory()
+            obj_ = attributeType28.factory()
             obj_.build(child_)
             self.attribute.append(obj_)
             obj_.original_tagname_ = 'attribute'
-# end class attribute_listType30
+# end class attribute_listType27
 
 
-class attributeType31(GeneratedsSuper):
+class attributeType28(GeneratedsSuper):
     subclass = None
     superclass = None
     def __init__(self, type_=None, valueOf_=None, mixedclass_=None, content_=None):
@@ -15507,10 +16027,10 @@ class attributeType31(GeneratedsSuper):
             self.content_ = content_
         self.valueOf_ = valueOf_
     def factory(*args_, **kwargs_):
-        if attributeType31.subclass:
-            return attributeType31.subclass(*args_, **kwargs_)
+        if attributeType28.subclass:
+            return attributeType28.subclass(*args_, **kwargs_)
         else:
-            return attributeType31(*args_, **kwargs_)
+            return attributeType28(*args_, **kwargs_)
     factory = staticmethod(factory)
     def get_type(self): return self.type_
     def set_type(self, type_): self.type_ = type_
@@ -15523,7 +16043,7 @@ class attributeType31(GeneratedsSuper):
             return True
         else:
             return False
-    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType31', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType28', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
@@ -15533,17 +16053,17 @@ class attributeType31(GeneratedsSuper):
         showIndent(outfile, level, pretty_print)
         outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
         already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attributeType31')
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='attributeType28')
         outfile.write('>')
         self.exportChildren(outfile, level + 1, namespace_, name_, pretty_print=pretty_print)
         outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attributeType31'):
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='attributeType28'):
         if self.type_ is not None and 'type_' not in already_processed:
             already_processed.add('type_')
             outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_).encode(ExternalEncoding), input_name='type'), ))
-    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType31', fromsubclass_=False, pretty_print=True):
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='attributeType28', fromsubclass_=False, pretty_print=True):
         pass
-    def to_etree(self, parent_element=None, name_='attributeType31', mapping_=None):
+    def to_etree(self, parent_element=None, name_='attributeType28', mapping_=None):
         if parent_element is None:
             element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         else:
@@ -15576,18 +16096,20 @@ class attributeType31(GeneratedsSuper):
                 MixedContainer.TypeNone, '', child_.tail)
             self.content_.append(obj_)
         pass
-# end class attributeType31
+# end class attributeType28
 
 
 GDSClassesMapping = {
-    'language': languageType23,
-    'track': trackType27,
+    'attribute': attributeType28,
+    'language': languageType21,
+    'track': trackType24,
+    'life-span': life_spanType14,
     'area': def_area_element_inner,
     'begin-area': def_area_element_inner,
     'end-area': def_area_element_inner,
-    'track-list': track_listType21,
-    'attribute': attributeType31,
-    'attribute-list': attribute_listType16,
+    'track-list': track_listType19,
+    'pregap': def_track_data,
+    'attribute-list': attribute_listType15,
 }
 
 
@@ -15719,20 +16241,21 @@ __all__ = [
     "attributeType",
     "attributeType11",
     "attributeType13",
-    "attributeType15",
-    "attributeType17",
+    "attributeType16",
     "attributeType2",
-    "attributeType29",
-    "attributeType31",
+    "attributeType26",
+    "attributeType28",
+    "attributeType9",
     "attribute_listType",
     "attribute_listType1",
     "attribute_listType10",
     "attribute_listType12",
-    "attribute_listType14",
-    "attribute_listType16",
-    "attribute_listType28",
-    "attribute_listType30",
+    "attribute_listType15",
+    "attribute_listType25",
+    "attribute_listType27",
+    "attribute_listType8",
     "back",
+    "cancelled",
     "cdstub",
     "cdstub_list",
     "collection",
@@ -15740,7 +16263,9 @@ __all__ = [
     "coordinates",
     "cover_art_archive",
     "darkened",
+    "data_track_list",
     "def_area_element_inner",
+    "def_track_data",
     "disc",
     "disc_list",
     "edit_information",
@@ -15748,6 +16273,8 @@ __all__ = [
     "editor_list",
     "ended",
     "entity_list",
+    "event",
+    "event_list",
     "freedb_disc",
     "freedb_disc_list",
     "front",
@@ -15766,9 +16293,11 @@ __all__ = [
     "label_info_list",
     "label_list",
     "languageType",
-    "languageType23",
+    "languageType21",
     "language_list",
     "life_span",
+    "life_spanType",
+    "life_spanType14",
     "medium",
     "medium_list",
     "metadata",
@@ -15796,23 +16325,19 @@ __all__ = [
     "target",
     "text_representation",
     "trackType",
-    "trackType19",
-    "trackType22",
-    "trackType25",
-    "trackType27",
-    "trackType5",
+    "trackType20",
+    "trackType24",
     "trackType7",
-    "trackType9",
     "track_listType",
+    "track_listType17",
     "track_listType18",
-    "track_listType20",
-    "track_listType21",
-    "track_listType24",
-    "track_listType26",
+    "track_listType19",
+    "track_listType22",
+    "track_listType23",
     "track_listType3",
     "track_listType4",
+    "track_listType5",
     "track_listType6",
-    "track_listType8",
     "url",
     "url_list",
     "user_tag",
