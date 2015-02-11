@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #
-# Generated Mon Dec 22 21:23:14 2014 by generateDS.py version 2.12d.
+# Generated Wed Feb 11 14:14:32 2015 by generateDS.py version 2.14a.
 #
 # Command line options:
 #   ('-o', 'mbrng/models.py')
@@ -210,8 +210,8 @@ supermod.url.subclass = urlSub
 
 
 class discSub(supermod.disc):
-    def __init__(self, id=None, sectors=None, release_list=None, def_extension_element=None):
-        super(discSub, self).__init__(id, sectors, release_list, def_extension_element, )
+    def __init__(self, id=None, sectors=None, offset_list=None, release_list=None, def_extension_element=None):
+        super(discSub, self).__init__(id, sectors, offset_list, release_list, def_extension_element, )
 supermod.disc.subclass = discSub
 # end class discSub
 
@@ -410,6 +410,20 @@ class data_track_listSub(supermod.data_track_list):
         super(data_track_listSub, self).__init__(count, offset, track, )
 supermod.data_track_list.subclass = data_track_listSub
 # end class data_track_listSub
+
+
+class offset_listSub(supermod.offset_list):
+    def __init__(self, count=None, offset_attr=None, offset=None):
+        super(offset_listSub, self).__init__(count, offset_attr, offset, )
+supermod.offset_list.subclass = offset_listSub
+# end class offset_listSub
+
+
+class offsetSub(supermod.offset):
+    def __init__(self, position=None, valueOf_=None):
+        super(offsetSub, self).__init__(position, valueOf_, )
+supermod.offset.subclass = offsetSub
+# end class offsetSub
 
 
 class label_listSub(supermod.label_list):

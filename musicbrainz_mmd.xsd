@@ -423,6 +423,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" ref="mmd-2.0:sectors"/>
+        <xs:element minOccurs="0" ref="mmd-2.0:offset-list"/>
         <xs:element minOccurs="0" ref="mmd-2.0:release-list"/>
         <xs:group ref="mmd-2.0:def_disc-element_extension"/>
       </xs:sequence>
@@ -995,6 +996,23 @@
     <xs:complexType>
       <xs:group maxOccurs="unbounded" ref="mmd-2.0:def_track"/>
       <xs:attributeGroup ref="mmd-2.0:def_list-attributes"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="offset-list">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mmd-2.0:offset"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="mmd-2.0:def_list-attributes"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="offset">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:nonNegativeInteger">
+          <xs:attribute name="position" use="required" type="xs:nonNegativeInteger"/>
+        </xs:extension>
+      </xs:simpleContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="label-list">

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Mon Dec 22 21:23:13 2014 by generateDS.py version 2.12d.
+# Generated Wed Feb 11 14:14:31 2015 by generateDS.py version 2.14a.
 #
 # Command line options:
 #   ('-o', 'mbrng/models.py')
@@ -22,10 +22,14 @@
 #
 
 import sys
-import getopt
 import re as re_
 import base64
 import datetime as datetime_
+import warnings as warnings_
+
+
+Validate_simpletypes_ = True
+
 
 etree_ = None
 Verbose_import_ = False
@@ -107,64 +111,68 @@ except ImportError, exp:
                 return None
         def gds_format_string(self, input_data, input_name=''):
             return input_data
-        def gds_validate_string(self, input_data, node, input_name=''):
+        def gds_validate_string(self, input_data, node=None, input_name=''):
             if not input_data:
                 return ''
             else:
                 return input_data
         def gds_format_base64(self, input_data, input_name=''):
             return base64.b64encode(input_data)
-        def gds_validate_base64(self, input_data, node, input_name=''):
+        def gds_validate_base64(self, input_data, node=None, input_name=''):
             return input_data
         def gds_format_integer(self, input_data, input_name=''):
             return '%d' % input_data
-        def gds_validate_integer(self, input_data, node, input_name=''):
+        def gds_validate_integer(self, input_data, node=None, input_name=''):
             return input_data
         def gds_format_integer_list(self, input_data, input_name=''):
-            return '%s' % input_data
-        def gds_validate_integer_list(self, input_data, node, input_name=''):
+            return '%s' % ' '.join(input_data)
+        def gds_validate_integer_list(
+                self, input_data, node=None, input_name=''):
             values = input_data.split()
             for value in values:
                 try:
-                    float(value)
+                    int(value)
                 except (TypeError, ValueError):
                     raise_parse_error(node, 'Requires sequence of integers')
-            return input_data
+            return values
         def gds_format_float(self, input_data, input_name=''):
             return ('%.15f' % input_data).rstrip('0')
-        def gds_validate_float(self, input_data, node, input_name=''):
+        def gds_validate_float(self, input_data, node=None, input_name=''):
             return input_data
         def gds_format_float_list(self, input_data, input_name=''):
-            return '%s' % input_data
-        def gds_validate_float_list(self, input_data, node, input_name=''):
+            return '%s' % ' '.join(input_data)
+        def gds_validate_float_list(
+                self, input_data, node=None, input_name=''):
             values = input_data.split()
             for value in values:
                 try:
                     float(value)
                 except (TypeError, ValueError):
                     raise_parse_error(node, 'Requires sequence of floats')
-            return input_data
+            return values
         def gds_format_double(self, input_data, input_name=''):
             return '%e' % input_data
-        def gds_validate_double(self, input_data, node, input_name=''):
+        def gds_validate_double(self, input_data, node=None, input_name=''):
             return input_data
         def gds_format_double_list(self, input_data, input_name=''):
-            return '%s' % input_data
-        def gds_validate_double_list(self, input_data, node, input_name=''):
+            return '%s' % ' '.join(input_data)
+        def gds_validate_double_list(
+                self, input_data, node=None, input_name=''):
             values = input_data.split()
             for value in values:
                 try:
                     float(value)
                 except (TypeError, ValueError):
                     raise_parse_error(node, 'Requires sequence of doubles')
-            return input_data
+            return values
         def gds_format_boolean(self, input_data, input_name=''):
             return ('%s' % input_data).lower()
-        def gds_validate_boolean(self, input_data, node, input_name=''):
+        def gds_validate_boolean(self, input_data, node=None, input_name=''):
             return input_data
         def gds_format_boolean_list(self, input_data, input_name=''):
-            return '%s' % input_data
-        def gds_validate_boolean_list(self, input_data, node, input_name=''):
+            return '%s' % ' '.join(input_data)
+        def gds_validate_boolean_list(
+                self, input_data, node=None, input_name=''):
             values = input_data.split()
             for value in values:
                 if value not in ('true', '1', 'false', '0', ):
@@ -172,8 +180,8 @@ except ImportError, exp:
                         node,
                         'Requires sequence of booleans '
                         '("true", "1", "false", "0")')
-            return input_data
-        def gds_validate_datetime(self, input_data, node, input_name=''):
+            return values
+        def gds_validate_datetime(self, input_data, node=None, input_name=''):
             return input_data
         def gds_format_datetime(self, input_data, input_name=''):
             if input_data.microsecond == 0:
@@ -227,7 +235,10 @@ except ImportError, exp:
                     tz = GeneratedsSuper._FixedOffsetTZ(
                         tzoff, results.group(0))
                     input_data = input_data[:-6]
-            if len(input_data.split('.')) > 1:
+            time_parts = input_data.split('.')
+            if len(time_parts) > 1:
+                micro_seconds = int(float('0.' + time_parts[1]) * 1000000)
+                input_data = '%s.%s' % (time_parts[0], micro_seconds, )
                 dt = datetime_.datetime.strptime(
                     input_data, '%Y-%m-%dT%H:%M:%S.%f')
             else:
@@ -235,7 +246,7 @@ except ImportError, exp:
                     input_data, '%Y-%m-%dT%H:%M:%S')
             dt = dt.replace(tzinfo=tz)
             return dt
-        def gds_validate_date(self, input_data, node, input_name=''):
+        def gds_validate_date(self, input_data, node=None, input_name=''):
             return input_data
         def gds_format_date(self, input_data, input_name=''):
             _svalue = '%04d-%02d-%02d' % (
@@ -281,7 +292,7 @@ except ImportError, exp:
             dt = datetime_.datetime.strptime(input_data, '%Y-%m-%d')
             dt = dt.replace(tzinfo=tz)
             return dt.date()
-        def gds_validate_time(self, input_data, node, input_name=''):
+        def gds_validate_time(self, input_data, node=None, input_name=''):
             return input_data
         def gds_format_time(self, input_data, input_name=''):
             if input_data.microsecond == 0:
@@ -313,6 +324,21 @@ except ImportError, exp:
                         minutes = (total_seconds - (hours * 3600)) // 60
                         _svalue += '{0:02d}:{1:02d}'.format(hours, minutes)
             return _svalue
+        def gds_validate_simple_patterns(self, patterns, target):
+            # pat is a list of lists of strings/patterns.  We should:
+            # - AND the outer elements
+            # - OR the inner elements
+            found1 = True
+            for patterns1 in patterns:
+                found2 = False
+                for patterns2 in patterns1:
+                    if re_.search(patterns2, target) is not None:
+                        found2 = True
+                        break
+                if not found2:
+                    found1 = False
+                    break
+            return found1
         @classmethod
         def gds_parse_time(cls, input_data):
             tz = None
@@ -1379,7 +1405,8 @@ class artist(GeneratedsSuper):
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
-    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def insert_relation_list_at(self, index, value): self.relation_list.insert(index, value)
+    def replace_relation_list_at(self, index, value): self.relation_list[index] = value
     def get_tag_list(self): return self.tag_list
     def set_tag_list(self, tag_list): self.tag_list = tag_list
     def get_user_tag_list(self): return self.user_tag_list
@@ -1391,7 +1418,8 @@ class artist(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_type(self): return self.type_
     def set_type(self, type_): self.type_ = type_
     def get_id(self): return self.id
@@ -1740,6 +1768,7 @@ class life_span(GeneratedsSuper):
         self.begin = begin
         self.end = end
         self.ended = ended
+        self.validate_ended(self.ended)
     def factory(*args_, **kwargs_):
         if life_span.subclass:
             return life_span.subclass(*args_, **kwargs_)
@@ -1862,6 +1891,7 @@ class release(GeneratedsSuper):
         self.release_event_list = release_event_list
         self.barcode = barcode
         self.asin = asin
+        self.validate_asin(self.asin)
         self.cover_art_archive = cover_art_archive
         self.label_info_list = label_info_list
         self.medium_list = medium_list
@@ -1919,7 +1949,8 @@ class release(GeneratedsSuper):
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
-    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def insert_relation_list_at(self, index, value): self.relation_list.insert(index, value)
+    def replace_relation_list_at(self, index, value): self.relation_list[index] = value
     def get_tag_list(self): return self.tag_list
     def set_tag_list(self, tag_list): self.tag_list = tag_list
     def get_user_tag_list(self): return self.user_tag_list
@@ -1929,7 +1960,8 @@ class release(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_id(self): return self.id
     def set_id(self, id): self.id = id
     def validate_asin(self, value):
@@ -2440,7 +2472,8 @@ class release_group(GeneratedsSuper):
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
-    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def insert_relation_list_at(self, index, value): self.relation_list.insert(index, value)
+    def replace_relation_list_at(self, index, value): self.relation_list[index] = value
     def get_tag_list(self): return self.tag_list
     def set_tag_list(self, tag_list): self.tag_list = tag_list
     def get_user_tag_list(self): return self.user_tag_list
@@ -2452,7 +2485,8 @@ class release_group(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_type(self): return self.type_
     def set_type(self, type_): self.type_ = type_
     def get_id(self): return self.id
@@ -2701,7 +2735,8 @@ class secondary_type_list(GeneratedsSuper):
     def get_secondary_type(self): return self.secondary_type
     def set_secondary_type(self, secondary_type): self.secondary_type = secondary_type
     def add_secondary_type(self, value): self.secondary_type.append(value)
-    def insert_secondary_type(self, index, value): self.secondary_type[index] = value
+    def insert_secondary_type_at(self, index, value): self.secondary_type.insert(index, value)
+    def replace_secondary_type_at(self, index, value): self.secondary_type[index] = value
     def hasContent_(self):
         if (
             self.secondary_type
@@ -2775,6 +2810,7 @@ class recording(GeneratedsSuper):
         self.annotation = annotation
         self.disambiguation = disambiguation
         self.video = video
+        self.validate_video(self.video)
         self.artist_credit = artist_credit
         self.release_list = release_list
         self.puid_list = puid_list
@@ -2818,7 +2854,8 @@ class recording(GeneratedsSuper):
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
-    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def insert_relation_list_at(self, index, value): self.relation_list.insert(index, value)
+    def replace_relation_list_at(self, index, value): self.relation_list[index] = value
     def get_tag_list(self): return self.tag_list
     def set_tag_list(self, tag_list): self.tag_list = tag_list
     def get_user_tag_list(self): return self.user_tag_list
@@ -2830,7 +2867,8 @@ class recording(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_id(self): return self.id
     def set_id(self, id): self.id = id
     def validate_video(self, value):
@@ -3083,6 +3121,7 @@ class label(GeneratedsSuper):
         self.sort_name = sort_name
         self.label_code = label_code
         self.ipi = ipi
+        self.validate_def_ipi(self.ipi)
         self.ipi_list = ipi_list
         self.annotation = annotation
         self.disambiguation = disambiguation
@@ -3136,7 +3175,8 @@ class label(GeneratedsSuper):
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
-    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def insert_relation_list_at(self, index, value): self.relation_list.insert(index, value)
+    def replace_relation_list_at(self, index, value): self.relation_list[index] = value
     def get_tag_list(self): return self.tag_list
     def set_tag_list(self, tag_list): self.tag_list = tag_list
     def get_user_tag_list(self): return self.user_tag_list
@@ -3148,14 +3188,19 @@ class label(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_type(self): return self.type_
     def set_type(self, type_): self.type_ = type_
     def get_id(self): return self.id
     def set_id(self, id): self.id = id
     def validate_def_ipi(self, value):
         # Validate type def_ipi, a restriction on xs:string.
-        pass
+        if value is not None and Validate_simpletypes_:
+            if not self.gds_validate_simple_patterns(
+                    self.validate_def_ipi_patterns_, value):
+                warnings_.warn('Value "%s" does not match xsd pattern restrictions: %s' % (value.encode('utf-8'), self.validate_def_ipi_patterns_, ))
+    validate_def_ipi_patterns_ = [['^[0-9]{11}$']]
     def hasContent_(self):
         if (
             self.name is not None or
@@ -3444,6 +3489,7 @@ class work(GeneratedsSuper):
         self.language = language
         self.artist_credit = artist_credit
         self.iswc = iswc
+        self.validate_iswc(self.iswc)
         self.iswc_list = iswc_list
         self.attribute_list = attribute_list
         self.annotation = annotation
@@ -3488,7 +3534,8 @@ class work(GeneratedsSuper):
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
-    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def insert_relation_list_at(self, index, value): self.relation_list.insert(index, value)
+    def replace_relation_list_at(self, index, value): self.relation_list[index] = value
     def get_tag_list(self): return self.tag_list
     def set_tag_list(self, tag_list): self.tag_list = tag_list
     def get_user_tag_list(self): return self.user_tag_list
@@ -3500,7 +3547,8 @@ class work(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_type(self): return self.type_
     def set_type(self, type_): self.type_ = type_
     def get_id(self): return self.id
@@ -3797,7 +3845,8 @@ class def_area_element_inner(GeneratedsSuper):
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
-    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def insert_relation_list_at(self, index, value): self.relation_list.insert(index, value)
+    def replace_relation_list_at(self, index, value): self.relation_list[index] = value
     def get_tag_list(self): return self.tag_list
     def set_tag_list(self, tag_list): self.tag_list = tag_list
     def get_user_tag_list(self): return self.user_tag_list
@@ -4066,7 +4115,8 @@ class place(GeneratedsSuper):
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
-    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def insert_relation_list_at(self, index, value): self.relation_list.insert(index, value)
+    def replace_relation_list_at(self, index, value): self.relation_list[index] = value
     def get_tag_list(self): return self.tag_list
     def set_tag_list(self, tag_list): self.tag_list = tag_list
     def get_user_tag_list(self): return self.user_tag_list
@@ -4074,7 +4124,8 @@ class place(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_type(self): return self.type_
     def set_type(self, type_): self.type_ = type_
     def get_id(self): return self.id
@@ -4409,7 +4460,8 @@ class instrument(GeneratedsSuper):
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
-    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def insert_relation_list_at(self, index, value): self.relation_list.insert(index, value)
+    def replace_relation_list_at(self, index, value): self.relation_list[index] = value
     def get_tag_list(self): return self.tag_list
     def set_tag_list(self, tag_list): self.tag_list = tag_list
     def get_user_tag_list(self): return self.user_tag_list
@@ -4417,7 +4469,8 @@ class instrument(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_type(self): return self.type_
     def set_type(self, type_): self.type_ = type_
     def get_id(self): return self.id
@@ -4628,7 +4681,8 @@ class series(GeneratedsSuper):
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
-    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def insert_relation_list_at(self, index, value): self.relation_list.insert(index, value)
+    def replace_relation_list_at(self, index, value): self.relation_list[index] = value
     def get_tag_list(self): return self.tag_list
     def set_tag_list(self, tag_list): self.tag_list = tag_list
     def get_user_tag_list(self): return self.user_tag_list
@@ -4636,7 +4690,8 @@ class series(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_type(self): return self.type_
     def set_type(self, type_): self.type_ = type_
     def get_id(self): return self.id
@@ -4816,6 +4871,7 @@ class event(GeneratedsSuper):
         self.name = name
         self.disambiguation = disambiguation
         self.cancelled = cancelled
+        self.validate_cancelled(self.cancelled)
         self.life_span = life_span
         self.time = time
         self.setlist = setlist
@@ -4858,7 +4914,8 @@ class event(GeneratedsSuper):
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
-    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def insert_relation_list_at(self, index, value): self.relation_list.insert(index, value)
+    def replace_relation_list_at(self, index, value): self.relation_list[index] = value
     def get_tag_list(self): return self.tag_list
     def set_tag_list(self, tag_list): self.tag_list = tag_list
     def get_user_tag_list(self): return self.user_tag_list
@@ -4870,7 +4927,8 @@ class event(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_type(self): return self.type_
     def set_type(self, type_): self.type_ = type_
     def get_id(self): return self.id
@@ -5128,7 +5186,8 @@ class url(GeneratedsSuper):
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
-    def insert_relation_list(self, index, value): self.relation_list[index] = value
+    def insert_relation_list_at(self, index, value): self.relation_list.insert(index, value)
+    def replace_relation_list_at(self, index, value): self.relation_list[index] = value
     def get_id(self): return self.id
     def set_id(self, id): self.id = id
     def hasContent_(self):
@@ -5214,10 +5273,11 @@ class url(GeneratedsSuper):
 class disc(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, id=None, sectors=None, release_list=None, def_extension_element=None):
+    def __init__(self, id=None, sectors=None, offset_list=None, release_list=None, def_extension_element=None):
         self.original_tagname_ = None
         self.id = _cast(None, id)
         self.sectors = sectors
+        self.offset_list = offset_list
         self.release_list = release_list
         if def_extension_element is None:
             self.def_extension_element = []
@@ -5231,17 +5291,21 @@ class disc(GeneratedsSuper):
     factory = staticmethod(factory)
     def get_sectors(self): return self.sectors
     def set_sectors(self, sectors): self.sectors = sectors
+    def get_offset_list(self): return self.offset_list
+    def set_offset_list(self, offset_list): self.offset_list = offset_list
     def get_release_list(self): return self.release_list
     def set_release_list(self, release_list): self.release_list = release_list
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_id(self): return self.id
     def set_id(self, id): self.id = id
     def hasContent_(self):
         if (
             self.sectors is not None or
+            self.offset_list is not None or
             self.release_list is not None or
             self.def_extension_element
         ):
@@ -5278,6 +5342,8 @@ class disc(GeneratedsSuper):
         if self.sectors is not None:
             showIndent(outfile, level, pretty_print)
             outfile.write('<%ssectors>%s</%ssectors>%s' % (namespace_, self.gds_format_integer(self.sectors, input_name='sectors'), namespace_, eol_))
+        if self.offset_list is not None:
+            self.offset_list.export(outfile, level, namespace_='mmd-2.0:', name_='offset-list', pretty_print=pretty_print)
         if self.release_list is not None:
             self.release_list.export(outfile, level, namespace_='mmd-2.0:', name_='release-list', pretty_print=pretty_print)
         for def_extension_element_ in self.def_extension_element:
@@ -5293,6 +5359,9 @@ class disc(GeneratedsSuper):
         if self.sectors is not None:
             sectors_ = self.sectors
             etree_.SubElement(element, '{http://musicbrainz.org/ns/mmd-2.0#}sectors').text = self.gds_format_integer(sectors_)
+        if self.offset_list is not None:
+            offset_list_ = self.offset_list
+            offset_list_.to_etree(element, name_='offset-list', mapping_=mapping_)
         if self.release_list is not None:
             release_list_ = self.release_list
             release_list_.to_etree(element, name_='release-list', mapping_=mapping_)
@@ -5324,6 +5393,11 @@ class disc(GeneratedsSuper):
                 raise_parse_error(child_, 'requires nonNegativeInteger')
             ival_ = self.gds_validate_integer(ival_, node, 'sectors')
             self.sectors = ival_
+        elif nodeName_ == 'offset-list':
+            obj_ = offset_list.factory()
+            obj_.build(child_)
+            self.offset_list = obj_
+            obj_.original_tagname_ = 'offset-list'
         elif nodeName_ == 'release-list':
             obj_ = release_list.factory()
             obj_.build(child_)
@@ -5358,7 +5432,8 @@ class puid(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_id(self): return self.id
     def set_id(self, id): self.id = id
     def hasContent_(self):
@@ -5463,7 +5538,8 @@ class isrc(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_id(self): return self.id
     def set_id(self, id): self.id = id
     def hasContent_(self):
@@ -5564,7 +5640,8 @@ class artist_credit(GeneratedsSuper):
     def get_name_credit(self): return self.name_credit
     def set_name_credit(self, name_credit): self.name_credit = name_credit
     def add_name_credit(self, value): self.name_credit.append(value)
-    def insert_name_credit(self, index, value): self.name_credit[index] = value
+    def insert_name_credit_at(self, index, value): self.name_credit.insert(index, value)
+    def replace_name_credit_at(self, index, value): self.name_credit[index] = value
     def hasContent_(self):
         if (
             self.name_credit
@@ -5742,6 +5819,7 @@ class relation(GeneratedsSuper):
         self.begin = begin
         self.end = end
         self.ended = ended
+        self.validate_ended(self.ended)
         self.artist = artist
         self.release = release
         self.release_group = release_group
@@ -6144,6 +6222,8 @@ class target(GeneratedsSuper):
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.id is not None:
             element.set('id', self.gds_format_string(self.id))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -6265,6 +6345,8 @@ class alias(GeneratedsSuper):
             element.set('end-date', self.end_date)
         if self.begin_date is not None:
             element.set('begin-date', self.begin_date)
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -6599,6 +6681,8 @@ class rating(GeneratedsSuper):
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.votes_count is not None:
             element.set('votes-count', self.gds_format_integer(self.votes_count))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -7080,7 +7164,8 @@ class annotation(GeneratedsSuper):
     def get_def_extension_element(self): return self.def_extension_element
     def set_def_extension_element(self, def_extension_element): self.def_extension_element = def_extension_element
     def add_def_extension_element(self, value): self.def_extension_element.append(value)
-    def insert_def_extension_element(self, index, value): self.def_extension_element[index] = value
+    def insert_def_extension_element_at(self, index, value): self.def_extension_element.insert(index, value)
+    def replace_def_extension_element_at(self, index, value): self.def_extension_element[index] = value
     def get_type(self): return self.type_
     def set_type(self, type_): self.type_ = type_
     def hasContent_(self):
@@ -7350,6 +7435,7 @@ class freedb_disc(GeneratedsSuper):
         self.artist = artist
         self.category = category
         self.year = year
+        self.validate_year(self.year)
         self.track_list = track_list
         self.anytypeobjs_ = anytypeobjs_
     def factory(*args_, **kwargs_):
@@ -8100,7 +8186,8 @@ class language_list(GeneratedsSuper):
     def get_language(self): return self.language
     def set_language(self, language): self.language = language
     def add_language(self, value): self.language.append(value)
-    def insert_language(self, index, value): self.language[index] = value
+    def insert_language_at(self, index, value): self.language.insert(index, value)
+    def replace_language_at(self, index, value): self.language[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -8304,7 +8391,8 @@ class artist_list(GeneratedsSuper):
     def get_artist(self): return self.artist
     def set_artist(self, artist): self.artist = artist
     def add_artist(self, value): self.artist.append(value)
-    def insert_artist(self, index, value): self.artist[index] = value
+    def insert_artist_at(self, index, value): self.artist.insert(index, value)
+    def replace_artist_at(self, index, value): self.artist[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -8420,7 +8508,8 @@ class medium_list(GeneratedsSuper):
     def get_medium(self): return self.medium
     def set_medium(self, medium): self.medium = medium
     def add_medium(self, value): self.medium.append(value)
-    def insert_medium(self, index, value): self.medium[index] = value
+    def insert_medium_at(self, index, value): self.medium.insert(index, value)
+    def replace_medium_at(self, index, value): self.medium[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -8550,7 +8639,8 @@ class release_list(GeneratedsSuper):
     def get_release(self): return self.release
     def set_release(self, release): self.release = release
     def add_release(self, value): self.release.append(value)
-    def insert_release(self, index, value): self.release[index] = value
+    def insert_release_at(self, index, value): self.release.insert(index, value)
+    def replace_release_at(self, index, value): self.release[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -8663,7 +8753,8 @@ class release_group_list(GeneratedsSuper):
     def get_release_group(self): return self.release_group
     def set_release_group(self, release_group): self.release_group = release_group
     def add_release_group(self, value): self.release_group.append(value)
-    def insert_release_group(self, index, value): self.release_group[index] = value
+    def insert_release_group_at(self, index, value): self.release_group.insert(index, value)
+    def replace_release_group_at(self, index, value): self.release_group[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -8776,7 +8867,8 @@ class alias_list(GeneratedsSuper):
     def get_alias(self): return self.alias
     def set_alias(self, alias): self.alias = alias
     def add_alias(self, value): self.alias.append(value)
-    def insert_alias(self, index, value): self.alias[index] = value
+    def insert_alias_at(self, index, value): self.alias.insert(index, value)
+    def replace_alias_at(self, index, value): self.alias[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -8889,7 +8981,8 @@ class recording_list(GeneratedsSuper):
     def get_recording(self): return self.recording
     def set_recording(self, recording): self.recording = recording
     def add_recording(self, value): self.recording.append(value)
-    def insert_recording(self, index, value): self.recording[index] = value
+    def insert_recording_at(self, index, value): self.recording.insert(index, value)
+    def replace_recording_at(self, index, value): self.recording[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -9002,7 +9095,8 @@ class data_track_list(GeneratedsSuper):
     def get_track(self): return self.track
     def set_track(self, track): self.track = track
     def add_track(self, value): self.track.append(value)
-    def insert_track(self, index, value): self.track[index] = value
+    def insert_track_at(self, index, value): self.track.insert(index, value)
+    def replace_track_at(self, index, value): self.track[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -9095,6 +9189,198 @@ class data_track_list(GeneratedsSuper):
 # end class data_track_list
 
 
+class offset_list(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, count=None, offset_attr=None, offset=None):
+        self.original_tagname_ = None
+        self.count = _cast(int, count)
+        self.offset_attr = _cast(None, offset_attr)
+        if offset is None:
+            self.offset = []
+        else:
+            self.offset = offset
+    def factory(*args_, **kwargs_):
+        if offset_list.subclass:
+            return offset_list.subclass(*args_, **kwargs_)
+        else:
+            return offset_list(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_offset(self): return self.offset
+    def set_offset(self, offset): self.offset = offset
+    def add_offset(self, value): self.offset.append(value)
+    def insert_offset_at(self, index, value): self.offset.insert(index, value)
+    def replace_offset_at(self, index, value): self.offset[index] = value
+    def get_count(self): return self.count
+    def set_count(self, count): self.count = count
+    def get_offset_attr(self): return self.offset_attr
+    def set_offset_attr(self, offset_attr): self.offset_attr = offset_attr
+    def hasContent_(self):
+        if (
+            self.offset
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='offset-list', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='offset-list')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='offset-list', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='offset-list'):
+        if self.count is not None and 'count' not in already_processed:
+            already_processed.add('count')
+            outfile.write(' count="%s"' % self.gds_format_integer(self.count, input_name='count'))
+        if self.offset_attr is not None and 'offset_attr' not in already_processed:
+            already_processed.add('offset_attr')
+            outfile.write(' offset=%s' % (self.gds_format_string(quote_attrib(self.offset_attr).encode(ExternalEncoding), input_name='offset_attr'), ))
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='offset-list', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        for offset_ in self.offset:
+            offset_.export(outfile, level, namespace_='mmd-2.0:', name_='offset', pretty_print=pretty_print)
+    def to_etree(self, parent_element=None, name_='offset-list', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.count is not None:
+            element.set('count', self.gds_format_integer(self.count))
+        if self.offset_attr is not None:
+            element.set('offset_attr', self.gds_format_string(self.offset_attr))
+        for offset_ in self.offset:
+            offset_.to_etree(element, name_='offset', mapping_=mapping_)
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('count', node)
+        if value is not None and 'count' not in already_processed:
+            already_processed.add('count')
+            try:
+                self.count = int(value)
+            except ValueError, exp:
+                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
+            if self.count < 0:
+                raise_parse_error(node, 'Invalid NonNegativeInteger')
+        value = find_attr_value_('offset', node)
+        if value is not None and 'offset_attr' not in already_processed:
+            already_processed.add('offset_attr')
+            self.offset_attr = value
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'offset':
+            obj_ = offset.factory()
+            obj_.build(child_)
+            self.offset.append(obj_)
+            obj_.original_tagname_ = 'offset'
+# end class offset_list
+
+
+class offset(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, position=None, valueOf_=None):
+        self.original_tagname_ = None
+        self.position = _cast(int, position)
+        self.valueOf_ = valueOf_
+    def factory(*args_, **kwargs_):
+        if offset.subclass:
+            return offset.subclass(*args_, **kwargs_)
+        else:
+            return offset(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_position(self): return self.position
+    def set_position(self, position): self.position = position
+    def get_valueOf_(self): return self.valueOf_
+    def set_valueOf_(self, valueOf_): self.valueOf_ = valueOf_
+    def hasContent_(self):
+        if (
+            self.valueOf_
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='mmd-2.0:', name_='offset', namespacedef_='xmlns:mmd-2.0="http://musicbrainz.org/ns/mmd-2.0#"', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='offset')
+        if self.hasContent_():
+            outfile.write('>')
+            outfile.write(str(self.valueOf_).encode(ExternalEncoding))
+            self.exportChildren(outfile, level + 1, namespace_='mmd-2.0:', name_='offset', pretty_print=pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='mmd-2.0:', name_='offset'):
+        if self.position is not None and 'position' not in already_processed:
+            already_processed.add('position')
+            outfile.write(' position="%s"' % self.gds_format_integer(self.position, input_name='position'))
+    def exportChildren(self, outfile, level, namespace_='mmd-2.0:', name_='offset', fromsubclass_=False, pretty_print=True):
+        pass
+    def to_etree(self, parent_element=None, name_='offset', mapping_=None):
+        if parent_element is None:
+            element = etree_.Element('{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        else:
+            element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
+        if self.position is not None:
+            element.set('position', self.gds_format_integer(self.position))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
+        if mapping_ is not None:
+            mapping_[self] = element
+        return element
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        self.valueOf_ = get_all_text_(node)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('position', node)
+        if value is not None and 'position' not in already_processed:
+            already_processed.add('position')
+            try:
+                self.position = int(value)
+            except ValueError, exp:
+                raise_parse_error(node, 'Bad integer attribute: %s' % exp)
+            if self.position < 0:
+                raise_parse_error(node, 'Invalid NonNegativeInteger')
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        pass
+# end class offset
+
+
 class label_list(GeneratedsSuper):
     subclass = None
     superclass = None
@@ -9115,7 +9401,8 @@ class label_list(GeneratedsSuper):
     def get_label(self): return self.label
     def set_label(self, label): self.label = label
     def add_label(self, value): self.label.append(value)
-    def insert_label(self, index, value): self.label[index] = value
+    def insert_label_at(self, index, value): self.label.insert(index, value)
+    def replace_label_at(self, index, value): self.label[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -9228,7 +9515,8 @@ class label_info_list(GeneratedsSuper):
     def get_label_info(self): return self.label_info
     def set_label_info(self, label_info): self.label_info = label_info
     def add_label_info(self, value): self.label_info.append(value)
-    def insert_label_info(self, index, value): self.label_info[index] = value
+    def insert_label_info_at(self, index, value): self.label_info.insert(index, value)
+    def replace_label_info_at(self, index, value): self.label_info[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -9341,7 +9629,8 @@ class work_list(GeneratedsSuper):
     def get_work(self): return self.work
     def set_work(self, work): self.work = work
     def add_work(self, value): self.work.append(value)
-    def insert_work(self, index, value): self.work[index] = value
+    def insert_work_at(self, index, value): self.work.insert(index, value)
+    def replace_work_at(self, index, value): self.work[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -9454,7 +9743,8 @@ class area_list(GeneratedsSuper):
     def get_area(self): return self.area
     def set_area(self, area): self.area = area
     def add_area(self, value): self.area.append(value)
-    def insert_area(self, index, value): self.area[index] = value
+    def insert_area_at(self, index, value): self.area.insert(index, value)
+    def replace_area_at(self, index, value): self.area[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -9567,7 +9857,8 @@ class place_list(GeneratedsSuper):
     def get_place(self): return self.place
     def set_place(self, place): self.place = place
     def add_place(self, value): self.place.append(value)
-    def insert_place(self, index, value): self.place[index] = value
+    def insert_place_at(self, index, value): self.place.insert(index, value)
+    def replace_place_at(self, index, value): self.place[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -9680,7 +9971,8 @@ class instrument_list(GeneratedsSuper):
     def get_instrument(self): return self.instrument
     def set_instrument(self, instrument): self.instrument = instrument
     def add_instrument(self, value): self.instrument.append(value)
-    def insert_instrument(self, index, value): self.instrument[index] = value
+    def insert_instrument_at(self, index, value): self.instrument.insert(index, value)
+    def replace_instrument_at(self, index, value): self.instrument[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -9793,7 +10085,8 @@ class series_list(GeneratedsSuper):
     def get_series(self): return self.series
     def set_series(self, series): self.series = series
     def add_series(self, value): self.series.append(value)
-    def insert_series(self, index, value): self.series[index] = value
+    def insert_series_at(self, index, value): self.series.insert(index, value)
+    def replace_series_at(self, index, value): self.series[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -9906,7 +10199,8 @@ class event_list(GeneratedsSuper):
     def get_event(self): return self.event
     def set_event(self, event): self.event = event
     def add_event(self, value): self.event.append(value)
-    def insert_event(self, index, value): self.event[index] = value
+    def insert_event_at(self, index, value): self.event.insert(index, value)
+    def replace_event_at(self, index, value): self.event[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -10019,7 +10313,8 @@ class url_list(GeneratedsSuper):
     def get_url(self): return self.url
     def set_url(self, url): self.url = url
     def add_url(self, value): self.url.append(value)
-    def insert_url(self, index, value): self.url[index] = value
+    def insert_url_at(self, index, value): self.url.insert(index, value)
+    def replace_url_at(self, index, value): self.url[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -10132,7 +10427,8 @@ class release_event_list(GeneratedsSuper):
     def get_release_event(self): return self.release_event
     def set_release_event(self, release_event): self.release_event = release_event
     def add_release_event(self, value): self.release_event.append(value)
-    def insert_release_event(self, index, value): self.release_event[index] = value
+    def insert_release_event_at(self, index, value): self.release_event.insert(index, value)
+    def replace_release_event_at(self, index, value): self.release_event[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -10245,7 +10541,8 @@ class annotation_list(GeneratedsSuper):
     def get_annotation(self): return self.annotation
     def set_annotation(self, annotation): self.annotation = annotation
     def add_annotation(self, value): self.annotation.append(value)
-    def insert_annotation(self, index, value): self.annotation[index] = value
+    def insert_annotation_at(self, index, value): self.annotation.insert(index, value)
+    def replace_annotation_at(self, index, value): self.annotation[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -10358,7 +10655,8 @@ class cdstub_list(GeneratedsSuper):
     def get_cdstub(self): return self.cdstub
     def set_cdstub(self, cdstub): self.cdstub = cdstub
     def add_cdstub(self, value): self.cdstub.append(value)
-    def insert_cdstub(self, index, value): self.cdstub[index] = value
+    def insert_cdstub_at(self, index, value): self.cdstub.insert(index, value)
+    def replace_cdstub_at(self, index, value): self.cdstub[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -10471,7 +10769,8 @@ class freedb_disc_list(GeneratedsSuper):
     def get_freedb_disc(self): return self.freedb_disc
     def set_freedb_disc(self, freedb_disc): self.freedb_disc = freedb_disc
     def add_freedb_disc(self, value): self.freedb_disc.append(value)
-    def insert_freedb_disc(self, index, value): self.freedb_disc[index] = value
+    def insert_freedb_disc_at(self, index, value): self.freedb_disc.insert(index, value)
+    def replace_freedb_disc_at(self, index, value): self.freedb_disc[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -10584,7 +10883,8 @@ class disc_list(GeneratedsSuper):
     def get_disc(self): return self.disc
     def set_disc(self, disc): self.disc = disc
     def add_disc(self, value): self.disc.append(value)
-    def insert_disc(self, index, value): self.disc[index] = value
+    def insert_disc_at(self, index, value): self.disc.insert(index, value)
+    def replace_disc_at(self, index, value): self.disc[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -10697,7 +10997,8 @@ class puid_list(GeneratedsSuper):
     def get_puid(self): return self.puid
     def set_puid(self, puid): self.puid = puid
     def add_puid(self, value): self.puid.append(value)
-    def insert_puid(self, index, value): self.puid[index] = value
+    def insert_puid_at(self, index, value): self.puid.insert(index, value)
+    def replace_puid_at(self, index, value): self.puid[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -10810,7 +11111,8 @@ class isrc_list(GeneratedsSuper):
     def get_isrc(self): return self.isrc
     def set_isrc(self, isrc): self.isrc = isrc
     def add_isrc(self, value): self.isrc.append(value)
-    def insert_isrc(self, index, value): self.isrc[index] = value
+    def insert_isrc_at(self, index, value): self.isrc.insert(index, value)
+    def replace_isrc_at(self, index, value): self.isrc[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -10924,7 +11226,8 @@ class relation_list(GeneratedsSuper):
     def get_relation(self): return self.relation
     def set_relation(self, relation): self.relation = relation
     def add_relation(self, value): self.relation.append(value)
-    def insert_relation(self, index, value): self.relation[index] = value
+    def insert_relation_at(self, index, value): self.relation.insert(index, value)
+    def replace_relation_at(self, index, value): self.relation[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -11048,7 +11351,8 @@ class tag_list(GeneratedsSuper):
     def get_tag(self): return self.tag
     def set_tag(self, tag): self.tag = tag
     def add_tag(self, value): self.tag.append(value)
-    def insert_tag(self, index, value): self.tag[index] = value
+    def insert_tag_at(self, index, value): self.tag.insert(index, value)
+    def replace_tag_at(self, index, value): self.tag[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -11161,7 +11465,8 @@ class iswc_list(GeneratedsSuper):
     def get_iswc(self): return self.iswc
     def set_iswc(self, iswc): self.iswc = iswc
     def add_iswc(self, value): self.iswc.append(value)
-    def insert_iswc(self, index, value): self.iswc[index] = value
+    def insert_iswc_at(self, index, value): self.iswc.insert(index, value)
+    def replace_iswc_at(self, index, value): self.iswc[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -11279,7 +11584,8 @@ class user_tag_list(GeneratedsSuper):
     def get_user_tag(self): return self.user_tag
     def set_user_tag(self, user_tag): self.user_tag = user_tag
     def add_user_tag(self, value): self.user_tag.append(value)
-    def insert_user_tag(self, index, value): self.user_tag[index] = value
+    def insert_user_tag_at(self, index, value): self.user_tag.insert(index, value)
+    def replace_user_tag_at(self, index, value): self.user_tag[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -11392,7 +11698,8 @@ class collection_list(GeneratedsSuper):
     def get_collection(self): return self.collection
     def set_collection(self, collection): self.collection = collection
     def add_collection(self, value): self.collection.append(value)
-    def insert_collection(self, index, value): self.collection[index] = value
+    def insert_collection_at(self, index, value): self.collection.insert(index, value)
+    def replace_collection_at(self, index, value): self.collection[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -11505,7 +11812,8 @@ class editor_list(GeneratedsSuper):
     def get_editor(self): return self.editor
     def set_editor(self, editor): self.editor = editor
     def add_editor(self, value): self.editor.append(value)
-    def insert_editor(self, index, value): self.editor[index] = value
+    def insert_editor_at(self, index, value): self.editor.insert(index, value)
+    def replace_editor_at(self, index, value): self.editor[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -11658,47 +11966,58 @@ class entity_list(GeneratedsSuper):
     def get_artist(self): return self.artist
     def set_artist(self, artist): self.artist = artist
     def add_artist(self, value): self.artist.append(value)
-    def insert_artist(self, index, value): self.artist[index] = value
+    def insert_artist_at(self, index, value): self.artist.insert(index, value)
+    def replace_artist_at(self, index, value): self.artist[index] = value
     def get_release(self): return self.release
     def set_release(self, release): self.release = release
     def add_release(self, value): self.release.append(value)
-    def insert_release(self, index, value): self.release[index] = value
+    def insert_release_at(self, index, value): self.release.insert(index, value)
+    def replace_release_at(self, index, value): self.release[index] = value
     def get_release_group(self): return self.release_group
     def set_release_group(self, release_group): self.release_group = release_group
     def add_release_group(self, value): self.release_group.append(value)
-    def insert_release_group(self, index, value): self.release_group[index] = value
+    def insert_release_group_at(self, index, value): self.release_group.insert(index, value)
+    def replace_release_group_at(self, index, value): self.release_group[index] = value
     def get_recording(self): return self.recording
     def set_recording(self, recording): self.recording = recording
     def add_recording(self, value): self.recording.append(value)
-    def insert_recording(self, index, value): self.recording[index] = value
+    def insert_recording_at(self, index, value): self.recording.insert(index, value)
+    def replace_recording_at(self, index, value): self.recording[index] = value
     def get_label(self): return self.label
     def set_label(self, label): self.label = label
     def add_label(self, value): self.label.append(value)
-    def insert_label(self, index, value): self.label[index] = value
+    def insert_label_at(self, index, value): self.label.insert(index, value)
+    def replace_label_at(self, index, value): self.label[index] = value
     def get_work(self): return self.work
     def set_work(self, work): self.work = work
     def add_work(self, value): self.work.append(value)
-    def insert_work(self, index, value): self.work[index] = value
+    def insert_work_at(self, index, value): self.work.insert(index, value)
+    def replace_work_at(self, index, value): self.work[index] = value
     def get_area(self): return self.area
     def set_area(self, area): self.area = area
     def add_area(self, value): self.area.append(value)
-    def insert_area(self, index, value): self.area[index] = value
+    def insert_area_at(self, index, value): self.area.insert(index, value)
+    def replace_area_at(self, index, value): self.area[index] = value
     def get_place(self): return self.place
     def set_place(self, place): self.place = place
     def add_place(self, value): self.place.append(value)
-    def insert_place(self, index, value): self.place[index] = value
+    def insert_place_at(self, index, value): self.place.insert(index, value)
+    def replace_place_at(self, index, value): self.place[index] = value
     def get_instrument(self): return self.instrument
     def set_instrument(self, instrument): self.instrument = instrument
     def add_instrument(self, value): self.instrument.append(value)
-    def insert_instrument(self, index, value): self.instrument[index] = value
+    def insert_instrument_at(self, index, value): self.instrument.insert(index, value)
+    def replace_instrument_at(self, index, value): self.instrument[index] = value
     def get_series(self): return self.series
     def set_series(self, series): self.series = series
     def add_series(self, value): self.series.append(value)
-    def insert_series(self, index, value): self.series[index] = value
+    def insert_series_at(self, index, value): self.series.insert(index, value)
+    def replace_series_at(self, index, value): self.series[index] = value
     def get_event(self): return self.event
     def set_event(self, event): self.event = event
     def add_event(self, value): self.event.append(value)
-    def insert_event(self, index, value): self.event[index] = value
+    def insert_event_at(self, index, value): self.event.insert(index, value)
+    def replace_event_at(self, index, value): self.event[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -11897,10 +12216,14 @@ class cover_art_archive(GeneratedsSuper):
     def __init__(self, artwork=None, count=None, front=None, back=None, darkened=None):
         self.original_tagname_ = None
         self.artwork = artwork
+        self.validate_artwork(self.artwork)
         self.count = count
         self.front = front
+        self.validate_front(self.front)
         self.back = back
+        self.validate_back(self.back)
         self.darkened = darkened
+        self.validate_darkened(self.darkened)
     def factory(*args_, **kwargs_):
         if cover_art_archive.subclass:
             return cover_art_archive.subclass(*args_, **kwargs_)
@@ -12312,10 +12635,15 @@ class ipi_list(GeneratedsSuper):
     def get_ipi(self): return self.ipi
     def set_ipi(self, ipi): self.ipi = ipi
     def add_ipi(self, value): self.ipi.append(value)
-    def insert_ipi(self, index, value): self.ipi[index] = value
+    def insert_ipi_at(self, index, value): self.ipi.insert(index, value)
+    def replace_ipi_at(self, index, value): self.ipi[index] = value
     def validate_def_ipi(self, value):
         # Validate type def_ipi, a restriction on xs:string.
-        pass
+        if value is not None and Validate_simpletypes_:
+            if not self.gds_validate_simple_patterns(
+                    self.validate_def_ipi_patterns_, value):
+                warnings_.warn('Value "%s" does not match xsd pattern restrictions: %s' % (value.encode('utf-8'), self.validate_def_ipi_patterns_, ))
+    validate_def_ipi_patterns_ = [['^[0-9]{11}$']]
     def hasContent_(self):
         if (
             self.ipi
@@ -12580,7 +12908,8 @@ class iso_3166_1_code_list(GeneratedsSuper):
     def get_iso_3166_1_code(self): return self.iso_3166_1_code
     def set_iso_3166_1_code(self, iso_3166_1_code): self.iso_3166_1_code = iso_3166_1_code
     def add_iso_3166_1_code(self, value): self.iso_3166_1_code.append(value)
-    def insert_iso_3166_1_code(self, index, value): self.iso_3166_1_code[index] = value
+    def insert_iso_3166_1_code_at(self, index, value): self.iso_3166_1_code.insert(index, value)
+    def replace_iso_3166_1_code_at(self, index, value): self.iso_3166_1_code[index] = value
     def hasContent_(self):
         if (
             self.iso_3166_1_code
@@ -12661,7 +12990,8 @@ class iso_3166_2_code_list(GeneratedsSuper):
     def get_iso_3166_2_code(self): return self.iso_3166_2_code
     def set_iso_3166_2_code(self, iso_3166_2_code): self.iso_3166_2_code = iso_3166_2_code
     def add_iso_3166_2_code(self, value): self.iso_3166_2_code.append(value)
-    def insert_iso_3166_2_code(self, index, value): self.iso_3166_2_code[index] = value
+    def insert_iso_3166_2_code_at(self, index, value): self.iso_3166_2_code.insert(index, value)
+    def replace_iso_3166_2_code_at(self, index, value): self.iso_3166_2_code[index] = value
     def hasContent_(self):
         if (
             self.iso_3166_2_code
@@ -12742,7 +13072,8 @@ class iso_3166_3_code_list(GeneratedsSuper):
     def get_iso_3166_3_code(self): return self.iso_3166_3_code
     def set_iso_3166_3_code(self, iso_3166_3_code): self.iso_3166_3_code = iso_3166_3_code
     def add_iso_3166_3_code(self, value): self.iso_3166_3_code.append(value)
-    def insert_iso_3166_3_code(self, index, value): self.iso_3166_3_code[index] = value
+    def insert_iso_3166_3_code_at(self, index, value): self.iso_3166_3_code.insert(index, value)
+    def replace_iso_3166_3_code_at(self, index, value): self.iso_3166_3_code[index] = value
     def hasContent_(self):
         if (
             self.iso_3166_3_code
@@ -12823,7 +13154,8 @@ class attribute_listType(GeneratedsSuper):
     def get_attribute(self): return self.attribute
     def set_attribute(self, attribute): self.attribute = attribute
     def add_attribute(self, value): self.attribute.append(value)
-    def insert_attribute(self, index, value): self.attribute[index] = value
+    def insert_attribute_at(self, index, value): self.attribute.insert(index, value)
+    def replace_attribute_at(self, index, value): self.attribute[index] = value
     def hasContent_(self):
         if (
             self.attribute
@@ -12946,6 +13278,8 @@ class attributeType(GeneratedsSuper):
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.type_ is not None:
             element.set('type', self.gds_format_string(self.type_))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -13084,7 +13418,8 @@ class attribute_listType1(GeneratedsSuper):
     def get_attribute(self): return self.attribute
     def set_attribute(self, attribute): self.attribute = attribute
     def add_attribute(self, value): self.attribute.append(value)
-    def insert_attribute(self, index, value): self.attribute[index] = value
+    def insert_attribute_at(self, index, value): self.attribute.insert(index, value)
+    def replace_attribute_at(self, index, value): self.attribute[index] = value
     def hasContent_(self):
         if (
             self.attribute
@@ -13215,6 +13550,8 @@ class attributeType2(GeneratedsSuper):
             element.set('credited-as', self.gds_format_string(self.credited_as))
         if self.value is not None:
             element.set('value', self.gds_format_string(self.value))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -13741,6 +14078,8 @@ class languageType(GeneratedsSuper):
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.fluency is not None:
             element.set('fluency', self.gds_format_string(self.fluency))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -13783,7 +14122,8 @@ class track_listType5(GeneratedsSuper):
     def get_track(self): return self.track
     def set_track(self, track): self.track = track
     def add_track(self, value): self.track.append(value)
-    def insert_track(self, index, value): self.track[index] = value
+    def insert_track_at(self, index, value): self.track.insert(index, value)
+    def replace_track_at(self, index, value): self.track[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -13896,7 +14236,8 @@ class track_listType6(GeneratedsSuper):
     def get_track(self): return self.track
     def set_track(self, track): self.track = track
     def add_track(self, value): self.track.append(value)
-    def insert_track(self, index, value): self.track[index] = value
+    def insert_track_at(self, index, value): self.track.insert(index, value)
+    def replace_track_at(self, index, value): self.track[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -14118,7 +14459,8 @@ class attribute_listType8(GeneratedsSuper):
     def get_attribute(self): return self.attribute
     def set_attribute(self, attribute): self.attribute = attribute
     def add_attribute(self, value): self.attribute.append(value)
-    def insert_attribute(self, index, value): self.attribute[index] = value
+    def insert_attribute_at(self, index, value): self.attribute.insert(index, value)
+    def replace_attribute_at(self, index, value): self.attribute[index] = value
     def hasContent_(self):
         if (
             self.attribute
@@ -14249,6 +14591,8 @@ class attributeType9(GeneratedsSuper):
             element.set('credited-as', self.gds_format_string(self.credited_as))
         if self.value is not None:
             element.set('value', self.gds_format_string(self.value))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -14300,7 +14644,8 @@ class attribute_listType10(GeneratedsSuper):
     def get_attribute(self): return self.attribute
     def set_attribute(self, attribute): self.attribute = attribute
     def add_attribute(self, value): self.attribute.append(value)
-    def insert_attribute(self, index, value): self.attribute[index] = value
+    def insert_attribute_at(self, index, value): self.attribute.insert(index, value)
+    def replace_attribute_at(self, index, value): self.attribute[index] = value
     def hasContent_(self):
         if (
             self.attribute
@@ -14423,6 +14768,8 @@ class attributeType11(GeneratedsSuper):
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.type_ is not None:
             element.set('type', self.gds_format_string(self.type_))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -14470,7 +14817,8 @@ class attribute_listType12(GeneratedsSuper):
     def get_attribute(self): return self.attribute
     def set_attribute(self, attribute): self.attribute = attribute
     def add_attribute(self, value): self.attribute.append(value)
-    def insert_attribute(self, index, value): self.attribute[index] = value
+    def insert_attribute_at(self, index, value): self.attribute.insert(index, value)
+    def replace_attribute_at(self, index, value): self.attribute[index] = value
     def hasContent_(self):
         if (
             self.attribute
@@ -14593,6 +14941,8 @@ class attributeType13(GeneratedsSuper):
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.type_ is not None:
             element.set('type', self.gds_format_string(self.type_))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -14731,7 +15081,8 @@ class attribute_listType15(GeneratedsSuper):
     def get_attribute(self): return self.attribute
     def set_attribute(self, attribute): self.attribute = attribute
     def add_attribute(self, value): self.attribute.append(value)
-    def insert_attribute(self, index, value): self.attribute[index] = value
+    def insert_attribute_at(self, index, value): self.attribute.insert(index, value)
+    def replace_attribute_at(self, index, value): self.attribute[index] = value
     def hasContent_(self):
         if (
             self.attribute
@@ -14862,6 +15213,8 @@ class attributeType16(GeneratedsSuper):
             element.set('credited-as', self.gds_format_string(self.credited_as))
         if self.value is not None:
             element.set('value', self.gds_format_string(self.value))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -15388,6 +15741,8 @@ class languageType21(GeneratedsSuper):
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.fluency is not None:
             element.set('fluency', self.gds_format_string(self.fluency))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -15430,7 +15785,8 @@ class track_listType22(GeneratedsSuper):
     def get_track(self): return self.track
     def set_track(self, track): self.track = track
     def add_track(self, value): self.track.append(value)
-    def insert_track(self, index, value): self.track[index] = value
+    def insert_track_at(self, index, value): self.track.insert(index, value)
+    def replace_track_at(self, index, value): self.track[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -15543,7 +15899,8 @@ class track_listType23(GeneratedsSuper):
     def get_track(self): return self.track
     def set_track(self, track): self.track = track
     def add_track(self, value): self.track.append(value)
-    def insert_track(self, index, value): self.track[index] = value
+    def insert_track_at(self, index, value): self.track.insert(index, value)
+    def replace_track_at(self, index, value): self.track[index] = value
     def get_count(self): return self.count
     def set_count(self, count): self.count = count
     def get_offset(self): return self.offset
@@ -15765,7 +16122,8 @@ class attribute_listType25(GeneratedsSuper):
     def get_attribute(self): return self.attribute
     def set_attribute(self, attribute): self.attribute = attribute
     def add_attribute(self, value): self.attribute.append(value)
-    def insert_attribute(self, index, value): self.attribute[index] = value
+    def insert_attribute_at(self, index, value): self.attribute.insert(index, value)
+    def replace_attribute_at(self, index, value): self.attribute[index] = value
     def hasContent_(self):
         if (
             self.attribute
@@ -15896,6 +16254,8 @@ class attributeType26(GeneratedsSuper):
             element.set('credited-as', self.gds_format_string(self.credited_as))
         if self.value is not None:
             element.set('value', self.gds_format_string(self.value))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -15947,7 +16307,8 @@ class attribute_listType27(GeneratedsSuper):
     def get_attribute(self): return self.attribute
     def set_attribute(self, attribute): self.attribute = attribute
     def add_attribute(self, value): self.attribute.append(value)
-    def insert_attribute(self, index, value): self.attribute[index] = value
+    def insert_attribute_at(self, index, value): self.attribute.insert(index, value)
+    def replace_attribute_at(self, index, value): self.attribute[index] = value
     def hasContent_(self):
         if (
             self.attribute
@@ -16070,6 +16431,8 @@ class attributeType28(GeneratedsSuper):
             element = etree_.SubElement(parent_element, '{http://musicbrainz.org/ns/mmd-2.0#}' + name_)
         if self.type_ is not None:
             element.set('type', self.gds_format_string(self.type_))
+        if self.hasContent_():
+            element.text = self.gds_format_string(self.get_valueOf_())
         if mapping_ is not None:
             mapping_[self] = element
         return element
@@ -16302,6 +16665,8 @@ __all__ = [
     "medium_list",
     "metadata",
     "name_credit",
+    "offset",
+    "offset_list",
     "place",
     "place_list",
     "puid",
