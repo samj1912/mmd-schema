@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #
-# Generated Wed Feb 11 14:14:32 2015 by generateDS.py version 2.14a.
+# Generated Thu May 28 19:12:45 2015 by generateDS.py version 2.14a.
 #
 # Command line options:
 #   ('-o', 'mbrng/models.py')
@@ -112,8 +112,8 @@ supermod.life_span.subclass = life_spanSub
 
 
 class releaseSub(supermod.release):
-    def __init__(self, id=None, title=None, status=None, quality=None, annotation=None, disambiguation=None, packaging=None, text_representation=None, artist_credit=None, release_group=None, date=None, country=None, release_event_list=None, barcode=None, asin=None, cover_art_archive=None, label_info_list=None, medium_list=None, relation_list=None, tag_list=None, user_tag_list=None, collection_list=None, def_extension_element=None):
-        super(releaseSub, self).__init__(id, title, status, quality, annotation, disambiguation, packaging, text_representation, artist_credit, release_group, date, country, release_event_list, barcode, asin, cover_art_archive, label_info_list, medium_list, relation_list, tag_list, user_tag_list, collection_list, def_extension_element, )
+    def __init__(self, id=None, title=None, status=None, quality=None, annotation=None, disambiguation=None, packaging=None, text_representation=None, artist_credit=None, alias_list=None, release_group=None, date=None, country=None, release_event_list=None, barcode=None, asin=None, cover_art_archive=None, label_info_list=None, medium_list=None, relation_list=None, tag_list=None, user_tag_list=None, collection_list=None, def_extension_element=None):
+        super(releaseSub, self).__init__(id, title, status, quality, annotation, disambiguation, packaging, text_representation, artist_credit, alias_list, release_group, date, country, release_event_list, barcode, asin, cover_art_archive, label_info_list, medium_list, relation_list, tag_list, user_tag_list, collection_list, def_extension_element, )
 supermod.release.subclass = releaseSub
 # end class releaseSub
 
@@ -126,8 +126,8 @@ supermod.text_representation.subclass = text_representationSub
 
 
 class release_groupSub(supermod.release_group):
-    def __init__(self, type_=None, id=None, title=None, annotation=None, disambiguation=None, first_release_date=None, primary_type=None, secondary_type_list=None, artist_credit=None, release_list=None, relation_list=None, tag_list=None, user_tag_list=None, rating=None, user_rating=None, def_extension_element=None):
-        super(release_groupSub, self).__init__(type_, id, title, annotation, disambiguation, first_release_date, primary_type, secondary_type_list, artist_credit, release_list, relation_list, tag_list, user_tag_list, rating, user_rating, def_extension_element, )
+    def __init__(self, type_=None, id=None, title=None, annotation=None, disambiguation=None, first_release_date=None, primary_type=None, secondary_type_list=None, artist_credit=None, release_list=None, alias_list=None, relation_list=None, tag_list=None, user_tag_list=None, rating=None, user_rating=None, def_extension_element=None):
+        super(release_groupSub, self).__init__(type_, id, title, annotation, disambiguation, first_release_date, primary_type, secondary_type_list, artist_credit, release_list, alias_list, relation_list, tag_list, user_tag_list, rating, user_rating, def_extension_element, )
 supermod.release_group.subclass = release_groupSub
 # end class release_groupSub
 
@@ -140,8 +140,8 @@ supermod.secondary_type_list.subclass = secondary_type_listSub
 
 
 class recordingSub(supermod.recording):
-    def __init__(self, id=None, title=None, length=None, annotation=None, disambiguation=None, video=None, artist_credit=None, release_list=None, puid_list=None, isrc_list=None, relation_list=None, tag_list=None, user_tag_list=None, rating=None, user_rating=None, def_extension_element=None):
-        super(recordingSub, self).__init__(id, title, length, annotation, disambiguation, video, artist_credit, release_list, puid_list, isrc_list, relation_list, tag_list, user_tag_list, rating, user_rating, def_extension_element, )
+    def __init__(self, id=None, title=None, length=None, annotation=None, disambiguation=None, video=None, artist_credit=None, release_list=None, alias_list=None, puid_list=None, isrc_list=None, relation_list=None, tag_list=None, user_tag_list=None, rating=None, user_rating=None, def_extension_element=None):
+        super(recordingSub, self).__init__(id, title, length, annotation, disambiguation, video, artist_credit, release_list, alias_list, puid_list, isrc_list, relation_list, tag_list, user_tag_list, rating, user_rating, def_extension_element, )
 supermod.recording.subclass = recordingSub
 # end class recordingSub
 

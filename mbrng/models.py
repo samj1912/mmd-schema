@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Wed Feb 11 14:14:31 2015 by generateDS.py version 2.14a.
+# Generated Thu May 28 19:12:43 2015 by generateDS.py version 2.14a.
 #
 # Command line options:
 #   ('-o', 'mbrng/models.py')
@@ -1874,7 +1874,7 @@ class life_span(GeneratedsSuper):
 class release(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, id=None, title=None, status=None, quality=None, annotation=None, disambiguation=None, packaging=None, text_representation=None, artist_credit=None, release_group=None, date=None, country=None, release_event_list=None, barcode=None, asin=None, cover_art_archive=None, label_info_list=None, medium_list=None, relation_list=None, tag_list=None, user_tag_list=None, collection_list=None, def_extension_element=None):
+    def __init__(self, id=None, title=None, status=None, quality=None, annotation=None, disambiguation=None, packaging=None, text_representation=None, artist_credit=None, alias_list=None, release_group=None, date=None, country=None, release_event_list=None, barcode=None, asin=None, cover_art_archive=None, label_info_list=None, medium_list=None, relation_list=None, tag_list=None, user_tag_list=None, collection_list=None, def_extension_element=None):
         self.original_tagname_ = None
         self.id = _cast(None, id)
         self.title = title
@@ -1885,6 +1885,7 @@ class release(GeneratedsSuper):
         self.packaging = packaging
         self.text_representation = text_representation
         self.artist_credit = artist_credit
+        self.alias_list = alias_list
         self.release_group = release_group
         self.date = date
         self.country = country
@@ -1928,6 +1929,8 @@ class release(GeneratedsSuper):
     def set_text_representation(self, text_representation): self.text_representation = text_representation
     def get_artist_credit(self): return self.artist_credit
     def set_artist_credit(self, artist_credit): self.artist_credit = artist_credit
+    def get_alias_list(self): return self.alias_list
+    def set_alias_list(self, alias_list): self.alias_list = alias_list
     def get_release_group(self): return self.release_group
     def set_release_group(self, release_group): self.release_group = release_group
     def get_date(self): return self.date
@@ -1977,6 +1980,7 @@ class release(GeneratedsSuper):
             self.packaging is not None or
             self.text_representation is not None or
             self.artist_credit is not None or
+            self.alias_list is not None or
             self.release_group is not None or
             self.date is not None or
             self.country is not None or
@@ -2043,6 +2047,8 @@ class release(GeneratedsSuper):
             self.text_representation.export(outfile, level, namespace_='mmd-2.0:', name_='text-representation', pretty_print=pretty_print)
         if self.artist_credit is not None:
             self.artist_credit.export(outfile, level, namespace_='mmd-2.0:', name_='artist-credit', pretty_print=pretty_print)
+        if self.alias_list is not None:
+            self.alias_list.export(outfile, level, namespace_='mmd-2.0:', name_='alias-list', pretty_print=pretty_print)
         if self.release_group is not None:
             self.release_group.export(outfile, level, namespace_='mmd-2.0:', name_='release-group', pretty_print=pretty_print)
         if self.date is not None:
@@ -2107,6 +2113,9 @@ class release(GeneratedsSuper):
         if self.artist_credit is not None:
             artist_credit_ = self.artist_credit
             artist_credit_.to_etree(element, name_='artist-credit', mapping_=mapping_)
+        if self.alias_list is not None:
+            alias_list_ = self.alias_list
+            alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         if self.release_group is not None:
             release_group_ = self.release_group
             release_group_.to_etree(element, name_='release-group', mapping_=mapping_)
@@ -2199,6 +2208,11 @@ class release(GeneratedsSuper):
             obj_.build(child_)
             self.artist_credit = obj_
             obj_.original_tagname_ = 'artist-credit'
+        elif nodeName_ == 'alias-list':
+            obj_ = alias_list.factory()
+            obj_.build(child_)
+            self.alias_list = obj_
+            obj_.original_tagname_ = 'alias-list'
         elif nodeName_ == 'release-group':
             obj_ = release_group.factory()
             obj_.build(child_)
@@ -2423,7 +2437,7 @@ class asin(GeneratedsSuper):
 class release_group(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, type_=None, id=None, title=None, annotation=None, disambiguation=None, first_release_date=None, primary_type=None, secondary_type_list=None, artist_credit=None, release_list=None, relation_list=None, tag_list=None, user_tag_list=None, rating=None, user_rating=None, def_extension_element=None):
+    def __init__(self, type_=None, id=None, title=None, annotation=None, disambiguation=None, first_release_date=None, primary_type=None, secondary_type_list=None, artist_credit=None, release_list=None, alias_list=None, relation_list=None, tag_list=None, user_tag_list=None, rating=None, user_rating=None, def_extension_element=None):
         self.original_tagname_ = None
         self.type_ = _cast(None, type_)
         self.id = _cast(None, id)
@@ -2435,6 +2449,7 @@ class release_group(GeneratedsSuper):
         self.secondary_type_list = secondary_type_list
         self.artist_credit = artist_credit
         self.release_list = release_list
+        self.alias_list = alias_list
         if relation_list is None:
             self.relation_list = []
         else:
@@ -2469,6 +2484,8 @@ class release_group(GeneratedsSuper):
     def set_artist_credit(self, artist_credit): self.artist_credit = artist_credit
     def get_release_list(self): return self.release_list
     def set_release_list(self, release_list): self.release_list = release_list
+    def get_alias_list(self): return self.alias_list
+    def set_alias_list(self, alias_list): self.alias_list = alias_list
     def get_relation_list(self): return self.relation_list
     def set_relation_list(self, relation_list): self.relation_list = relation_list
     def add_relation_list(self, value): self.relation_list.append(value)
@@ -2501,6 +2518,7 @@ class release_group(GeneratedsSuper):
             self.secondary_type_list is not None or
             self.artist_credit is not None or
             self.release_list is not None or
+            self.alias_list is not None or
             self.relation_list or
             self.tag_list is not None or
             self.user_tag_list is not None or
@@ -2561,6 +2579,8 @@ class release_group(GeneratedsSuper):
             self.artist_credit.export(outfile, level, namespace_='mmd-2.0:', name_='artist-credit', pretty_print=pretty_print)
         if self.release_list is not None:
             self.release_list.export(outfile, level, namespace_='mmd-2.0:', name_='release-list', pretty_print=pretty_print)
+        if self.alias_list is not None:
+            self.alias_list.export(outfile, level, namespace_='mmd-2.0:', name_='alias-list', pretty_print=pretty_print)
         for relation_list_ in self.relation_list:
             relation_list_.export(outfile, level, namespace_='mmd-2.0:', name_='relation-list', pretty_print=pretty_print)
         if self.tag_list is not None:
@@ -2608,6 +2628,9 @@ class release_group(GeneratedsSuper):
         if self.release_list is not None:
             release_list_ = self.release_list
             release_list_.to_etree(element, name_='release-list', mapping_=mapping_)
+        if self.alias_list is not None:
+            alias_list_ = self.alias_list
+            alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         for relation_list_ in self.relation_list:
             relation_list_.to_etree(element, name_='relation-list', mapping_=mapping_)
         if self.tag_list is not None:
@@ -2680,6 +2703,11 @@ class release_group(GeneratedsSuper):
             obj_.build(child_)
             self.release_list = obj_
             obj_.original_tagname_ = 'release-list'
+        elif nodeName_ == 'alias-list':
+            obj_ = alias_list.factory()
+            obj_.build(child_)
+            self.alias_list = obj_
+            obj_.original_tagname_ = 'alias-list'
         elif nodeName_ == 'relation-list':
             obj_ = relation_list.factory()
             obj_.build(child_)
@@ -2802,7 +2830,7 @@ class secondary_type_list(GeneratedsSuper):
 class recording(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, id=None, title=None, length=None, annotation=None, disambiguation=None, video=None, artist_credit=None, release_list=None, puid_list=None, isrc_list=None, relation_list=None, tag_list=None, user_tag_list=None, rating=None, user_rating=None, def_extension_element=None):
+    def __init__(self, id=None, title=None, length=None, annotation=None, disambiguation=None, video=None, artist_credit=None, release_list=None, alias_list=None, puid_list=None, isrc_list=None, relation_list=None, tag_list=None, user_tag_list=None, rating=None, user_rating=None, def_extension_element=None):
         self.original_tagname_ = None
         self.id = _cast(None, id)
         self.title = title
@@ -2813,6 +2841,7 @@ class recording(GeneratedsSuper):
         self.validate_video(self.video)
         self.artist_credit = artist_credit
         self.release_list = release_list
+        self.alias_list = alias_list
         self.puid_list = puid_list
         self.isrc_list = isrc_list
         if relation_list is None:
@@ -2847,6 +2876,8 @@ class recording(GeneratedsSuper):
     def set_artist_credit(self, artist_credit): self.artist_credit = artist_credit
     def get_release_list(self): return self.release_list
     def set_release_list(self, release_list): self.release_list = release_list
+    def get_alias_list(self): return self.alias_list
+    def set_alias_list(self, alias_list): self.alias_list = alias_list
     def get_puid_list(self): return self.puid_list
     def set_puid_list(self, puid_list): self.puid_list = puid_list
     def get_isrc_list(self): return self.isrc_list
@@ -2883,6 +2914,7 @@ class recording(GeneratedsSuper):
             self.video is not None or
             self.artist_credit is not None or
             self.release_list is not None or
+            self.alias_list is not None or
             self.puid_list is not None or
             self.isrc_list is not None or
             self.relation_list or
@@ -2940,6 +2972,8 @@ class recording(GeneratedsSuper):
             self.artist_credit.export(outfile, level, namespace_='mmd-2.0:', name_='artist-credit', pretty_print=pretty_print)
         if self.release_list is not None:
             self.release_list.export(outfile, level, namespace_='mmd-2.0:', name_='release-list', pretty_print=pretty_print)
+        if self.alias_list is not None:
+            self.alias_list.export(outfile, level, namespace_='mmd-2.0:', name_='alias-list', pretty_print=pretty_print)
         if self.puid_list is not None:
             self.puid_list.export(outfile, level, namespace_='mmd-2.0:', name_='puid-list', pretty_print=pretty_print)
         if self.isrc_list is not None:
@@ -2986,6 +3020,9 @@ class recording(GeneratedsSuper):
         if self.release_list is not None:
             release_list_ = self.release_list
             release_list_.to_etree(element, name_='release-list', mapping_=mapping_)
+        if self.alias_list is not None:
+            alias_list_ = self.alias_list
+            alias_list_.to_etree(element, name_='alias-list', mapping_=mapping_)
         if self.puid_list is not None:
             puid_list_ = self.puid_list
             puid_list_.to_etree(element, name_='puid-list', mapping_=mapping_)
@@ -3063,6 +3100,11 @@ class recording(GeneratedsSuper):
             obj_.build(child_)
             self.release_list = obj_
             obj_.original_tagname_ = 'release-list'
+        elif nodeName_ == 'alias-list':
+            obj_ = alias_list.factory()
+            obj_.build(child_)
+            self.alias_list = obj_
+            obj_.original_tagname_ = 'alias-list'
         elif nodeName_ == 'puid-list':
             obj_ = puid_list.factory()
             obj_.build(child_)
