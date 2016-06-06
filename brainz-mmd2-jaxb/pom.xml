@@ -66,5 +66,13 @@
           </configuration>
          </plugin>
       </plugins>
+      <resources>
+         <resource>
+            <directory>src/main/java/org/musicbrainz/mmd2</directory>
+            <includes>
+               <include>jaxb.index</include>
+            </includes>
+        </resource>
+      </resources>
    </build>   
 </project>
